@@ -1,0 +1,29 @@
+{
+    "uiSchema": {
+        "stripe": true,
+        "border": true,
+        "size": "small"
+    },
+    "controller": [
+        "view",
+        "edit",
+        "delete"
+    ],
+    "columnSchema": [
+        {
+            "mold": "default",
+            "label": "日期",
+            "prop": "date"
+        },
+        {
+            "mold": "default",
+            "label": "地址",
+            "prop": "address"
+        },
+        {
+            "mold": "default",
+            "label": "姓名",
+            "prop": "name"
+        }
+    ]
+}
