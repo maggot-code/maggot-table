@@ -1,0 +1,11 @@
+.mg-table{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    & /deep/ .el-pagination{
+        align-self: center;
+    }
+}
