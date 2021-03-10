@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-10 10:39:15
+ * @LastEditTime: 2021-03-10 15:42:11
  * @Description: mg-table.vue component
 -->
 <template>
@@ -252,7 +252,7 @@ export default {
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
         this.$nextTick(() => {
-            const height = this.$parent.$el.clientHeight;
+            const height = this.$el.parentNode.clientHeight;
             this.height = height;
             this.tableHeight = this.setHeight(height);
         });
@@ -266,6 +266,6 @@ export default {
     activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style lang='scss' scoped>
+<style lang='scss'>
 @import "./mg-table.scss";
 </style>
