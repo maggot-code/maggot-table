@@ -1,8 +1,6 @@
 {
     "uiSchema": {
-        "stripe": true,
-        "border": true,
-        "size": "small"
+        "stripe": true
     },
     "controller": [
         "view",
