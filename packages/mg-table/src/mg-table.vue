@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-09 16:40:59
+ * @LastEditTime: 2021-03-10 10:39:15
  * @Description: mg-table.vue component
 -->
 <template>
@@ -113,14 +113,15 @@ export default {
         },
         options: (vm) => {
             const { uiSchema } = vm.tableSchema;
+            const schema = isNil(uiSchema) ? {} : uiSchema;
             const vbind = {
                 size: "medium",
-                fit: vm.setFit(uiSchema),
-                border: vm.setBorder(uiSchema),
-                stripe: vm.setStripe(uiSchema),
-                "empty-text": vm.setEmptyText(uiSchema),
-                "show-header": vm.setShowHeader(uiSchema),
-                "highlight-current-row": vm.setHighlight(uiSchema),
+                fit: vm.setFit(schema),
+                border: vm.setBorder(schema),
+                stripe: vm.setStripe(schema),
+                "empty-text": vm.setEmptyText(schema),
+                "show-header": vm.setShowHeader(schema),
+                "highlight-current-row": vm.setHighlight(schema),
             };
 
             return vbind;
@@ -174,7 +175,7 @@ export default {
         setBorder(attr) {
             const { border } = attr;
 
-            return setAttrBoolean(border);
+            return setAttrBoolean(border, true);
         },
         /**
          * @description: 设置空数据提示文字
