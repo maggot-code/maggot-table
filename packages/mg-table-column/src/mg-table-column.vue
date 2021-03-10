@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:48:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-09 15:46:59
+ * @LastEditTime: 2021-03-10 09:41:02
  * @Description: mg-table-column.vue component
 -->
 <template>
@@ -145,7 +145,7 @@ export default {
          */
         setHeaderAlign(attr) {
             const { headerAlign } = attr;
-            return this.isAlign(headerAlign);
+            return this.isAlign(headerAlign, "center");
         },
         /**
          * @description: 判断对齐方式是否可用
