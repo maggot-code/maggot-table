@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 13:38:50
+ * @LastEditTime: 2021-03-12 15:17:38
  * @Description: mg-table.vue component
 -->
 <template>
@@ -278,5 +278,15 @@ export default {
 };
 </script>
 <style lang='scss'>
-@import "./mg-table.scss";
+.mg-table {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    & /deep/ .el-pagination {
+        align-self: center;
+    }
+}
 </style>
