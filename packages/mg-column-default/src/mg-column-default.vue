@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:14:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-09 15:42:56
+ * @LastEditTime: 2021-03-12 12:22:15
  * @Description: mg-column-default.vue component
 -->
 <template>
@@ -27,7 +27,7 @@ export default {
             const { property } = column;
             const value = row[property] || "";
 
-            return value;
+            return vm.outputValue(value, vm.format);
         },
     },
     //监控data中的数据变化

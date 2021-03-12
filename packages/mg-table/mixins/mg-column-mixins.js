@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:33:03
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-09 15:34:16
+ * @LastEditTime: 2021-03-12 13:37:04
  * @Description: mg-column-mixins
  */
 export default {
@@ -14,6 +14,7 @@ export default {
             type: Object,
             default: () => ({}),
         },
+        format: Object
     },
     data() {
         //这里存放数据
@@ -24,7 +25,39 @@ export default {
     //监控data中的数据变化
     watch: {},
     //方法集合
-    methods: {},
+    methods: {
+        outputValue(value, format) {
+            const { rule, handle } = format;
+            if (!rule) {
+                return handle(value);
+            }
+
+            const formatHnadleFunc = handle(rule);
+            return formatHnadleFunc(value);
+        },
+        cellClick(mode) {
+            const { $index, column, row } = this.scope;
+
+            this.$emit('cell-cick', {
+                mode: mode,
+                index: $index,
+                column: column,
+                row: row,
+                type: 'cick',
+            })
+        },
+        cellDblclick(mode) {
+            const { $index, column, row } = this.scope;
+
+            this.$emit('cell-dblclick', {
+                mode: mode,
+                index: $index,
+                column: column,
+                row: row,
+                type: 'dblclick',
+            })
+        }
+    },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() { },
     //生命周期 - 挂载完成（可以访问DOM元素）
