@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:13:09
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-09 16:40:20
+ * @LastEditTime: 2021-03-12 11:27:06
  * @Description: mg-column-handle.vue component
 -->
 <template>
@@ -17,30 +17,40 @@
 
 <script>
 import MgColumnMixins from "../../mg-table/mixins/mg-column-mixins";
-import HandleConfig from "../config";
 export default {
     name: "mg-column-handle",
     mixins: [MgColumnMixins],
     components: {},
     props: {
         handle: {
-            type: String,
-            default: () => "",
+            type: Object,
+            default: () => ({
+                mode: "default",
+                type: "info",
+                icon: "el-icon-s-tools",
+                label: "操作",
+            }),
         },
+        rowPower: String,
     },
     data() {
         //这里存放数据
         return {
-            size: "small",
+            size: "mini",
         };
     },
     //监听属性 类似于data概念
     computed: {
         options: (vm) => {
-            const defaultHandle = HandleConfig.default;
-            const handle = HandleConfig[vm.handle];
-
-            return { ...(handle || defaultHandle) };
+            const { mode, type, icon, label } = vm.handle;
+            const disabled = vm.handlePower(mode);
+            return {
+                mode,
+                type,
+                icon,
+                label,
+                disabled,
+            };
         },
     },
     //监控data中的数据变化
@@ -51,11 +61,20 @@ export default {
             const { $index, column, row } = this.scope;
 
             this.$emit("handleRow", {
-                handle: this.handle,
+                mode: this.handle.mode,
                 index: $index,
                 column: column,
                 row: row,
             });
+        },
+        handlePower(mode) {
+            const { row } = this.scope;
+            if (!row[this.rowPower]) {
+                return false;
+            }
+
+            const power = row[this.rowPower].split(",");
+            return power.indexOf(mode) >= 0 ? true : false;
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）

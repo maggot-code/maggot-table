@@ -2,13 +2,20 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:48:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-10 09:41:02
+ * @LastEditTime: 2021-03-12 13:37:27
  * @Description: mg-table-column.vue component
 -->
 <template>
     <el-table-column class="mg-table-column" v-bind="options">
         <template slot-scope="scope">
-            <component :is="componentName" :scope="scope"> </component>
+            <component
+                :is="componentName"
+                :scope="scope"
+                :format="formatFunc"
+                @cell-cick="eventToosUp"
+                @cell-dblclick="eventToosUp"
+            >
+            </component>
         </template>
     </el-table-column>
 </template>
@@ -17,6 +24,13 @@
 import { TableColumnComponents } from "../install";
 import { setAttrBoolean } from "../../mg-table/utils";
 import { isNil } from "lodash";
+import formatMuster from "../format";
+
+const DefFormatFunc = {
+    rule: false,
+    handle: (text) => text,
+};
+
 export default {
     name: "mg-table-column",
     mixins: [],
@@ -57,11 +71,27 @@ export default {
 
             return vbind;
         },
+        formatFunc: (vm) => {
+            const funcList = [];
+
+            for (const field in vm.$attrs) {
+                formatMuster[field] &&
+                    funcList.push({
+                        rule: vm.$attrs[field],
+                        handle: formatMuster[field],
+                    });
+            }
+
+            return funcList.length <= 0 ? DefFormatFunc : funcList[0];
+        },
     },
     //监控data中的数据变化
     watch: {},
     //方法集合
     methods: {
+        eventToosUp(event) {
+            this.$emit("cellEvent", event);
+        },
         /**
          * @description: 设置列宽
          * @param {Object} attr

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-10 15:42:11
+ * @LastEditTime: 2021-03-12 13:38:50
  * @Description: mg-table.vue component
 -->
 <template>
@@ -14,25 +14,32 @@
             :max-height="tableHeight"
             :data="tableData"
         >
+            <el-table-column type="index" width="50" :index="indexMethod">
+            </el-table-column>
+
             <mg-table-column
                 v-for="cell in column"
                 :key="cell.prop"
                 v-bind="cell"
+                @cellEvent="tableCellEvent"
             ></mg-table-column>
 
             <el-table-column
-                v-if="isController"
+                v-if="isHandle"
                 label="操作"
                 align="center"
                 fixed="right"
+                :width="handleWidth"
+                :min-width="handleWidth"
             >
                 <template slot-scope="scope">
                     <el-button-group>
                         <mg-column-handle
-                            v-for="(cell, index) in handlePower"
-                            :key="index"
+                            v-for="(cell, key) in controller"
+                            :key="key"
                             :scope="scope"
                             :handle="cell"
+                            :rowPower="rowPower"
                             @handleRow="handleRow"
                         ></mg-column-handle>
                     </el-button-group>
@@ -64,10 +71,6 @@ export default {
     mixins: [],
     components: { MgTableColumn, MgColumnHandle },
     props: {
-        tableRef: {
-            type: [String, Number],
-            default: () => new Date().getTime(),
-        },
         tableSchema: {
             type: Object,
             required: true,
@@ -75,6 +78,14 @@ export default {
         tableData: {
             type: Array,
             default: () => [],
+        },
+        controller: {
+            type: Object,
+            default: () => ({}),
+        },
+        rowPower: {
+            type: String,
+            default: () => "rowpower",
         },
         total: {
             type: [String, Number],
@@ -95,17 +106,17 @@ export default {
     },
     //监听属性 类似于data概念
     computed: {
-        isController: (vm) => {
-            const { controller } = vm.tableSchema;
-            return (
-                !isNil(controller) &&
-                isArray(controller) &&
-                controller.length > 0
-            );
-        },
-        handlePower: (vm) => {
-            const { controller } = vm.tableSchema;
-            return controller;
+        controllerLen: (vm) => Object.keys(vm.controller).length,
+        isHandle: (vm) => vm.controllerLen > 0,
+        handleWidth: (vm) => {
+            let btnStrLen = 0;
+
+            for (const key in vm.controller) {
+                const { label } = vm.controller[key];
+                btnStrLen += label.length;
+            }
+
+            return vm.controllerLen * btnStrLen * 12 + 30;
         },
         column: (vm) => {
             const { columnSchema } = vm.tableSchema;
@@ -161,6 +172,12 @@ export default {
     },
     //方法集合
     methods: {
+        tableCellEvent(event) {
+            this.$emit("cellEvent", event);
+        },
+        indexMethod(index) {
+            return index + 1 + (this.currentPage - 1) * this.pageSize;
+        },
         handleRow(handleObject) {
             this.$emit("handleRow", handleObject);
         },
@@ -233,12 +250,6 @@ export default {
          */
         setHeight(height) {
             return height - 60;
-        },
-        /**
-         * @description: 上抛表格组件的 refs
-         */
-        throwRefs() {
-            this.$emit("getRefs", this.tableRef);
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
