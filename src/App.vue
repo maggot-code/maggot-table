@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-09 16:41:32
+ * @LastEditTime: 2021-03-12 13:39:22
  * @Description: file content
 -->
 <template>
@@ -11,14 +11,17 @@
             :tableSchema="tableSchema"
             :tableData="tableData"
             :total="total"
+            :controller="tableController"
             @pageChange="handlePageChange"
             @handleRow="handleRow"
+            @cellEvent="cellEvent"
         ></mg-table>
     </div>
 </template>
 
 <script>
-import TestTableSchema from "../test/test-table-schema.json";
+import TestTableSchema from "../test/test1-table-schema.json";
+import TestTableData from "../test/test-table-data.json";
 const setTestData = (num) => {
     const data = [];
     for (let index = 0; index < num; index++) {
@@ -42,10 +45,35 @@ export default {
     data() {
         //这里存放数据
         return {
-            tableSchema: TestTableSchema,
+            tableSchema: {
+                uiSchema: {
+                    stripe: true,
+                },
+                columnSchema: TestTableSchema.columnSchema,
+            },
             tableData: [],
-            total: TestData.length,
+            total: 111,
             tableLoading: false,
+            tableController: {
+                view: {
+                    mode: "view",
+                    type: "primary",
+                    icon: "el-icon-view",
+                    label: "查看",
+                },
+                edit: {
+                    mode: "edit",
+                    type: "warning",
+                    icon: "el-icon-edit",
+                    label: "修改",
+                },
+                delete: {
+                    mode: "delete",
+                    type: "danger",
+                    icon: "el-icon-delete-solid",
+                    label: "删除",
+                },
+            },
         };
     },
     //监听属性 类似于data概念
@@ -54,12 +82,15 @@ export default {
     watch: {},
     //方法集合
     methods: {
+        cellEvent(cellEvent) {
+            console.log(cellEvent);
+        },
         handleRow(handle) {
             console.log(handle);
         },
         handlePageChange(page) {
             const { func, current, size } = page;
-            const data = this.testSplit(TestData, current, size);
+            const data = this.testSplit(TestTableData.rows, current, size);
             this.$set(this, "tableData", data);
         },
         testSplit(data, current, size) {
