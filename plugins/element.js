@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-09 15:52:51
+ * @LastEditTime: 2021-03-12 13:25:57
  * @Description: file content
  */
 import 'element-ui/lib/theme-chalk/index.css';
@@ -11,6 +11,7 @@ import {
     // Basic 基本
     Button,
     ButtonGroup,
+    Link,
     // Form 表单
     // Data 数据
     Table,
@@ -24,6 +25,7 @@ import {
 // Basic 基本
 Vue.use(Button);
 Vue.use(ButtonGroup);
+Vue.use(Link);
 // Form 表单
 // Data 数据
 Vue.use(Table);
