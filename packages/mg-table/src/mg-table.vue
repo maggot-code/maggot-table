@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 15:17:38
+ * @LastEditTime: 2021-03-15 16:00:26
  * @Description: mg-table.vue component
 -->
 <template>
@@ -13,8 +13,23 @@
             :height="tableHeight"
             :max-height="tableHeight"
             :data="tableData"
+            @selection-change="handleSelectionChange"
         >
-            <el-table-column type="index" width="50" :index="indexMethod">
+            <el-table-column
+                v-if="useChoice"
+                type="selection"
+                align="center"
+                width="40"
+                min-width="40"
+            >
+            </el-table-column>
+
+            <el-table-column
+                type="index"
+                width="60"
+                fixed="left"
+                :index="indexMethod"
+            >
             </el-table-column>
 
             <mg-table-column
@@ -28,7 +43,7 @@
                 v-if="isHandle"
                 label="操作"
                 align="center"
-                fixed="right"
+                fixed="left"
                 :width="handleWidth"
                 :min-width="handleWidth"
             >
@@ -65,7 +80,7 @@
 import MgTableColumn from "../../mg-table-column";
 import MgColumnHandle from "../../mg-column-handle";
 import { setAttrBoolean } from "../utils";
-import { isNil, isArray } from "lodash";
+import { isNil, isBoolean } from "lodash";
 export default {
     name: "mg-table",
     mixins: [],
@@ -102,6 +117,7 @@ export default {
             pageLock: true,
             pageSizes: [10, 20, 30, 40, 50, 100],
             pageLayout: ["total", "sizes", "prev", "pager", "next", "jumper"],
+            multipleSelection: [],
         };
     },
     //监听属性 类似于data概念
@@ -116,7 +132,10 @@ export default {
                 btnStrLen += label.length;
             }
 
-            return vm.controllerLen * btnStrLen * 12 + 30;
+            const fontWidth = vm.controllerLen * 18 + btnStrLen * 12;
+            const width = vm.controllerLen * 42 + fontWidth;
+
+            return width;
         },
         column: (vm) => {
             const { columnSchema } = vm.tableSchema;
@@ -136,6 +155,13 @@ export default {
             };
 
             return vbind;
+        },
+        useChoice: (vm) => {
+            const { uiSchema } = vm.tableSchema;
+            const schema = isNil(uiSchema) ? {} : uiSchema;
+            const { isChoice } = schema;
+
+            return !isNil(isChoice) && isBoolean(isChoice) ? isChoice : false;
         },
         layout: (vm) => {
             return vm.pageLayout.join(",");
@@ -169,9 +195,15 @@ export default {
                 });
             }
         },
+        multipleSelection(newVal) {
+            this.$emit("onChoice", newVal);
+        },
     },
     //方法集合
     methods: {
+        handleSelectionChange(val) {
+            this.multipleSelection = val;
+        },
         tableCellEvent(event) {
             this.$emit("cellEvent", event);
         },

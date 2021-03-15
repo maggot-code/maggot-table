@@ -2,12 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 13:39:22
+ * @LastEditTime: 2021-03-15 16:04:11
  * @Description: file content
 -->
 <template>
     <div id="app">
         <mg-table
+            v-if="tableKey"
             :tableSchema="tableSchema"
             :tableData="tableData"
             :total="total"
@@ -15,6 +16,7 @@
             @pageChange="handlePageChange"
             @handleRow="handleRow"
             @cellEvent="cellEvent"
+            @onChoice="onChoice"
         ></mg-table>
     </div>
 </template>
@@ -22,21 +24,8 @@
 <script>
 import TestTableSchema from "../test/test1-table-schema.json";
 import TestTableData from "../test/test-table-data.json";
-const setTestData = (num) => {
-    const data = [];
-    for (let index = 0; index < num; index++) {
-        const address = `上海市普陀区金沙江路 ${index + 1} 弄`;
-        const name = `张阳 - ${index + 1}`;
-        data.push({
-            date: `2021-03-${index + 1}`,
-            address: address,
-            name: name,
-        });
-    }
-    return data;
-};
-const TestData = setTestData(200);
 
+import { MyList_PC, GetList } from "../api/test.api";
 export default {
     name: "App",
     mixins: [],
@@ -45,22 +34,17 @@ export default {
     data() {
         //这里存放数据
         return {
+            tableKey: false,
             tableSchema: {
                 uiSchema: {
+                    isChoice: true,
                     stripe: true,
                 },
-                columnSchema: TestTableSchema.columnSchema,
+                columnSchema: [],
             },
             tableData: [],
-            total: 111,
-            tableLoading: false,
+            total: 9,
             tableController: {
-                view: {
-                    mode: "view",
-                    type: "primary",
-                    icon: "el-icon-view",
-                    label: "查看",
-                },
                 edit: {
                     mode: "edit",
                     type: "warning",
@@ -74,6 +58,26 @@ export default {
                     label: "删除",
                 },
             },
+            tableAllHandle: {
+                add: {
+                    mode: "add",
+                    type: "success",
+                    icon: "",
+                    label: "新增",
+                },
+                import: {
+                    mode: "import",
+                    type: "primary",
+                    icon: "",
+                    label: "导入",
+                },
+                delete: {
+                    mode: "delete",
+                    type: "danger",
+                    icon: "el-icon-delete-solid",
+                    label: "批量删除",
+                },
+            },
         };
     },
     //监听属性 类似于data概念
@@ -82,6 +86,9 @@ export default {
     watch: {},
     //方法集合
     methods: {
+        onChoice(choice) {
+            console.log(choice);
+        },
         cellEvent(cellEvent) {
             console.log(cellEvent);
         },
@@ -90,8 +97,6 @@ export default {
         },
         handlePageChange(page) {
             const { func, current, size } = page;
-            const data = this.testSplit(TestTableData.rows, current, size);
-            this.$set(this, "tableData", data);
         },
         testSplit(data, current, size) {
             const list = data.slice(size * current - size, size * current);
@@ -100,7 +105,22 @@ export default {
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        MyList_PC().then((res) => {
+            const { data } = res.data;
+            const { columnSchema, powerall } = data;
+            this.tableSchema.columnSchema = columnSchema;
+            console.log(powerall);
+
+            GetList().then((res) => {
+                const { data } = res.data;
+                this.total = data.total;
+                this.tableData = data.data;
+
+                this.tableKey = true;
+            });
+        });
+    },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前
@@ -129,9 +149,11 @@ li {
     list-style: none;
 }
 #app {
-    width: 80%;
-    height: 80%;
-    margin: 100px auto;
+    width: 100%;
+    height: 90%;
+    padding: 0 20px;
+    margin-top: 10px;
+    box-sizing: border-box;
     overflow: hidden;
 }
 </style>
