@@ -2,17 +2,15 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 12:07:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 10:49:24
+ * @LastEditTime: 2021-03-17 18:18:28
  * @Description: mg-table-column format
  */
 import { isNaN, isNumber, isString, isNil } from 'lodash';
-const isDev = process.env.NODE_ENV === 'development';
 
 const formatDate = (rule) => (value) => {
     const date = new Date(value).getTime();
     if (isNaN(date)) {
-        !isDev && console.error(`"${value}" 不是一个日期格式`);
-        return rule;
+        return value;
     }
 
     return new Date(value).Format(rule);
@@ -36,8 +34,7 @@ Date.prototype.Format = function (fmt) {
 const formatNumber = (rule) => (value) => {
     const ruleHandle = rule.split('.');
     if (!isNumber(value) || ruleHandle.length <= 0) {
-        !isDev && console.error(`"${value}" 不是一个数字或者${rule}不合法`);
-        return rule;
+        return value;
     }
 
     if (ruleHandle.length > 1) {
@@ -49,8 +46,7 @@ const formatNumber = (rule) => (value) => {
 
 const formatLink = (rule) => (value, row) => {
     if (!isString(rule) && rule.length <= 0) {
-        !isDev && console.error(`"${rule}" 不是一个字符串或是一个空字符串`);
-        return rule;
+        return value;
     }
 
     const firstChar = rule[0];
