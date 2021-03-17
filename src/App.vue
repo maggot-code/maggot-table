@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 10:51:47
+ * @LastEditTime: 2021-03-17 23:07:15
  * @Description: file content
 -->
 <template>
@@ -40,9 +40,9 @@ export default {
                     isChoice: true,
                     stripe: true,
                 },
-                columnSchema: TestTableSchema.columnSchema,
+                columnSchema: [],
             },
-            tableData: TestTableData.rows,
+            tableData: [],
             total: 9,
             tableController: {
                 edit: {

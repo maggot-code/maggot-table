@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 12:58:43
+ * @LastEditTime: 2021-03-17 23:08:27
  * @Description: mg-table.vue component
 -->
 <template>
@@ -25,6 +25,7 @@
             </el-table-column>
 
             <el-table-column
+                v-if="useIndex"
                 type="index"
                 width="60"
                 fixed="left"
@@ -40,7 +41,7 @@
             ></mg-table-column>
 
             <el-table-column
-                v-if="isHandle"
+                v-if="useHandle"
                 label="操作"
                 align="center"
                 fixed="left"
@@ -123,7 +124,6 @@ export default {
     //监听属性 类似于data概念
     computed: {
         controllerLen: (vm) => Object.keys(vm.controller).length,
-        isHandle: (vm) => vm.controllerLen > 0,
         handleWidth: (vm) => {
             let btnStrLen = 0;
 
@@ -162,8 +162,14 @@ export default {
             const schema = isNil(uiSchema) ? {} : uiSchema;
             const { isChoice } = schema;
 
-            return !isNil(isChoice) && isBoolean(isChoice) ? isChoice : false;
+            return !isNil(isChoice) &&
+                isBoolean(isChoice) &&
+                vm.tableData.length > 0
+                ? isChoice
+                : false;
         },
+        useIndex: (vm) => vm.tableData.length > 0,
+        useHandle: (vm) => vm.controllerLen > 0 && vm.tableData.length > 0,
         layout: (vm) => {
             return vm.pageLayout.join(",");
         },
