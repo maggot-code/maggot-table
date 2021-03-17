@@ -30,7 +30,6 @@
         "headerAlign" : "center", // string - 表格列头对齐方式
         "isTips" : false, // boolean - 表格当前列超出列宽是否隐藏数据并通过tip的方式提示
         "isSort" : false, // boolean - 是否使用当前列进行排序
-        "event" : [] // array[string] - 表格列单元格操作列表 ["handle:params"] ,例子：["link:id,name,label","format:yyyy-MM-dd"]
     }
 ]
 ```
@@ -56,8 +55,8 @@
   * 如果都不存在的情况下，则会设置默认数值，即**不设置列宽，最小列宽设置为64**
 * `isSotr`：是否使用当前列进行排序
   * 设置`false`解释为不设置排序，`true`的情况下则直接与后端交互排序
-* `event`：表格列单元格操作列表可选值：
-  * `link`：跳转，可携带参数由逗号分隔，`"link:id,name,label"`
+* `format`：表格列单元格操作列表可选值：
+  * `formatLink`：跳转格式化，`"formatLink:routName.id.name.label"`
   * `formatdate`：日期格式化，`"formatdate:yyyy-MM-dd"`
   * `formatnumber`：数字格式化，`"formatnumber:toFixed.2"`
 

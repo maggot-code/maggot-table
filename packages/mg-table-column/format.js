@@ -2,19 +2,20 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 12:07:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 13:23:50
+ * @LastEditTime: 2021-03-17 10:49:24
  * @Description: mg-table-column format
  */
-import { isDate, isNumber } from 'lodash';
+import { isNaN, isNumber, isString, isNil } from 'lodash';
+const isDev = process.env.NODE_ENV === 'development';
 
 const formatDate = (rule) => (value) => {
-    const date = new Date(value);
-    if (!isDate(date)) {
-        console.error(`${value} 不是一个日期格式`);
+    const date = new Date(value).getTime();
+    if (isNaN(date)) {
+        !isDev && console.error(`"${value}" 不是一个日期格式`);
         return rule;
     }
 
-    return date.Format(rule);
+    return new Date(value).Format(rule);
 }
 Date.prototype.Format = function (fmt) {
     var o = {
@@ -35,7 +36,7 @@ Date.prototype.Format = function (fmt) {
 const formatNumber = (rule) => (value) => {
     const ruleHandle = rule.split('.');
     if (!isNumber(value) || ruleHandle.length <= 0) {
-        console.error(`${value} 不是一个数字或者,${rule}不合法`);
+        !isDev && console.error(`"${value}" 不是一个数字或者${rule}不合法`);
         return rule;
     }
 
@@ -46,7 +47,49 @@ const formatNumber = (rule) => (value) => {
     }
 }
 
+const formatLink = (rule) => (value, row) => {
+    if (!isString(rule) && rule.length <= 0) {
+        !isDev && console.error(`"${rule}" 不是一个字符串或是一个空字符串`);
+        return rule;
+    }
+
+    const firstChar = rule[0];
+    if (firstChar === '$') {
+        // $strurl?aa=id&bb=name
+        const [field, params] = rule.split('?');
+        const fieldName = field.substr(1);
+        if (!row[fieldName]) {
+            !isDev && console.error(`"${fieldName}" 不存在，在数据源中无法找到`);
+            return false;
+        }
+
+        const paramsStr = spliceParams(params, row);
+        return paramsStr ? `${row[fieldName]}?${paramsStr}` : row[fieldName];
+    } else {
+        // routername?aa=id&bb=name
+        const [field, params] = rule.split('?');
+        const paramsStr = spliceParams(params, row);
+        return paramsStr ? `${field}?${paramsStr}` : field;
+    }
+}
+// 拼接参数字符串
+const spliceParams = (params, row) => {
+    if (isNil(params)) {
+        return "";
+    }
+
+    return params.split('&').map(item => {
+        const [key, field] = item.split('=');
+        if (!row[field]) {
+            return false;
+        }
+
+        return `${key}=${row[field]}`
+    }).filter(item => item).join('&');
+}
+
 export default {
     formatDate,
-    formatNumber
+    formatNumber,
+    formatLink
 }

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-15 16:00:26
+ * @LastEditTime: 2021-03-16 12:58:43
  * @Description: mg-table.vue component
 -->
 <template>
@@ -134,8 +134,9 @@ export default {
 
             const fontWidth = vm.controllerLen * 18 + btnStrLen * 12;
             const width = vm.controllerLen * 42 + fontWidth;
+            const offset = 12 / vm.controllerLen;
 
-            return width;
+            return width + offset;
         },
         column: (vm) => {
             const { columnSchema } = vm.tableSchema;

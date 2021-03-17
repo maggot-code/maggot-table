@@ -5,6 +5,7 @@
             "prop": "systemtypename",
             "width": "85",
             "mold": "link",
+            "formatLink": "$strurl?aa=id",
             "minWidth": "85",
             "fixed": false,
             "label": "统计分类",

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-15 16:04:11
+ * @LastEditTime: 2021-03-17 10:51:47
  * @Description: file content
 -->
 <template>
@@ -40,9 +40,9 @@ export default {
                     isChoice: true,
                     stripe: true,
                 },
-                columnSchema: [],
+                columnSchema: TestTableSchema.columnSchema,
             },
-            tableData: [],
+            tableData: TestTableData.rows,
             total: 9,
             tableController: {
                 edit: {
@@ -91,6 +91,10 @@ export default {
         },
         cellEvent(cellEvent) {
             console.log(cellEvent);
+            const { mode, row } = cellEvent;
+            if (mode === "link") {
+                console.log(row.routerLink);
+            }
         },
         handleRow(handle) {
             console.log(handle);
@@ -106,20 +110,19 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        MyList_PC().then((res) => {
-            const { data } = res.data;
-            const { columnSchema, powerall } = data;
-            this.tableSchema.columnSchema = columnSchema;
-            console.log(powerall);
-
-            GetList().then((res) => {
-                const { data } = res.data;
-                this.total = data.total;
-                this.tableData = data.data;
-
-                this.tableKey = true;
-            });
-        });
+        this.tableKey = true;
+        // MyList_PC().then((res) => {
+        //     const { data } = res.data;
+        //     const { columnSchema, powerall } = data;
+        //     this.tableSchema.columnSchema = columnSchema;
+        //     console.log(powerall);
+        //     GetList().then((res) => {
+        //         const { data } = res.data;
+        //         this.total = data.total;
+        //         this.tableData = data.data;
+        //         this.tableKey = true;
+        //     });
+        // });
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},

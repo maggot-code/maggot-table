@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 13:27:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 13:33:33
+ * @LastEditTime: 2021-03-17 10:50:32
  * @Description: mg-column-link.vue component
 -->
 <template>
@@ -26,10 +26,13 @@ export default {
     computed: {
         content: (vm) => {
             const { $index, column, row } = vm.scope;
+            const { rule, handle } = vm.format;
             const { property } = column;
             const value = row[property] || "";
+            const formatHnadleFunc = handle(rule);
+            row.routerLink = formatHnadleFunc(value, row);
 
-            return vm.outputValue(value, vm.format);
+            return value;
         },
     },
     //监控data中的数据变化

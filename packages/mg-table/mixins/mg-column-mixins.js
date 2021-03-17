@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:33:03
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 13:37:04
+ * @LastEditTime: 2021-03-16 13:18:02
  * @Description: mg-column-mixins
  */
 export default {
