@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 23:08:27
+ * @LastEditTime: 2021-03-19 15:44:43
  * @Description: mg-table.vue component
 -->
 <template>
@@ -106,6 +106,10 @@ export default {
         total: {
             type: [String, Number],
             default: () => 0,
+        },
+        loadPage: {
+            type: Boolean,
+            default: () => false,
         },
     },
     data() {
@@ -293,11 +297,13 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.pageChange({
-            func: "handlerSize",
-            current: this.currentPage,
-            size: this.pageSize,
-        });
+        if (this.loadPage) {
+            this.pageChange({
+                func: "handlerSize",
+                current: this.currentPage,
+                size: this.pageSize,
+            });
+        }
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
