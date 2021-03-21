@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-21 17:07:02
+ * @LastEditTime: 2021-03-21 17:22:57
  * @Description: mg-table.vue component
 -->
 <template>
@@ -111,6 +111,10 @@ export default {
             type: Boolean,
             default: () => false,
         },
+        resizeTable: {
+            type: [String, Number],
+            default: () => new Date().getTime(),
+        },
     },
     data() {
         //这里存放数据
@@ -208,6 +212,9 @@ export default {
         },
         multipleSelection(newVal) {
             this.$emit("onChoice", newVal);
+        },
+        resizeTable() {
+            this.$nextTick(() => this.resizeHeight());
         },
     },
     //方法集合
