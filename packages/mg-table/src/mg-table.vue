@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-19 15:44:43
+ * @LastEditTime: 2021-03-21 17:07:02
  * @Description: mg-table.vue component
 -->
 <template>
@@ -294,6 +294,11 @@ export default {
         setHeight(height) {
             return height - 60;
         },
+        resizeHeight() {
+            const height = this.$el.parentNode.clientHeight;
+            this.height = height;
+            this.tableHeight = this.setHeight(height);
+        },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
@@ -307,11 +312,7 @@ export default {
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-        this.$nextTick(() => {
-            const height = this.$el.parentNode.clientHeight;
-            this.height = height;
-            this.tableHeight = this.setHeight(height);
-        });
+        this.$nextTick(() => this.resizeHeight());
     },
     beforeCreate() {}, //生命周期 - 创建之前
     beforeMount() {}, //生命周期 - 挂载之前
