@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-21 17:22:57
+ * @LastEditTime: 2021-03-22 00:08:31
  * @Description: mg-table.vue component
 -->
 <template>
@@ -15,6 +15,8 @@
             :data="tableData"
             @selection-change="handleSelectionChange"
         >
+            <!-- <template #append></template> -->
+
             <el-table-column
                 v-if="useChoice"
                 type="selection"
@@ -64,6 +66,7 @@
         </el-table>
 
         <el-pagination
+            v-show="usePage"
             background
             :pager-count="5"
             :total="total"
@@ -81,7 +84,7 @@
 import MgTableColumn from "../../mg-table-column";
 import MgColumnHandle from "../../mg-column-handle";
 import { setAttrBoolean } from "../utils";
-import { isNil, isBoolean } from "lodash";
+import { isNil, isBoolean, isFunction, cloneDeep } from "lodash";
 export default {
     name: "mg-table",
     mixins: [],
@@ -176,7 +179,28 @@ export default {
                 ? isChoice
                 : false;
         },
-        useIndex: (vm) => vm.tableData.length > 0,
+        useIndex: (vm) => {
+            const { uiSchema } = vm.tableSchema;
+            const schema = isNil(uiSchema) ? {} : uiSchema;
+            const { isIndex } = schema;
+
+            return !isNil(isIndex) &&
+                isBoolean(isIndex) &&
+                vm.tableData.length > 0
+                ? isIndex
+                : false;
+        },
+        usePage: (vm) => {
+            const { uiSchema } = vm.tableSchema;
+            const schema = isNil(uiSchema) ? {} : uiSchema;
+            const { isPage } = schema;
+
+            return !isNil(isPage) &&
+                isBoolean(isPage) &&
+                vm.tableData.length > 0
+                ? isPage
+                : false;
+        },
         useHandle: (vm) => vm.controllerLen > 0 && vm.tableData.length > 0,
         layout: (vm) => {
             return vm.pageLayout.join(",");
@@ -219,6 +243,23 @@ export default {
     },
     //方法集合
     methods: {
+        // 提交表格属性
+        getTableData(backFunc) {
+            const tableData = cloneDeep(this.tableData);
+
+            if (isFunction(backFunc)) {
+                let data = {};
+
+                tableData.forEach((item) => {
+                    delete item.cellInfo;
+                    data = Object.assign({}, data, backFunc(item));
+                });
+
+                return data;
+            }
+
+            return tableData;
+        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
         },

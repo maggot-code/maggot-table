@@ -1,25 +1,37 @@
 <!--
  * @Author: maggot-code
- * @Date: 2021-03-09 15:14:38
+ * @Date: 2021-03-21 18:01:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-22 00:14:23
- * @Description: mg-column-default.vue component
+ * @LastEditTime: 2021-03-21 23:48:17
+ * @Description: mg-column-number.vue component
 -->
 <template>
-    <p class="mg-column-default" :style="style" v-html="content"></p>
+    <el-input-number
+        class="mg-column-number"
+        v-model="numberValue"
+        size="mini"
+        :precision="2"
+        :step="1"
+        :min="0"
+        :max="Infinity"
+        :disabled="disabled"
+        @change="onChange"
+    ></el-input-number>
 </template>
 
 <script>
 import MgColumnMixins from "../../mg-table/mixins/mg-column-mixins";
-import { isNil } from "lodash";
+import { isNil, isBoolean } from "lodash";
 export default {
-    name: "mg-column-default",
+    name: "mg-column-number",
     mixins: [MgColumnMixins],
     components: {},
     props: {},
     data() {
         //这里存放数据
-        return {};
+        return {
+            numberValue: 0,
+        };
     },
     //监听属性 类似于data概念
     computed: {
@@ -30,25 +42,38 @@ export default {
                 const { property } = column;
                 const value = isNil(row[property]) ? "" : row[property];
 
-                return vm.outputValue(value, vm.format);
+                return value;
             }
 
-            const baseValue = vm.handleTotalField(vm.scope, totalKey);
-            return vm.outputValue(baseValue, vm.format);
+            return vm.handleTotalField(vm.scope, totalKey);
         },
-        style: (vm) => {
-            const { row } = vm.scope;
-            const totalKey = vm.getBaseTotal(row);
+        disabled: (vm) => {
+            const { $index, column, row } = vm.scope;
+            const { cellInfo } = row;
+            if (isNil(cellInfo)) {
+                return false;
+            }
 
-            return totalKey ? { color: "#F56C6C" } : {};
+            const { disabled } = cellInfo;
+            return !isNil(disabled) && isBoolean(disabled) ? disabled : false;
         },
     },
     //监控data中的数据变化
-    watch: {},
+    watch: {
+        content(newVal) {
+            this.numberValue = newVal;
+        },
+    },
     //方法集合
-    methods: {},
+    methods: {
+        onChange(value) {
+            this.cellChange("number", value);
+        },
+    },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() {},
+    created() {
+        this.numberValue = this.content;
+    },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {},
     beforeCreate() {}, //生命周期 - 创建之前
@@ -61,5 +86,5 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-@import "./mg-column-default.scss";
+@import "./mg-column-number.scss";
 </style>

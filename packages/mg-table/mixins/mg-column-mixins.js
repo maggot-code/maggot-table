@@ -2,9 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:33:03
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 13:18:02
+ * @LastEditTime: 2021-03-21 23:55:21
  * @Description: mg-column-mixins
  */
+import { isNil, isNaN } from 'lodash';
 export default {
     name: "mg-column-default",
     mixins: [],
@@ -14,7 +15,7 @@ export default {
             type: Object,
             default: () => ({}),
         },
-        format: Object
+        format: Array
     },
     data() {
         //这里存放数据
@@ -26,14 +27,49 @@ export default {
     watch: {},
     //方法集合
     methods: {
-        outputValue(value, format) {
-            const { rule, handle } = format;
-            if (!rule) {
-                return handle(value);
+        // 处理合计属性字段
+        handleTotalField(scope, totalKey) {
+            const { _self, column, row } = scope;
+            const { property } = column;
+
+            if (isNaN(row[property] - 0)) {
+                return row[property];
             }
 
-            const formatHnadleFunc = handle(rule);
-            return formatHnadleFunc(value);
+            const data = _self.tableData.filter(item => totalKey.indexOf(item.field) >= 0).map(item => item[property]);
+            const value = data.reduce((now, next) => now + next);
+
+            this.cellTotal(value);
+            return value;
+        },
+        // 查找total是否存在
+        getBaseTotal(row) {
+            const { cellInfo } = row;
+            if (isNil(cellInfo)) {
+                return false;
+            }
+
+            const { total } = cellInfo;
+            if (isNil(total)) {
+                return false;
+            }
+
+            return total;
+        },
+        outputValue(value, format) {
+            let baseValue = value;
+
+            format.forEach(item => {
+                const { rule, handle } = item;
+                if (!rule) {
+                    return handle(value);
+                }
+
+                const formatHnadleFunc = handle(rule);
+                baseValue = formatHnadleFunc(baseValue);
+            });
+
+            return baseValue;
         },
         cellClick(mode) {
             const { $index, column, row } = this.scope;
@@ -56,6 +92,26 @@ export default {
                 row: row,
                 type: 'dblclick',
             })
+        },
+        cellChange(mode, value) {
+            const { $index, column, row } = this.scope;
+            const { property } = column;
+
+            row[property] = value;
+
+            this.$emit('cell-change', {
+                mode: mode,
+                index: $index,
+                column: column,
+                row: row,
+                type: 'change'
+            })
+        },
+        cellTotal(value) {
+            const { $index, column, row } = this.scope;
+            const { property } = column;
+
+            row[property] = value;
         }
     },
     //生命周期 - 创建完成（可以访问当前this实例）

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:48:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-16 12:57:47
+ * @LastEditTime: 2021-03-21 22:49:33
  * @Description: mg-table-column.vue component
 -->
 <template>
@@ -14,6 +14,7 @@
                 :format="formatFunc"
                 @cell-cick="eventToosUp"
                 @cell-dblclick="eventToosUp"
+                @cell-change="eventToosUp"
             >
             </component>
         </template>
@@ -45,7 +46,17 @@ export default {
         componentName: (vm) => {
             const { mold } = vm.$attrs;
             const basename = mold || "default";
-            return `mg-column-${basename}`;
+            const isBeing = Object.keys(TableColumnComponents).filter(
+                (componentName) => {
+                    const nameList = componentName.split("-");
+                    const name = nameList[nameList.length - 1];
+                    return basename === name;
+                }
+            );
+
+            return isBeing.length <= 0
+                ? "mg-column-default"
+                : `mg-column-${basename}`;
         },
         options: (vm) => {
             const { prop } = vm.$attrs;
@@ -54,6 +65,7 @@ export default {
 
             const vbind = {
                 prop: prop,
+                resizable: false,
                 "min-width": minWidth,
                 label: vm.setLabel(vm.$attrs),
                 align: vm.setAlign(vm.$attrs),
@@ -82,7 +94,7 @@ export default {
                     });
             }
 
-            return funcList.length <= 0 ? DefFormatFunc : funcList[0];
+            return funcList.length <= 0 ? [DefFormatFunc] : funcList;
         },
     },
     //监控data中的数据变化

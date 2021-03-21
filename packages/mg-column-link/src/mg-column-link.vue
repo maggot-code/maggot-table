@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 13:27:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 10:50:32
+ * @LastEditTime: 2021-03-21 18:41:28
  * @Description: mg-column-link.vue component
 -->
 <template>
@@ -13,6 +13,7 @@
 
 <script>
 import MgColumnMixins from "../../mg-table/mixins/mg-column-mixins";
+import { isNil } from "lodash";
 export default {
     name: "mg-column-link",
     mixins: [MgColumnMixins],
@@ -28,7 +29,7 @@ export default {
             const { $index, column, row } = vm.scope;
             const { rule, handle } = vm.format;
             const { property } = column;
-            const value = row[property] || "";
+            const value = isNil(row[property]) ? "" : row[property];
             const formatHnadleFunc = handle(rule);
             row.routerLink = formatHnadleFunc(value, row);
 

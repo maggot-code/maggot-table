@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 12:07:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-17 18:18:28
+ * @LastEditTime: 2021-03-21 19:27:26
  * @Description: mg-table-column format
  */
 import { isNaN, isNumber, isString, isNil } from 'lodash';
@@ -87,5 +87,5 @@ const spliceParams = (params, row) => {
 export default {
     formatDate,
     formatNumber,
-    formatLink
+    formatLink,
 }
