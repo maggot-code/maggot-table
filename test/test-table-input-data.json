@@ -1,64 +1,139 @@
 [
     {
-        "field": "0",
-        "yusuankemu": "合计",
-        "shangjibokuan": 0,
-        "danwiezichou": 0,
-        "yusuan": 0,
+        "subjectname": "合计",
+        "field": "41",
+        "childsubject": "4101,4102",
         "cellInfo": {
-            "disabled": true,
             "total": [
-                "1",
-                "4"
-            ]
-        }
+                "4101",
+                "4102"
+            ],
+            "disabled": true
+        },
+        "pptr": "PA",
+        "totalmoney": 0,
+        "remark": ""
     },
     {
-        "field": "1",
-        "yusuankemu": "直接费用",
-        "shangjibokuan": 0,
-        "danwiezichou": 0,
-        "yusuan": 0,
+        "subjectname": "直接费用",
+        "field": "4101",
+        "childsubject": "410101,410102,410103,410104,410105,410106,410107,410108,410109",
         "cellInfo": {
-            "disabled": true,
             "total": [
-                "2",
-                "3"
-            ]
-        }
+                "410101",
+                "410102",
+                "410103",
+                "410104",
+                "410105",
+                "410106",
+                "410107",
+                "410108",
+                "410109"
+            ],
+            "disabled": true
+        },
+        "pptr": "41",
+        "totalmoney": 0,
+        "remark": ""
     },
     {
-        "field": "2",
-        "yusuankemu": "&nbsp;&nbsp;&nbsp;设备费",
-        "shangjibokuan": 0,
-        "danwiezichou": 0,
-        "yusuan": 0
+        "subjectname": "设备费（购置/试制/改造等）",
+        "field": "410101",
+        "pptr": "4101",
+        "totalmoney": 0,
+        "remark": ""
     },
     {
-        "field": "3",
-        "yusuankemu": "&nbsp;&nbsp;&nbsp;材料费",
-        "shangjibokuan": 0,
-        "danwiezichou": 0,
-        "yusuan": 0
+        "subjectname": "材料费（实验材料、实验动物、试剂等）",
+        "field": "410102",
+        "pptr": "4101",
+        "totalmoney": 0,
+        "remark": ""
     },
     {
-        "field": "4",
-        "yusuankemu": "间接费用",
-        "shangjibokuan": 0,
-        "danwiezichou": 0,
-        "yusuan": 0,
+        "subjectname": "测试化验加工费",
+        "field": "410103",
+        "pptr": "4101",
+        "totalmoney": 0,
+        "remark": ""
+    },
+    {
+        "subjectname": "燃料动力费",
+        "field": "410104",
+        "pptr": "4101",
+        "totalmoney": 0,
+        "remark": ""
+    },
+    {
+        "subjectname": "差旅、会议、国际合作与交流费",
+        "field": "410105",
+        "pptr": "4101",
+        "totalmoney": 0,
+        "remark": ""
+    },
+    {
+        "subjectname": "出版、文献、信息传播、知识产权事务费",
+        "field": "410106",
+        "pptr": "4101",
+        "totalmoney": 0,
+        "remark": ""
+    },
+    {
+        "subjectname": "劳务费",
+        "field": "410107",
+        "pptr": "4101",
+        "totalmoney": 0,
+        "remark": ""
+    },
+    {
+        "subjectname": "专家咨询费",
+        "field": "410108",
+        "pptr": "4101",
+        "totalmoney": 0,
+        "remark": ""
+    },
+    {
+        "subjectname": "其他",
+        "field": "410109",
+        "pptr": "4101",
+        "totalmoney": 0,
+        "remark": ""
+    },
+    {
+        "subjectname": "间接费用",
+        "field": "4102",
+        "childsubject": "410201,410202,410203",
         "cellInfo": {
-            "disabled": true,
             "total": [
-                "5"
-            ]
-        }
+                "410201",
+                "410202",
+                "410203"
+            ],
+            "disabled": true
+        },
+        "pptr": "41",
+        "totalmoney": 0,
+        "remark": ""
     },
     {
-        "field": "5",
-        "yusuankemu": "&nbsp;&nbsp;&nbsp;管理费",
-        "shangjibokuan": 0,
-        "danwiezichou": 0,
-        "yusuan": 0
+        "subjectname": "管理费",
+        "field": "410201",
+        "pptr": "4102",
+        "totalmoney": 0,
+        "remark": ""
+    },
+    {
+        "subjectname": "绩效支出",
+        "field": "410202",
+        "pptr": "4102",
+        "totalmoney": 0,
+        "remark": ""
+    },
+    {
+        "subjectname": "其他",
+        "field": "410203",
+        "pptr": "4102",
+        "totalmoney": 0,
+        "remark": ""
     }
 ]

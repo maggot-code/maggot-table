@@ -1,30 +1,20 @@
 [
     {
-        "prop": "yusuankemu",
+        "prop": "subjectname",
         "mold": "default",
         "label": "预算科目"
     },
     {
-        "prop": "shangjibokuan",
-        "mold": "number",
+        "prop": "totalmoney",
         "width": 240,
+        "mold": "number",
+        "label": "经费预算",
         "formatNumber": "toFixed.2",
-        "label": "上级拨款(万元)",
-        "align": "center"
+        "align": "right"
     },
     {
-        "prop": "danwiezichou",
-        "mold": "number",
-        "width": 240,
-        "formatNumber": "toFixed.2",
-        "label": "单位自筹(万元)",
-        "align": "center"
-    },
-    {
-        "prop": "yusuan",
-        "mold": "default",
-        "width": 240,
-        "formatNumber": "toFixed.2",
-        "label": "预算总金额(万元)"
+        "prop": "remark",
+        "mold": "text",
+        "label": "测算依据"
     }
 ]

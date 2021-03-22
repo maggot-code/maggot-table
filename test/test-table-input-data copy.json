@@ -1,0 +1,64 @@
+[
+    {
+        "field": "0",
+        "yusuankemu": "合计",
+        "shangjibokuan": 0,
+        "danwiezichou": 0,
+        "yusuan": 0,
+        "cellInfo": {
+            "disabled": true,
+            "total": [
+                "1",
+                "4"
+            ]
+        }
+    },
+    {
+        "field": "1",
+        "yusuankemu": "直接费用",
+        "shangjibokuan": 0,
+        "danwiezichou": 0,
+        "yusuan": 0,
+        "cellInfo": {
+            "disabled": true,
+            "total": [
+                "2",
+                "3"
+            ]
+        }
+    },
+    {
+        "field": "2",
+        "yusuankemu": "&nbsp;&nbsp;&nbsp;设备费",
+        "shangjibokuan": 0,
+        "danwiezichou": 0,
+        "yusuan": 0
+    },
+    {
+        "field": "3",
+        "yusuankemu": "&nbsp;&nbsp;&nbsp;材料费",
+        "shangjibokuan": 0,
+        "danwiezichou": 0,
+        "yusuan": 0
+    },
+    {
+        "field": "4",
+        "yusuankemu": "间接费用",
+        "shangjibokuan": 0,
+        "danwiezichou": 0,
+        "yusuan": 0,
+        "cellInfo": {
+            "disabled": true,
+            "total": [
+                "5"
+            ]
+        }
+    },
+    {
+        "field": "5",
+        "yusuankemu": "&nbsp;&nbsp;&nbsp;管理费",
+        "shangjibokuan": 0,
+        "danwiezichou": 0,
+        "yusuan": 0
+    }
+]
