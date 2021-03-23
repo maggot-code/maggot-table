@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-22 00:08:31
+ * @LastEditTime: 2021-03-23 10:48:45
  * @Description: mg-table.vue component
 -->
 <template>
@@ -66,7 +66,7 @@
         </el-table>
 
         <el-pagination
-            v-show="usePage"
+            v-if="usePage"
             background
             :pager-count="5"
             :total="total"
@@ -340,7 +340,8 @@ export default {
          * @return {Number} 高度减掉分页器
          */
         setHeight(height) {
-            return height - 60;
+            const offset = this.usePage ? 60 : 0;
+            return height - offset;
         },
         resizeHeight() {
             const height = this.$el.parentNode.clientHeight;
