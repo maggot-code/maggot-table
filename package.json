@@ -1,6 +1,6 @@
 {
     "name": "maggot-table",
-    "version": "1.0.16",
+    "version": "1.0.17",
     "description": "",
     "main": "lib/maggot-table.common.js",
     "files": [
