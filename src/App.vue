@@ -2,14 +2,16 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-22 00:05:47
+ * @LastEditTime: 2021-03-26 12:49:25
  * @Description: file content
 -->
 <template>
     <div id="app">
-        <div style="height: 90%">
+        <div style="height: 90%; border: 1px solid red; box-sizing: border-box">
             <mg-table
                 ref="mgTable"
+                :parentHeight="height"
+                :resizeTable="resizeKey"
                 :tableSchema="tableSchema"
                 :tableData="tableData"
                 @cellEvent="cellEvent"
@@ -34,8 +36,11 @@ export default {
     data() {
         //这里存放数据
         return {
+            height: 300,
+            resizeKey: new Date().getTime(),
             tableSchema: {
                 uiSchema: {
+                    isPage: true,
                     stripe: true,
                 },
                 columnSchema: TestTableSchema,
@@ -55,17 +60,19 @@ export default {
             this.tableData[index].yusuan = value;
         },
         getData() {
-            const { getTableData } = this.$refs.mgTable;
-            const data = getTableData((item) => {
-                const cell = {};
-                const { field } = item;
-                for (const key in item) {
-                    cell[key + field] = item[key];
-                }
-                return cell;
-            });
+            this.height = this.height === 300 ? 600 : 300;
+            this.resizeKey = new Date().getTime();
+            // const { getTableData } = this.$refs.mgTable;
+            // const data = getTableData((item) => {
+            //     const cell = {};
+            //     const { field } = item;
+            //     for (const key in item) {
+            //         cell[key + field] = item[key];
+            //     }
+            //     return cell;
+            // });
 
-            console.log(data);
+            // console.log(data);
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
