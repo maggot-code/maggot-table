@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-23 10:48:45
+ * @LastEditTime: 2021-03-26 11:22:06
  * @Description: mg-table.vue component
 -->
 <template>
@@ -118,11 +118,15 @@ export default {
             type: [String, Number],
             default: () => new Date().getTime(),
         },
+        baseHeight: {
+            type: [String, Number],
+            default: () => 0,
+        },
     },
     data() {
         //这里存放数据
         return {
-            height: 0,
+            height: this.baseHeight,
             tableHeight: 0,
             currentPage: 1,
             pageSize: 10,
@@ -340,13 +344,15 @@ export default {
          * @return {Number} 高度减掉分页器
          */
         setHeight(height) {
-            const offset = this.usePage ? 60 : 0;
+            const offset = this.usePage ? 0 : 60;
             return height - offset;
         },
         resizeHeight() {
             const height = this.$el.parentNode.clientHeight;
-            this.height = height;
-            this.tableHeight = this.setHeight(height);
+            if (this.height <= 0) {
+                this.height = height;
+            }
+            this.tableHeight = this.setHeight(this.height);
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
