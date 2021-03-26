@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:14:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-22 00:14:23
+ * @LastEditTime: 2021-03-26 15:48:28
  * @Description: mg-column-default.vue component
 -->
 <template>
@@ -29,11 +29,11 @@ export default {
             if (!totalKey) {
                 const { property } = column;
                 const value = isNil(row[property]) ? "" : row[property];
-
                 return vm.outputValue(value, vm.format);
             }
 
             const baseValue = vm.handleTotalField(vm.scope, totalKey);
+
             return vm.outputValue(baseValue, vm.format);
         },
         style: (vm) => {

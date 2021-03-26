@@ -2,10 +2,10 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:33:03
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-21 23:55:21
+ * @LastEditTime: 2021-03-26 16:05:50
  * @Description: mg-column-mixins
  */
-import { isNil, isNaN } from 'lodash';
+import { isNil, isNumber } from 'lodash';
 export default {
     name: "mg-column-default",
     mixins: [],
@@ -32,7 +32,7 @@ export default {
             const { _self, column, row } = scope;
             const { property } = column;
 
-            if (isNaN(row[property] - 0)) {
+            if (!isNumber(row[property])) {
                 return row[property];
             }
 

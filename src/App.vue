@@ -2,15 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-26 12:49:25
+ * @LastEditTime: 2021-03-26 13:12:12
  * @Description: file content
 -->
 <template>
     <div id="app">
-        <div style="height: 90%; border: 1px solid red; box-sizing: border-box">
+        <div :style="{ height: height }">
             <mg-table
                 ref="mgTable"
-                :parentHeight="height"
                 :resizeTable="resizeKey"
                 :tableSchema="tableSchema"
                 :tableData="tableData"
@@ -36,7 +35,7 @@ export default {
     data() {
         //这里存放数据
         return {
-            height: 300,
+            height: "90%",
             resizeKey: new Date().getTime(),
             tableSchema: {
                 uiSchema: {
@@ -60,7 +59,7 @@ export default {
             this.tableData[index].yusuan = value;
         },
         getData() {
-            this.height = this.height === 300 ? 600 : 300;
+            this.height = this.height === "90%" ? "50%" : "90%";
             this.resizeKey = new Date().getTime();
             // const { getTableData } = this.$refs.mgTable;
             // const data = getTableData((item) => {

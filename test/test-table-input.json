@@ -14,7 +14,7 @@
     },
     {
         "prop": "remark",
-        "mold": "text",
+        "mold": "default",
         "label": "测算依据"
     }
 ]
