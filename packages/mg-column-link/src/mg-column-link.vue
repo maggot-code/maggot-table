@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 13:27:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-21 18:41:28
+ * @LastEditTime: 2021-03-28 11:28:52
  * @Description: mg-column-link.vue component
 -->
 <template>
@@ -27,7 +27,7 @@ export default {
     computed: {
         content: (vm) => {
             const { $index, column, row } = vm.scope;
-            const { rule, handle } = vm.format;
+            const { rule, handle } = vm.format[0];
             const { property } = column;
             const value = isNil(row[property]) ? "" : row[property];
             const formatHnadleFunc = handle(rule);

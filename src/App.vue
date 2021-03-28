@@ -23,8 +23,10 @@
 <script>
 // import TestTableSchema from "../test/test1-table-schema.json";
 // import TestTableData from "../test/test-table-data.json";
-import TestTableSchema from "../test/test-table-input.json";
-import TestTableData from "../test/test-table-input-data.json";
+// import TestTableSchema from "../test/test-table-input.json";
+// import TestTableData from "../test/test-table-input-data.json";
+import TestTableSchema from "../test/test-table-link.json";
+import TestTableData from "../test/test-table-link-data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
 export default {

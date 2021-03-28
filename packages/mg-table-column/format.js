@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 12:07:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-21 19:27:26
+ * @LastEditTime: 2021-03-28 11:28:32
  * @Description: mg-table-column format
  */
 import { isNaN, isNumber, isString, isNil } from 'lodash';
@@ -76,7 +76,7 @@ const spliceParams = (params, row) => {
 
     return params.split('&').map(item => {
         const [key, field] = item.split('=');
-        if (!row[field]) {
+        if (isNil(row[field])) {
             return false;
         }
 
