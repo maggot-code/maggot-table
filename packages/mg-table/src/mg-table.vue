@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-26 15:44:16
+ * @LastEditTime: 2021-03-30 15:21:14
  * @Description: mg-table.vue component
 -->
 <template>
@@ -23,6 +23,7 @@
                 align="center"
                 width="40"
                 min-width="40"
+                :selectable="setSelectDisable"
             >
             </el-table-column>
 
@@ -278,6 +279,14 @@ export default {
         },
         pageChange(handle) {
             this.$emit("pageChange", { ...handle });
+        },
+        setSelectDisable(row, index) {
+            const basePower = isNil(row[this.rowPower])
+                ? ""
+                : row[this.rowPower];
+            const rowPower = basePower.split(",");
+
+            return rowPower.indexOf("delete") < 0;
         },
         /**
          * @description: 设置是否显示边框

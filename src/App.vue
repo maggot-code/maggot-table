@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-26 13:12:12
+ * @LastEditTime: 2021-03-30 15:19:26
  * @Description: file content
 -->
 <template>
@@ -10,6 +10,7 @@
         <div :style="{ height: height }">
             <mg-table
                 ref="mgTable"
+                rowPower="poweredit"
                 :resizeTable="resizeKey"
                 :tableSchema="tableSchema"
                 :tableData="tableData"
@@ -41,6 +42,7 @@ export default {
             resizeKey: new Date().getTime(),
             tableSchema: {
                 uiSchema: {
+                    isChoice: true,
                     isPage: true,
                     stripe: true,
                 },
