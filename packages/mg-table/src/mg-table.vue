@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-01 13:37:51
+ * @LastEditTime: 2021-04-01 13:56:34
  * @Description: mg-table.vue component
 -->
 <template>
@@ -427,7 +427,7 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.handleSortChange({ ...this.defaultSort });
+        this.loadPage && this.handleSortChange({ ...this.defaultSort });
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
