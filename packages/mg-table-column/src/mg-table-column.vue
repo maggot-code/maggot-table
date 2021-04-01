@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:48:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-21 22:49:33
+ * @LastEditTime: 2021-04-01 10:21:29
  * @Description: mg-table-column.vue component
 -->
 <template>
@@ -69,6 +69,7 @@ export default {
                 "min-width": minWidth,
                 label: vm.setLabel(vm.$attrs),
                 align: vm.setAlign(vm.$attrs),
+                sortable: vm.setSort(vm.$attrs),
                 "header-align": vm.setHeaderAlign(vm.$attrs),
                 "show-overflow-tooltip": vm.setOverflowTips(vm.$attrs),
             };
@@ -103,6 +104,12 @@ export default {
     methods: {
         eventToosUp(event) {
             this.$emit("cellEvent", event);
+        },
+        setSort(attr) {
+            const { isSort } = attr;
+            const baseSort = setAttrBoolean(isSort);
+
+            return baseSort ? "custom" : false;
         },
         /**
          * @description: 设置列宽

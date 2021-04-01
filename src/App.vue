@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 15:19:26
+ * @LastEditTime: 2021-04-01 13:38:07
  * @Description: file content
 -->
 <template>
@@ -10,11 +10,13 @@
         <div :style="{ height: height }">
             <mg-table
                 ref="mgTable"
+                :total="4"
                 rowPower="poweredit"
                 :resizeTable="resizeKey"
                 :tableSchema="tableSchema"
                 :tableData="tableData"
                 @cellEvent="cellEvent"
+                @tableHandle="tableHandle"
             ></mg-table>
         </div>
         <el-button @click="getData">获取数据</el-button>
@@ -26,8 +28,10 @@
 // import TestTableData from "../test/test-table-data.json";
 // import TestTableSchema from "../test/test-table-input.json";
 // import TestTableData from "../test/test-table-input-data.json";
-import TestTableSchema from "../test/test-table-link.json";
-import TestTableData from "../test/test-table-link-data.json";
+// import TestTableSchema from "../test/test-table-link.json";
+// import TestTableData from "../test/test-table-link-data.json";
+import TestTableSchema from "../test/test-sort-schema.json";
+import TestTableData from "../test/test-sort-data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
 export default {
@@ -45,10 +49,12 @@ export default {
                     isChoice: true,
                     isPage: true,
                     stripe: true,
+                    sortProp: "aa",
                 },
                 columnSchema: TestTableSchema,
             },
             tableData: TestTableData,
+            tableInit: {},
         };
     },
     //监听属性 类似于data概念
@@ -57,6 +63,9 @@ export default {
     watch: {},
     //方法集合
     methods: {
+        tableHandle(handle) {
+            console.log(handle);
+        },
         cellEvent(event) {
             const { index, row } = event;
             const value = row.shangjibokuan + row.danwiezichou;

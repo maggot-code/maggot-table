@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-30 15:21:14
+ * @LastEditTime: 2021-04-01 13:37:51
  * @Description: mg-table.vue component
 -->
 <template>
@@ -10,9 +10,10 @@
         <el-table
             style="width: 100%"
             v-bind="options"
+            :data="tableData"
             :height="tableHeight"
             :max-height="tableHeight"
-            :data="tableData"
+            @sort-change="handleSortChange"
             @selection-change="handleSelectionChange"
         >
             <!-- <template #append></template> -->
@@ -23,6 +24,7 @@
                 align="center"
                 width="40"
                 min-width="40"
+                :resizable="false"
                 :selectable="setSelectDisable"
             >
             </el-table-column>
@@ -32,6 +34,7 @@
                 type="index"
                 width="60"
                 fixed="left"
+                :resizable="false"
                 :index="indexMethod"
             >
             </el-table-column>
@@ -48,6 +51,7 @@
                 label="操作"
                 align="center"
                 fixed="left"
+                :resizable="false"
                 :width="handleWidth"
                 :min-width="handleWidth"
             >
@@ -135,6 +139,9 @@ export default {
             pageSizes: [10, 20, 30, 40, 50, 100],
             pageLayout: ["total", "sizes", "prev", "pager", "next", "jumper"],
             multipleSelection: [],
+
+            sortProp: "",
+            sortOrder: "",
         };
     },
     //监听属性 类似于data概念
@@ -213,6 +220,11 @@ export default {
         pageDisabled: (vm) => {
             return vm.total <= 0;
         },
+        defaultSort: (vm) => {
+            const { uiSchema } = vm.tableSchema;
+            const schema = isNil(uiSchema) ? {} : uiSchema;
+            return vm.setDefaultSort(schema);
+        },
     },
     //监控data中的数据变化
     watch: {
@@ -220,23 +232,24 @@ export default {
             this.pageLock = false;
             this.$set(this, "currentPage", 1);
 
-            this.pageChange({
-                func: "handlerSize",
-                current: this.currentPage,
-                size: newVal,
-            });
-
             setTimeout(() => {
                 this.pageLock = true;
+                this.tableHandle(
+                    this.sortProp,
+                    this.sortOrder,
+                    this.currentPage,
+                    newVal
+                );
             }, 0);
         },
         currentPage(newVal) {
             if (this.pageLock) {
-                this.pageChange({
-                    func: "handlerCurrent",
-                    current: newVal,
-                    size: this.pageSize,
-                });
+                this.tableHandle(
+                    this.sortProp,
+                    this.sortOrder,
+                    newVal,
+                    this.pageSize
+                );
             }
         },
         multipleSelection(newVal) {
@@ -265,8 +278,25 @@ export default {
 
             return tableData;
         },
+        handleSortChange({ prop, order }) {
+            const defOrder = this.formatOrder(this.defaultSort.order);
+            const defProp = this.defaultSort.prop;
+            const baseOrder = isNil(order) ? defOrder : this.formatOrder(order);
+            const baseProp = isNil(order) ? defProp : prop;
+
+            this.setSortValue({ prop: baseProp, order: baseOrder });
+            this.tableHandle(
+                baseProp,
+                baseOrder,
+                this.currentPage,
+                this.pageSize
+            );
+        },
         handleSelectionChange(val) {
             this.multipleSelection = val;
+        },
+        tableHandle(prop, order, current, size) {
+            this.$emit("tableHandle", { prop, order, current, size });
         },
         tableCellEvent(event) {
             this.$emit("cellEvent", event);
@@ -277,8 +307,13 @@ export default {
         handleRow(handleObject) {
             this.$emit("handleRow", handleObject);
         },
-        pageChange(handle) {
-            this.$emit("pageChange", { ...handle });
+        formatOrder(order) {
+            const baseOrder = {
+                ascending: "asc",
+                descending: "desc",
+            };
+
+            return baseOrder[order] || null;
         },
         setSelectDisable(row, index) {
             const basePower = isNil(row[this.rowPower])
@@ -287,6 +322,32 @@ export default {
             const rowPower = basePower.split(",");
 
             return rowPower.indexOf("delete") < 0;
+        },
+        setSortValue({ prop, order }) {
+            this.sortProp = prop;
+            this.sortOrder = order;
+        },
+        /**
+         * @description: 设置默认排序规则
+         * @param {Object} attr
+         * @return {Object} 默认的排序规则
+         */
+        setDefaultSort(attr) {
+            const { sortProp, sortOrder } = attr;
+            // descending
+            const baseSortOrder = isNil(sortOrder) ? "ascending" : sortOrder;
+
+            if (isNil(sortProp)) {
+                return {
+                    prop: "id",
+                    order: baseSortOrder,
+                };
+            }
+
+            return {
+                prop: sortProp,
+                order: baseSortOrder,
+            };
         },
         /**
          * @description: 设置是否显示边框
@@ -366,13 +427,7 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        if (this.loadPage) {
-            this.pageChange({
-                func: "handlerSize",
-                current: this.currentPage,
-                size: this.pageSize,
-            });
-        }
+        this.handleSortChange({ ...this.defaultSort });
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {

@@ -1,0 +1,100 @@
+[
+    {
+        "isSort": true,
+        "prop": "name",
+        "formatLink": "apply-view?id=id",
+        "mold": "link",
+        "label": "项目名称",
+        "align": "left"
+    },
+    {
+        "isSort": true,
+        "prop": "projtotalfunding",
+        "width": "85",
+        "mold": "default",
+        "minWidth": "85",
+        "label": "经费预算（万元）",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "projno",
+        "width": "90",
+        "mold": "default",
+        "minWidth": "90",
+        "label": "项目编号",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "formatDate": "yyyy-MM-dd",
+        "prop": "starttime",
+        "width": "95",
+        "mold": "default",
+        "minWidth": "95",
+        "label": "开始时间",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "formatDate": "yyyy-MM-dd",
+        "prop": "endtime",
+        "width": "95",
+        "mold": "default",
+        "minWidth": "95",
+        "label": "结束时间",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "projsourcesname",
+        "width": "90",
+        "mold": "default",
+        "minWidth": "90",
+        "label": "项目来源",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "cooperatetypename",
+        "width": "90",
+        "mold": "default",
+        "minWidth": "90",
+        "label": "合作形式",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "projlevelname",
+        "mold": "default",
+        "label": "项目类型",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "projtypename",
+        "width": "90",
+        "mold": "default",
+        "minWidth": "90",
+        "label": "研究类别",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "useridname",
+        "width": "85",
+        "mold": "default",
+        "minWidth": "85",
+        "label": "负责人",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "checkresultname",
+        "width": "90",
+        "mold": "default",
+        "minWidth": "90",
+        "label": "审核结果",
+        "align": "center"
+    }
+]
