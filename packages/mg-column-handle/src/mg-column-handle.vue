@@ -2,13 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:13:09
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-12 11:27:06
+ * @LastEditTime: 2021-04-12 10:58:33
  * @Description: mg-column-handle.vue component
 -->
 <template>
     <el-button
         class="mg-column-handle"
         v-bind="options"
+        :loading="loading"
         :size="size"
         @click="handleRow"
         >{{ options.label }}</el-button
@@ -29,6 +30,7 @@ export default {
                 type: "info",
                 icon: "el-icon-s-tools",
                 label: "操作",
+                attrs: {},
             }),
         },
         rowPower: String,
@@ -37,6 +39,7 @@ export default {
         //这里存放数据
         return {
             size: "mini",
+            loading: false,
         };
     },
     //监听属性 类似于data概念
@@ -58,13 +61,17 @@ export default {
     //方法集合
     methods: {
         handleRow() {
+            const { mode, attrs } = this.handle;
             const { $index, column, row } = this.scope;
-
             this.$emit("handleRow", {
-                mode: this.handle.mode,
                 index: $index,
-                column: column,
-                row: row,
+                mode,
+                attrs,
+                column,
+                row,
+                loadingStatus: (status = false) => {
+                    this.loading = status;
+                },
             });
         },
         handlePower(mode) {
