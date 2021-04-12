@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-12 17:12:15
+ * @LastEditTime: 2021-04-12 17:35:46
  * @Description: mg-table.vue component
 -->
 <template>
@@ -295,9 +295,10 @@ export default {
             );
         },
         handleSelectionChange(val) {
-            this.multipleSelection = val.filter((row) =>
-                this.removeSelectDisable(row, this.setSelectDisable)
-            );
+            this.multipleSelection = val;
+            // this.multipleSelection = val.filter((row) =>
+            //     this.removeSelectDisable(row, this.setSelectDisable)
+            // );
         },
         tableHandle(prop, order, current, size) {
             this.$emit("tableHandle", { prop, order, current, size });
