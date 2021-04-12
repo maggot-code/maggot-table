@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-01 13:56:34
+ * @LastEditTime: 2021-04-12 17:12:15
  * @Description: mg-table.vue component
 -->
 <template>
@@ -10,6 +10,7 @@
         <el-table
             style="width: 100%"
             v-bind="options"
+            :ref="refKey"
             :data="tableData"
             :height="tableHeight"
             :max-height="tableHeight"
@@ -18,6 +19,7 @@
         >
             <!-- <template #append></template> -->
 
+            <!-- :selectable="setSelectDisable"  -->
             <el-table-column
                 v-if="useChoice"
                 type="selection"
@@ -25,7 +27,6 @@
                 width="40"
                 min-width="40"
                 :resizable="false"
-                :selectable="setSelectDisable"
             >
             </el-table-column>
 
@@ -131,6 +132,7 @@ export default {
     data() {
         //这里存放数据
         return {
+            refKey: new Date().getTime(),
             height: 0,
             tableHeight: 0,
             currentPage: 1,
@@ -293,7 +295,9 @@ export default {
             );
         },
         handleSelectionChange(val) {
-            this.multipleSelection = val;
+            this.multipleSelection = val.filter((row) =>
+                this.removeSelectDisable(row, this.setSelectDisable)
+            );
         },
         tableHandle(prop, order, current, size) {
             this.$emit("tableHandle", { prop, order, current, size });
@@ -322,6 +326,14 @@ export default {
             const rowPower = basePower.split(",");
 
             return rowPower.indexOf("delete") < 0;
+        },
+        // 移除选中状态，避免不可删除的状态被选中
+        removeSelectDisable(row, setDisable) {
+            const status = setDisable(row);
+
+            !status && this.$refs[this.refKey].toggleRowSelection(row, false);
+
+            return status;
         },
         setSortValue({ prop, order }) {
             this.sortProp = prop;
