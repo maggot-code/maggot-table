@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 15:13:24
+ * @LastEditTime: 2021-04-13 15:36:59
  * @Description: file content
 -->
 <template>
@@ -75,7 +75,7 @@ export default {
     //监听属性 类似于data概念
     computed: {
         tableChoice() {
-            return this.tableData.filter((item) => item.disabled === "01");
+            return this.tableData.filter((item) => item.ischecked === "01");
         },
     },
     //监控data中的数据变化

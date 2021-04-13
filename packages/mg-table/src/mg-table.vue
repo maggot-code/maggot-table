@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 15:06:38
+ * @LastEditTime: 2021-04-13 15:39:19
  * @Description: mg-table.vue component
 -->
 <template>
@@ -444,9 +444,10 @@ export default {
 
         // 设置多选
         setSelectChoice(choice) {
-            choice.forEach((item) => {
-                this.$refs[this.refKey].toggleRowSelection(item, true);
-            });
+            choice.forEach((item) => this.setChoiceStatus(item));
+        },
+        setChoiceStatus(item, status = true) {
+            this.$refs[this.refKey].toggleRowSelection(item, status);
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
