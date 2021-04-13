@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-12 10:56:38
+ * @LastEditTime: 2021-04-13 09:53:44
  * @Description: file content
 -->
 <template>
@@ -75,12 +75,8 @@ export default {
     //方法集合
     methods: {
         handleRow(handle) {
-            console.log(handle);
-            const { loadingStatus } = handle;
-            loadingStatus(true);
-            setTimeout(() => {
-                loadingStatus(false);
-            }, 3000);
+            const { update } = handle;
+            update("label", "哈哈哈");
         },
         tableHandle(handle) {
             console.log(handle);

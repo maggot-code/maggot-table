@@ -2,17 +2,19 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:13:09
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-12 10:58:33
+ * @LastEditTime: 2021-04-13 09:53:30
  * @Description: mg-column-handle.vue component
 -->
 <template>
     <el-button
         class="mg-column-handle"
         v-bind="options"
+        :type="type"
+        :icon="icon"
         :loading="loading"
         :size="size"
         @click="handleRow"
-        >{{ options.label }}</el-button
+        >{{ label }}</el-button
     >
 </template>
 
@@ -40,6 +42,10 @@ export default {
         return {
             size: "mini",
             loading: false,
+
+            type: this.handle.type,
+            icon: this.handle.icon,
+            label: this.handle.label,
         };
     },
     //监听属性 类似于data概念
@@ -49,9 +55,6 @@ export default {
             const disabled = vm.handlePower(mode);
             return {
                 mode,
-                type,
-                icon,
-                label,
                 disabled,
             };
         },
@@ -69,6 +72,7 @@ export default {
                 attrs,
                 column,
                 row,
+                update: this.setPropValue,
                 loadingStatus: (status = false) => {
                     this.loading = status;
                 },
@@ -82,6 +86,11 @@ export default {
 
             const power = row[this.rowPower].split(",");
             return power.indexOf(mode) >= 0 ? true : false;
+        },
+        setPropValue(field, value) {
+            this[field] = value || this.handle[field];
+
+            return { field, value };
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
