@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-12 17:35:46
+ * @LastEditTime: 2021-04-13 15:06:38
  * @Description: mg-table.vue component
 -->
 <template>
@@ -101,6 +101,10 @@ export default {
             required: true,
         },
         tableData: {
+            type: Array,
+            default: () => [],
+        },
+        tableChoice: {
             type: Array,
             default: () => [],
         },
@@ -437,6 +441,13 @@ export default {
 
             this.tableHeight = this.setHeight(this.height);
         },
+
+        // 设置多选
+        setSelectChoice(choice) {
+            choice.forEach((item) => {
+                this.$refs[this.refKey].toggleRowSelection(item, true);
+            });
+        },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
@@ -444,7 +455,10 @@ export default {
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-        this.$nextTick(() => this.resizeHeight());
+        this.$nextTick(() => {
+            this.resizeHeight();
+            this.useChoice && this.setSelectChoice(this.tableChoice);
+        });
     },
     beforeCreate() {}, //生命周期 - 创建之前
     beforeMount() {}, //生命周期 - 挂载之前

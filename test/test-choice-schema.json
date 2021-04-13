@@ -1,0 +1,47 @@
+[
+    {
+        "isSort": true,
+        "prop": "truename",
+        "width": "260",
+        "mold": "default",
+        "minWidth": "260",
+        "label": "角色名称",
+        "align": "left"
+    },
+    {
+        "isSort": true,
+        "prop": "loginname",
+        "width": "140",
+        "mold": "default",
+        "minWidth": "140",
+        "label": "角色标识",
+        "align": "left"
+    },
+    {
+        "isSort": true,
+        "prop": "orderid",
+        "width": "100",
+        "mold": "default",
+        "minWidth": "100",
+        "label": "排序",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "disabledname",
+        "width": "105",
+        "mold": "default",
+        "minWidth": "105",
+        "label": "是否启用",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "remark",
+        "width": "420",
+        "mold": "default",
+        "minWidth": "420",
+        "label": "备注",
+        "align": "left"
+    }
+]

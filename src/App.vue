@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 09:53:44
+ * @LastEditTime: 2021-04-13 15:13:24
  * @Description: file content
 -->
 <template>
@@ -15,10 +15,12 @@
                 :resizeTable="resizeKey"
                 :tableSchema="tableSchema"
                 :tableData="tableData"
+                :tableChoice="tableChoice"
                 :controller="bizRowController"
                 @handleRow="handleRow"
                 @cellEvent="cellEvent"
                 @tableHandle="tableHandle"
+                @onChoice="onChoice"
             ></mg-table>
         </div>
         <el-button @click="getData">获取数据</el-button>
@@ -32,8 +34,10 @@
 // import TestTableData from "../test/test-table-input-data.json";
 // import TestTableSchema from "../test/test-table-link.json";
 // import TestTableData from "../test/test-table-link-data.json";
-import TestTableSchema from "../test/test-sort-schema.json";
-import TestTableData from "../test/test-sort-data.json";
+// import TestTableSchema from "../test/test-sort-schema.json";
+// import TestTableData from "../test/test-sort-data.json";
+import TestTableSchema from "../test/test-choice-schema.json";
+import TestTableData from "../test/test-choice-data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
 export default {
@@ -69,7 +73,11 @@ export default {
         };
     },
     //监听属性 类似于data概念
-    computed: {},
+    computed: {
+        tableChoice() {
+            return this.tableData.filter((item) => item.disabled === "01");
+        },
+    },
     //监控data中的数据变化
     watch: {},
     //方法集合
@@ -100,6 +108,9 @@ export default {
             // });
 
             // console.log(data);
+        },
+        onChoice(data) {
+            console.log(data);
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
