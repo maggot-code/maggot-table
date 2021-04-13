@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 15:39:19
+ * @LastEditTime: 2021-04-13 15:57:23
  * @Description: mg-table.vue component
 -->
 <template>
@@ -263,6 +263,11 @@ export default {
         },
         resizeTable() {
             this.$nextTick(() => this.resizeHeight());
+        },
+        useChoice(newVal) {
+            this.$nextTick(
+                () => newVal && this.setSelectChoice(this.tableChoice)
+            );
         },
     },
     //方法集合
