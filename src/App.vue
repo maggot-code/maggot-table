@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-14 10:51:44
+ * @LastEditTime: 2021-04-14 18:00:52
  * @Description: file content
 -->
 <template>
@@ -15,13 +15,19 @@
                 :resizeTable="resizeKey"
                 :tableSchema="tableSchema"
                 :tableData="tableData"
-                :tableChoice="tableChoice"
                 :controller="bizRowController"
                 @handleRow="handleRow"
                 @cellEvent="cellEvent"
                 @tableHandle="tableHandle"
                 @onChoice="onChoice"
-            ></mg-table>
+                @expandChange="expandChange"
+            >
+                <template v-slot:expand="{ params }">
+                    <div>
+                        <button @click="add(params)">增加++</button>
+                    </div>
+                </template>
+            </mg-table>
         </div>
         <el-button @click="getData">获取数据</el-button>
     </div>
@@ -36,8 +42,10 @@
 // import TestTableData from "../test/test-table-link-data.json";
 // import TestTableSchema from "../test/test-sort-schema.json";
 // import TestTableData from "../test/test-sort-data.json";
-import TestTableSchema from "../test/test-choice-schema.json";
-import TestTableData from "../test/test-choice-data.json";
+// import TestTableSchema from "../test/test-choice-schema.json";
+// import TestTableData from "../test/test-choice-data.json";
+import TestTableSchema from "../test/test-nest-schema.json";
+import TestTableData from "../test/test-nest-data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
 export default {
@@ -73,11 +81,7 @@ export default {
         };
     },
     //监听属性 类似于data概念
-    computed: {
-        tableChoice() {
-            return this.tableData.filter((item) => item.ischecked === "01");
-        },
-    },
+    computed: {},
     //监控data中的数据变化
     watch: {},
     //方法集合
@@ -87,13 +91,16 @@ export default {
             update("label", "哈哈哈");
         },
         tableHandle(handle) {},
-        cellEvent(event) {
-            console.log(event);
+        cellEvent(event) {},
+        expandChange(expand) {
+            console.log(expand);
         },
         getData() {
-            this.height = this.height === "90%" ? "50%" : "90%";
-            this.resizeKey = new Date().getTime();
-            // const { getTableData } = this.$refs.mgTable;
+            // this.height = this.height === "90%" ? "50%" : "90%";
+            // this.resizeKey = new Date().getTime();
+            const { getTableData } = this.$refs.mgTable;
+            const a = getTableData();
+            console.log(a);
             // const data = getTableData((item) => {
             //     const cell = {};
             //     const { field } = item;
@@ -106,6 +113,13 @@ export default {
             // console.log(data);
         },
         onChoice(data) {},
+        add(params) {
+            const { $index, row } = params;
+            console.log(this.tableData[$index]);
+            const a = (row.totalmoney += 1);
+            this.$set(this.tableData[$index], "totalmoney", a);
+            this.tableData[$index].children.push({ [a + 1]: a - 1 });
+        },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {},

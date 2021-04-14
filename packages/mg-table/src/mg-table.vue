@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 15:57:23
+ * @LastEditTime: 2021-04-14 17:44:59
  * @Description: mg-table.vue component
 -->
 <template>
@@ -16,16 +16,28 @@
             :max-height="tableHeight"
             @sort-change="handleSortChange"
             @selection-change="handleSelectionChange"
+            @expand-change="handleExpandChange"
         >
-            <!-- <template #append></template> -->
+            <el-table-column
+                v-if="useExpand"
+                type="expand"
+                align="center"
+                width="40"
+                min-width="40"
+                :resizable="false"
+            >
+                <template v-slot="props">
+                    <slot name="expand" :params="props"></slot>
+                </template>
+            </el-table-column>
 
             <!-- :selectable="setSelectDisable"  -->
             <el-table-column
                 v-if="useChoice"
                 type="selection"
                 align="center"
-                width="40"
-                min-width="40"
+                width="50"
+                min-width="50"
                 :resizable="false"
             >
             </el-table-column>
@@ -186,6 +198,11 @@ export default {
 
             return vbind;
         },
+        useExpand: (vm) => {
+            const { $scopedSlots } = vm;
+
+            return !isNil($scopedSlots.expand);
+        },
         useChoice: (vm) => {
             const { uiSchema } = vm.tableSchema;
             const schema = isNil(uiSchema) ? {} : uiSchema;
@@ -308,6 +325,21 @@ export default {
             // this.multipleSelection = val.filter((row) =>
             //     this.removeSelectDisable(row, this.setSelectDisable)
             // );
+        },
+        handleExpandChange(row, expandedRows) {
+            const openOrClose = expandedRows.length > 0;
+            const { cellInfo } = row;
+            const { open } = cellInfo;
+
+            if (isNil(cellInfo) || isNil(open) || !open) {
+                this.$refs[this.refKey].toggleRowExpansion(row, false);
+                return false;
+            }
+
+            openOrClose &&
+                this.$emit("expandChange", {}, (status) => {
+                    this.$refs[this.refKey].toggleRowExpansion(row, status);
+                });
         },
         tableHandle(prop, order, current, size) {
             this.$emit("tableHandle", { prop, order, current, size });

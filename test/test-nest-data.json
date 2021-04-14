@@ -1,0 +1,84 @@
+[
+    {
+        "subjectname": "合计",
+        "field": "41",
+        "childsubject": "4101,4102",
+        "cellInfo": {
+            "total": [
+                "4101",
+                "4102"
+            ],
+            "disabled": true,
+            "open": false
+        },
+        "pptr": "PA",
+        "remark": "",
+        "id": 16,
+        "totalmoney": 120.0000,
+        "children": []
+    },
+    {
+        "subjectname": "&nbsp;&nbsp;&nbsp;&nbsp;直接费用",
+        "field": "4101",
+        "childsubject": "410101,410102,410103,410104,410105,410106,410107,410108,410109",
+        "cellInfo": {
+            "total": [
+                "410101",
+                "410102",
+                "410103",
+                "410104",
+                "410105",
+                "410106",
+                "410107",
+                "410108",
+                "410109"
+            ],
+            "disabled": true,
+            "open": false
+        },
+        "pptr": "41",
+        "remark": "",
+        "id": 17,
+        "totalmoney": 65.0000,
+        "children": []
+    },
+    {
+        "subjectname": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设备费（购置/试制/改造等）",
+        "cellInfo": {
+            "disabled": true,
+            "open": true
+        },
+        "field": "410101",
+        "pptr": "4101",
+        "remark": "11",
+        "id": 18,
+        "totalmoney": 20.0000,
+        "children": []
+    },
+    {
+        "subjectname": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;材料费（实验材料、实验动物、试剂等）",
+        "cellInfo": {
+            "disabled": true,
+            "open": true
+        },
+        "field": "410102",
+        "pptr": "4101",
+        "remark": "22",
+        "id": 19,
+        "totalmoney": 10.0000,
+        "children": []
+    },
+    {
+        "subjectname": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;测试化验加工费",
+        "cellInfo": {
+            "disabled": true,
+            "open": true
+        },
+        "field": "410103",
+        "pptr": "4101",
+        "remark": "33",
+        "id": 20,
+        "totalmoney": 5.0000,
+        "children": []
+    }
+]
