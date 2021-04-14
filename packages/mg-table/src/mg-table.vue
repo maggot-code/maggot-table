@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-14 17:44:59
+ * @LastEditTime: 2021-04-14 18:28:15
  * @Description: mg-table.vue component
 -->
 <template>
@@ -279,7 +279,9 @@ export default {
             this.$emit("onChoice", newVal);
         },
         resizeTable() {
-            this.$nextTick(() => this.resizeHeight());
+            this.$nextTick(() => {
+                this.resizeHeight();
+            });
         },
         useChoice(newVal) {
             this.$nextTick(
@@ -337,9 +339,13 @@ export default {
             }
 
             openOrClose &&
-                this.$emit("expandChange", {}, (status) => {
-                    this.$refs[this.refKey].toggleRowExpansion(row, status);
-                });
+                this.$emit(
+                    "expandChange",
+                    { row, close: openOrClose },
+                    (status) => {
+                        this.$refs[this.refKey].toggleRowExpansion(row, status);
+                    }
+                );
         },
         tableHandle(prop, order, current, size) {
             this.$emit("tableHandle", { prop, order, current, size });
