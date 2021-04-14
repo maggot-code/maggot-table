@@ -28,9 +28,9 @@
     },
     {
         "isSort": true,
-        "prop": "disabledname",
+        "prop": "disabled",
         "width": "105",
-        "mold": "default",
+        "mold": "status",
         "minWidth": "105",
         "label": "是否启用",
         "align": "center"

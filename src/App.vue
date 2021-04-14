@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 15:36:59
+ * @LastEditTime: 2021-04-14 10:51:44
  * @Description: file content
 -->
 <template>
@@ -86,13 +86,9 @@ export default {
             const { update } = handle;
             update("label", "哈哈哈");
         },
-        tableHandle(handle) {
-            console.log(handle);
-        },
+        tableHandle(handle) {},
         cellEvent(event) {
-            const { index, row } = event;
-            const value = row.shangjibokuan + row.danwiezichou;
-            this.tableData[index].yusuan = value;
+            console.log(event);
         },
         getData() {
             this.height = this.height === "90%" ? "50%" : "90%";
@@ -109,9 +105,7 @@ export default {
 
             // console.log(data);
         },
-        onChoice(data) {
-            console.log(data);
-        },
+        onChoice(data) {},
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {},
