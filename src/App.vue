@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-14 18:00:52
+ * @LastEditTime: 2021-04-15 10:59:12
  * @Description: file content
 -->
 <template>
@@ -38,14 +38,14 @@
 // import TestTableData from "../test/test-table-data.json";
 // import TestTableSchema from "../test/test-table-input.json";
 // import TestTableData from "../test/test-table-input-data.json";
-// import TestTableSchema from "../test/test-table-link.json";
-// import TestTableData from "../test/test-table-link-data.json";
+import TestTableSchema from "../test/test-table-link.json";
+import TestTableData from "../test/test-table-link-data.json";
 // import TestTableSchema from "../test/test-sort-schema.json";
 // import TestTableData from "../test/test-sort-data.json";
 // import TestTableSchema from "../test/test-choice-schema.json";
 // import TestTableData from "../test/test-choice-data.json";
-import TestTableSchema from "../test/test-nest-schema.json";
-import TestTableData from "../test/test-nest-data.json";
+// import TestTableSchema from "../test/test-nest-schema.json";
+// import TestTableData from "../test/test-nest-data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
 export default {
@@ -91,7 +91,9 @@ export default {
             update("label", "哈哈哈");
         },
         tableHandle(handle) {},
-        cellEvent(event) {},
+        cellEvent(event) {
+            console.log(event);
+        },
         expandChange(expand) {
             console.log(expand);
         },

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 12:07:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-15 09:41:38
+ * @LastEditTime: 2021-04-15 10:58:09
  * @Description: mg-table-column format
  */
 import { isNaN, isNumber, isString, isNil } from 'lodash';

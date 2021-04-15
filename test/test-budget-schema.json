@@ -1,0 +1,74 @@
+[
+    {
+        "isSort": false,
+        "prop": "buggect_name",
+        "width": "100",
+        "mold": "default",
+        "minWidth": "100",
+        "label": "项目",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "name",
+        "width": "100",
+        "mold": "default",
+        "minWidth": "100",
+        "label": "名称",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "usetype",
+        "width": "100",
+        "mold": "default",
+        "minWidth": "100",
+        "label": "用途",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "standard",
+        "width": "120",
+        "mold": "default",
+        "minWidth": "120",
+        "label": "标准（万元）",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "counts",
+        "width": "80",
+        "mold": "default",
+        "minWidth": "80",
+        "label": "数量",
+        "align": "center"
+    },
+    {
+        "isSort": true,
+        "prop": "days",
+        "width": "110",
+        "mold": "default",
+        "minWidth": "110",
+        "label": "天数/次数",
+        "align": "center"
+    },
+    {
+        "isSort": false,
+        "prop": "count1",
+        "width": "100",
+        "mold": "default",
+        "minWidth": "100",
+        "label": "小计",
+        "align": "center"
+    },
+    {
+        "isSort": false,
+        "prop": "count2",
+        "width": "100",
+        "mold": "default",
+        "minWidth": "100",
+        "label": "合计",
+        "align": "center"
+    }
+]

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 13:27:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-28 11:28:52
+ * @LastEditTime: 2021-04-15 11:01:23
  * @Description: mg-column-link.vue component
 -->
 <template>
@@ -31,7 +31,7 @@ export default {
             const { property } = column;
             const value = isNil(row[property]) ? "" : row[property];
             const formatHnadleFunc = handle(rule);
-            row.routerLink = formatHnadleFunc(value, row);
+            row[`${property}_link`] = formatHnadleFunc(value, row);
 
             return value;
         },

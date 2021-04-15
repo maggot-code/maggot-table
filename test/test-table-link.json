@@ -2,7 +2,7 @@
     {
         "isSort": true,
         "prop": "name",
-        "formatLink": "apply-view?id=id",
+        "formatLink": "apply-view?id=id&aa=06",
         "width": "245",
         "mold": "link",
         "minWidth": "245",
@@ -12,8 +12,9 @@
     {
         "isSort": true,
         "prop": "projtotalfunding",
+        "formatLink": "hhhh?type=456&bb=asdasd",
         "width": "85",
-        "mold": "default",
+        "mold": "link",
         "minWidth": "85",
         "label": "经费预算（万元）",
         "align": "center"
