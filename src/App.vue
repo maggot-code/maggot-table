@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-15 10:59:12
+ * @LastEditTime: 2021-04-27 16:53:24
  * @Description: file content
 -->
 <template>
@@ -38,14 +38,16 @@
 // import TestTableData from "../test/test-table-data.json";
 // import TestTableSchema from "../test/test-table-input.json";
 // import TestTableData from "../test/test-table-input-data.json";
-import TestTableSchema from "../test/test-table-link.json";
-import TestTableData from "../test/test-table-link-data.json";
+// import TestTableSchema from "../test/test-table-link.json";
+// import TestTableData from "../test/test-table-link-data.json";
 // import TestTableSchema from "../test/test-sort-schema.json";
 // import TestTableData from "../test/test-sort-data.json";
 // import TestTableSchema from "../test/test-choice-schema.json";
 // import TestTableData from "../test/test-choice-data.json";
 // import TestTableSchema from "../test/test-nest-schema.json";
 // import TestTableData from "../test/test-nest-data.json";
+import TestTableSchema from "../test/test-budget-schema-v1.json";
+import TestTableData from "../test/test-budget-schema-data-v1.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
 export default {
@@ -56,7 +58,7 @@ export default {
     data() {
         //这里存放数据
         return {
-            height: "90%",
+            height: "60%",
             resizeKey: new Date().getTime(),
             bizRowController: {
                 edit: {
@@ -70,7 +72,7 @@ export default {
             tableSchema: {
                 uiSchema: {
                     isChoice: true,
-                    isPage: true,
+                    isPage: false,
                     stripe: true,
                     sortProp: "aa",
                 },

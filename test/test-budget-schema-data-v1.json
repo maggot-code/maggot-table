@@ -1,0 +1,75 @@
+[
+    {
+        "subjectname": "合计",
+        "isopen": false,
+        "field": "41",
+        "children": [],
+        "childsubject": "4101,4102",
+        "cellInfo": {
+            "total": [
+                "4101",
+                "4102"
+            ],
+            "disabled": true,
+            "open": false
+        },
+        "pptr": "PA",
+        "remark": "",
+        "id": 1,
+        "totalmoney": 13.0000
+    },
+    {
+        "subjectname": "&nbsp;&nbsp;&nbsp;&nbsp;直接费用",
+        "isopen": false,
+        "field": "4101",
+        "children": [],
+        "childsubject": "410101,410102,410103,410104,410105,410106,410107,410108,410109",
+        "cellInfo": {
+            "total": [
+                "410101",
+                "410102",
+                "410103",
+                "410104",
+                "410105",
+                "410106",
+                "410107",
+                "410108",
+                "410109"
+            ],
+            "disabled": true,
+            "open": false
+        },
+        "pptr": "41",
+        "remark": "",
+        "id": 2,
+        "totalmoney": 13.0000
+    },
+    {
+        "subjectname": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设备费（购置/试制/改造等）",
+        "isopen": false,
+        "field": "410101",
+        "children": [],
+        "cellInfo": {
+            "disabled": true,
+            "open": true
+        },
+        "pptr": "4101",
+        "remark": "",
+        "id": 3,
+        "totalmoney": 9.0000
+    },
+    {
+        "subjectname": "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;材料费（实验材料、实验动物、试剂等）",
+        "isopen": false,
+        "field": "410102",
+        "children": [],
+        "cellInfo": {
+            "disabled": true,
+            "open": true
+        },
+        "pptr": "4101",
+        "remark": "",
+        "id": 4,
+        "totalmoney": 1.0000
+    }
+]
