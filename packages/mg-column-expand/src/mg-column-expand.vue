@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-04-27 16:48:57
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-28 10:07:01
+ * @LastEditTime: 2021-04-28 10:57:11
  * @Description: file content
 -->
 <template>
@@ -13,7 +13,7 @@
         :size="size"
         :disabled="!!disable"
         v-html="content"
-        @click.stop="rowClick"
+        @click="rowClick"
     ></el-button>
 </template>
 

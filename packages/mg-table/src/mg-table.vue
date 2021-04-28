@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-28 09:45:32
+ * @LastEditTime: 2021-04-28 10:54:39
  * @Description: mg-table.vue component
 -->
 <template>
@@ -351,11 +351,14 @@ export default {
             this.$emit("tableHandle", { prop, order, current, size });
         },
         tableCellEvent(event) {
-            const { mode, row } = event;
+            const { mode, index, row } = event;
             this.$emit("cellEvent", event);
 
-            mode === "expand" &&
-                this.$refs[this.refKey].toggleRowExpansion(row);
+            if (mode === "expand") {
+                this.$refs[this.refKey].toggleRowExpansion(
+                    this.tableData[index]
+                );
+            }
         },
         indexMethod(index) {
             return index + 1 + (this.currentPage - 1) * this.pageSize;
