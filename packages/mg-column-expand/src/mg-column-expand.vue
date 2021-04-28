@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-04-27 16:48:57
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-28 11:21:13
+ * @LastEditTime: 2021-04-28 11:30:37
  * @Description: file content
 -->
 <template>
@@ -30,7 +30,6 @@ export default {
         return {
             size: "mini",
             loading: false,
-            openStatus: false,
         };
     },
     //监听属性 类似于data概念
@@ -62,11 +61,6 @@ export default {
             return `<p style="color:${color}">${text}</p>`;
         },
         rowClick() {
-            const { row } = this.scope;
-
-            this.openStatus = !this.openStatus;
-            row.openStatus = this.openStatus;
-
             this.cellClick("expand");
         },
     },
