@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-04-27 16:48:57
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-27 17:21:23
+ * @LastEditTime: 2021-04-28 10:07:01
  * @Description: file content
 -->
 <template>
@@ -13,7 +13,7 @@
         :size="size"
         :disabled="!!disable"
         v-html="content"
-        @click="cellClick('expand')"
+        @click.stop="rowClick"
     ></el-button>
 </template>
 
@@ -59,6 +59,9 @@ export default {
         renderHtml(text) {
             const color = this.disable ? "red" : "";
             return `<p style="color:${color}">${text}</p>`;
+        },
+        rowClick() {
+            this.cellClick("expand");
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）

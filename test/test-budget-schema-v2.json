@@ -1,0 +1,20 @@
+[
+    {
+        "prop": "subjectname",
+        "mold": "expand",
+        "label": "预算科目"
+    },
+    {
+        "prop": "totalmoney",
+        "width": 240,
+        "mold": "number",
+        "formatNumber": "toFixed.2",
+        "label": "经费预算(万元)",
+        "align": "center"
+    },
+    {
+        "prop": "remark",
+        "mold": "text",
+        "label": "测算依据"
+    }
+]

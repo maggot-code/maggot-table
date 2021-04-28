@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-27 16:53:24
+ * @LastEditTime: 2021-04-28 10:06:05
  * @Description: file content
 -->
 <template>
@@ -94,10 +94,13 @@ export default {
         },
         tableHandle(handle) {},
         cellEvent(event) {
-            console.log(event);
+            const { index, row } = event;
+            console.log(row);
         },
         expandChange(expand) {
             console.log(expand);
+            const { row } = expand;
+            row.isopen = true;
         },
         getData() {
             // this.height = this.height === "90%" ? "50%" : "90%";
