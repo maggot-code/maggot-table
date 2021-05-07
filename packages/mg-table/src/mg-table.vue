@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-05-07 13:20:02
+ * @LastEditTime: 2021-05-07 13:35:36
  * @Description: mg-table.vue component
 -->
 <template>
@@ -36,8 +36,8 @@
                 v-if="useChoice"
                 type="selection"
                 align="center"
-                width="50"
-                min-width="50"
+                width="40"
+                min-width="40"
                 :resizable="false"
             >
             </el-table-column>
@@ -45,7 +45,9 @@
             <el-table-column
                 v-if="useIndex"
                 type="index"
-                width="60"
+                align="center"
+                width="40"
+                min-width="40"
                 fixed="left"
                 :resizable="false"
                 :index="indexMethod"
