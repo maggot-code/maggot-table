@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-28 13:51:49
+ * @LastEditTime: 2021-05-07 13:20:02
  * @Description: mg-table.vue component
 -->
 <template>
@@ -76,6 +76,7 @@
                             :scope="scope"
                             :handle="cell"
                             :rowPower="rowPower"
+                            :useLabel="isLabel"
                             @handleRow="handleRow"
                         ></mg-column-handle>
                     </el-button-group>
@@ -144,6 +145,10 @@ export default {
             type: Number,
             default: () => 0,
         },
+        isLabel: {
+            type: Boolean,
+            default: () => true,
+        },
     },
     data() {
         //这里存放数据
@@ -166,6 +171,14 @@ export default {
     computed: {
         controllerLen: (vm) => Object.keys(vm.controller).length,
         handleWidth: (vm) => {
+            if (!vm.isLabel) {
+                return (
+                    12 / vm.controllerLen +
+                    vm.controllerLen * 42 +
+                    vm.controllerLen * 18
+                );
+            }
+
             let btnStrLen = 0;
 
             for (const key in vm.controller) {

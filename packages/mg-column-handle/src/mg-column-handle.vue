@@ -2,11 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:13:09
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-13 09:53:30
+ * @LastEditTime: 2021-05-07 13:22:18
  * @Description: mg-column-handle.vue component
 -->
 <template>
     <el-button
+        v-if="useLabel"
         class="mg-column-handle"
         v-bind="options"
         :type="type"
@@ -16,6 +17,17 @@
         @click="handleRow"
         >{{ label }}</el-button
     >
+    <el-tooltip v-else effect="dark" :content="label" placement="right">
+        <el-button
+            class="mg-column-handle"
+            v-bind="options"
+            :type="type"
+            :icon="icon"
+            :loading="loading"
+            :size="size"
+            @click="handleRow"
+        ></el-button>
+    </el-tooltip>
 </template>
 
 <script>
@@ -36,6 +48,7 @@ export default {
             }),
         },
         rowPower: String,
+        useLabel: Boolean,
     },
     data() {
         //这里存放数据

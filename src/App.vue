@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-28 10:06:05
+ * @LastEditTime: 2021-05-07 13:22:05
  * @Description: file content
 -->
 <template>
@@ -12,6 +12,7 @@
                 ref="mgTable"
                 :total="4"
                 rowPower="poweredit"
+                :isLabel="false"
                 :resizeTable="resizeKey"
                 :tableSchema="tableSchema"
                 :tableData="tableData"
