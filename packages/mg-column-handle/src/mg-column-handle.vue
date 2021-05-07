@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:13:09
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-05-07 13:22:18
+ * @LastEditTime: 2021-05-07 16:07:34
  * @Description: mg-column-handle.vue component
 -->
 <template>
@@ -17,7 +17,7 @@
         @click="handleRow"
         >{{ label }}</el-button
     >
-    <el-tooltip v-else effect="dark" :content="label" placement="right">
+    <el-tooltip v-else effect="dark" :content="label" placement="top">
         <el-button
             class="mg-column-handle"
             v-bind="options"

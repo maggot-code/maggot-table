@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-05-07 13:35:36
+ * @LastEditTime: 2021-05-07 16:11:40
  * @Description: mg-table.vue component
 -->
 <template>
@@ -22,8 +22,8 @@
                 v-if="useExpand"
                 type="expand"
                 align="center"
-                width="40"
-                min-width="40"
+                width="45"
+                min-width="45"
                 :resizable="false"
             >
                 <template v-slot="props">
@@ -36,8 +36,8 @@
                 v-if="useChoice"
                 type="selection"
                 align="center"
-                width="40"
-                min-width="40"
+                width="45"
+                min-width="45"
                 :resizable="false"
             >
             </el-table-column>
