@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-05-07 16:11:40
+ * @LastEditTime: 2021-06-21 18:22:29
  * @Description: mg-table.vue component
 -->
 <template>
@@ -17,6 +17,8 @@
             @sort-change="handleSortChange"
             @selection-change="handleSelectionChange"
             @expand-change="handleExpandChange"
+            @cell-mouse-enter="handleCellEnter"
+            @cell-mouse-leave="handleCellLeave"
         >
             <el-table-column
                 v-if="useExpand"
@@ -361,6 +363,22 @@ export default {
                         this.$refs[this.refKey].toggleRowExpansion(row, status);
                     }
                 );
+        },
+        handleCellEnter(row, column, cell, event) {
+            this.$emit("rowEnter", {
+                row,
+                column,
+                cell,
+                event,
+            });
+        },
+        handleCellLeave(row, column, cell, event) {
+            this.$emit("rowLeave", {
+                row,
+                column,
+                cell,
+                event,
+            });
         },
         tableHandle(prop, order, current, size) {
             this.$emit("tableHandle", { prop, order, current, size });
