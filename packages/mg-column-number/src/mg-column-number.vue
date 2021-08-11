@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-21 18:01:58
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-26 15:50:38
+ * @LastEditTime: 2021-08-11 13:29:00
  * @Description: mg-column-number.vue component
 -->
 <template>
@@ -10,7 +10,6 @@
         class="mg-column-number"
         v-model="numberValue"
         size="mini"
-        :precision="2"
         :step="1"
         :min="0"
         :max="Infinity"
