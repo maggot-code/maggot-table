@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-06-21 18:22:29
+ * @LastEditTime: 2022-01-24 17:17:55
  * @Description: mg-table.vue component
 -->
 <template>
@@ -153,6 +153,10 @@ export default {
             type: Boolean,
             default: () => true,
         },
+        resetCurrentPage:{
+            type:[String,Number],
+            default:()=> new Date().getTime()
+        }
     },
     data() {
         //这里存放数据
@@ -268,6 +272,9 @@ export default {
     },
     //监控data中的数据变化
     watch: {
+        resetCurrentPage(){
+            this.currentPage = 1;
+        },
         pageSize(newVal) {
             this.pageLock = false;
             this.$set(this, "currentPage", 1);
