@@ -38,9 +38,7 @@
     {
         "isSort": true,
         "prop": "remark",
-        "width": "420",
         "mold": "default",
-        "minWidth": "420",
         "label": "备注",
         "align": "left"
     }

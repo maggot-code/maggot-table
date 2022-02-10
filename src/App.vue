@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-05-07 13:22:05
+ * @LastEditTime: 2022-02-10 16:43:25
  * @Description: file content
 -->
 <template>
@@ -12,7 +12,6 @@
                 ref="mgTable"
                 :total="4"
                 rowPower="poweredit"
-                :isLabel="false"
                 :resizeTable="resizeKey"
                 :tableSchema="tableSchema"
                 :tableData="tableData"
@@ -21,16 +20,8 @@
                 @cellEvent="cellEvent"
                 @tableHandle="tableHandle"
                 @onChoice="onChoice"
-                @expandChange="expandChange"
-            >
-                <template v-slot:expand="{ params }">
-                    <div>
-                        <button @click="add(params)">增加++</button>
-                    </div>
-                </template>
-            </mg-table>
+            ></mg-table>
         </div>
-        <el-button @click="getData">获取数据</el-button>
     </div>
 </template>
 
@@ -43,12 +34,12 @@
 // import TestTableData from "../test/test-table-link-data.json";
 // import TestTableSchema from "../test/test-sort-schema.json";
 // import TestTableData from "../test/test-sort-data.json";
-// import TestTableSchema from "../test/test-choice-schema.json";
-// import TestTableData from "../test/test-choice-data.json";
+import TestTableSchema from "../test/test-choice-schema.json";
+import TestTableData from "../test/test-choice-data.json";
 // import TestTableSchema from "../test/test-nest-schema.json";
 // import TestTableData from "../test/test-nest-data.json";
-import TestTableSchema from "../test/test-budget-schema-v1.json";
-import TestTableData from "../test/test-budget-schema-data-v1.json";
+// import TestTableSchema from "../test/test-budget-schema-v1.json";
+// import TestTableData from "../test/test-budget-schema-data-v1.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
 export default {
@@ -73,7 +64,8 @@ export default {
             tableSchema: {
                 uiSchema: {
                     isChoice: true,
-                    isPage: false,
+                    isIndex:true,
+                    isPage: true,
                     stripe: true,
                     sortProp: "aa",
                 },

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-01-24 17:17:55
+ * @LastEditTime: 2022-02-10 17:01:11
  * @Description: mg-table.vue component
 -->
 <template>
@@ -48,8 +48,8 @@
                 v-if="useIndex"
                 type="index"
                 align="center"
-                width="40"
-                min-width="40"
+                :width="indexWidth"
+                :min-width="indexWidth"
                 fixed="left"
                 :resizable="false"
                 :index="indexMethod"
@@ -199,6 +199,12 @@ export default {
             const offset = 12 / vm.controllerLen;
 
             return width + offset;
+        },
+        indexWidth:(vm)=>{
+            //                当前页    *     一页多少个
+            const offset = vm.currentPage * vm.pageSize;
+
+            return `${offset}`.length * 20;
         },
         column: (vm) => {
             const { columnSchema } = vm.tableSchema;
