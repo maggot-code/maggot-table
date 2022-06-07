@@ -2,103 +2,46 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-02-10 17:01:11
+ * @LastEditTime: 2022-06-07 17:39:11
  * @Description: mg-table.vue component
 -->
 <template>
     <div class="mg-table" :style="`height:${height}px;`">
-        <el-table
-            style="width: 100%"
-            v-bind="options"
-            :ref="refKey"
-            :data="tableData"
-            :height="tableHeight"
-            :max-height="tableHeight"
-            @sort-change="handleSortChange"
-            @selection-change="handleSelectionChange"
-            @expand-change="handleExpandChange"
-            @cell-mouse-enter="handleCellEnter"
-            @cell-mouse-leave="handleCellLeave"
-        >
-            <el-table-column
-                v-if="useExpand"
-                type="expand"
-                align="center"
-                width="45"
-                min-width="45"
-                :resizable="false"
-            >
+        <el-table style="width: 100%" v-bind="options" :ref="refKey" :data="tableData" :height="tableHeight"
+            :max-height="tableHeight" @sort-change="handleSortChange" @selection-change="handleSelectionChange"
+            @expand-change="handleExpandChange" @cell-mouse-enter="handleCellEnter" @cell-mouse-leave="handleCellLeave">
+            <el-table-column v-if="useExpand" type="expand" align="center" width="45" min-width="45" :resizable="false">
                 <template v-slot="props">
                     <slot name="expand" :params="props"></slot>
                 </template>
             </el-table-column>
 
             <!-- :selectable="setSelectDisable"  -->
-            <el-table-column
-                v-if="useChoice"
-                type="selection"
-                align="center"
-                width="45"
-                min-width="45"
-                :resizable="false"
-            >
+            <el-table-column v-if="useChoice" type="selection" align="center" width="45" min-width="45"
+                :resizable="false">
             </el-table-column>
 
-            <el-table-column
-                v-if="useIndex"
-                type="index"
-                align="center"
-                :width="indexWidth"
-                :min-width="indexWidth"
-                fixed="left"
-                :resizable="false"
-                :index="indexMethod"
-            >
+            <el-table-column v-if="useIndex" type="index" align="center" :width="indexWidth" :min-width="indexWidth"
+                fixed="left" :resizable="false" :index="indexMethod">
             </el-table-column>
 
-            <mg-table-column
-                v-for="cell in column"
-                :key="cell.prop"
-                v-bind="cell"
-                @cellEvent="tableCellEvent"
-            ></mg-table-column>
+            <mg-table-column v-for="cell in column" :key="cell.prop" v-bind="cell" @cellEvent="tableCellEvent">
+            </mg-table-column>
 
-            <el-table-column
-                v-if="useHandle"
-                label="操作"
-                align="center"
-                fixed="left"
-                :resizable="false"
-                :width="handleWidth"
-                :min-width="handleWidth"
-            >
+            <el-table-column v-if="useHandle" label="操作" align="center" fixed="left" :resizable="false"
+                :width="handleWidth" :min-width="handleWidth">
                 <template slot-scope="scope">
                     <el-button-group>
-                        <mg-column-handle
-                            v-for="(cell, key) in controller"
-                            :key="key"
-                            :scope="scope"
-                            :handle="cell"
-                            :rowPower="rowPower"
-                            :useLabel="isLabel"
-                            @handleRow="handleRow"
-                        ></mg-column-handle>
+                        <mg-column-handle v-for="(cell, key) in controller" :key="key" :scope="scope" :handle="cell"
+                            :rowPower="rowPower" :useLabel="isLabel" @handleRow="handleRow"></mg-column-handle>
                     </el-button-group>
                 </template>
             </el-table-column>
         </el-table>
 
-        <el-pagination
-            v-if="usePage"
-            background
-            :pager-count="5"
-            :total="total"
-            :layout="layout"
-            :page-sizes="pageSizes"
-            :disabled="pageDisabled"
-            :page-size.sync="pageSize"
-            :current-page.sync="currentPage"
-        >
+        <el-pagination v-if="usePage" background :pager-count="5" :total="total" :layout="layout"
+            :page-sizes="pageSizes" :disabled="pageDisabled" :page-size.sync="pageSize"
+            :current-page.sync="currentPage">
         </el-pagination>
     </div>
 </template>
@@ -153,9 +96,9 @@ export default {
             type: Boolean,
             default: () => true,
         },
-        resetCurrentPage:{
-            type:[String,Number],
-            default:()=> new Date().getTime()
+        resetCurrentPage: {
+            type: [String, Number],
+            default: () => new Date().getTime()
         }
     },
     data() {
@@ -200,7 +143,7 @@ export default {
 
             return width + offset;
         },
-        indexWidth:(vm)=>{
+        indexWidth: (vm) => {
             //                当前页    *     一页多少个
             const offset = vm.currentPage * vm.pageSize;
 
@@ -214,7 +157,8 @@ export default {
             const { uiSchema } = vm.tableSchema;
             const schema = isNil(uiSchema) ? {} : uiSchema;
             const vbind = {
-                size: "medium",
+                // size: "medium",
+                size: vm.setSize(schema),
                 fit: vm.setFit(schema),
                 border: vm.setBorder(schema),
                 stripe: vm.setStripe(schema),
@@ -222,6 +166,7 @@ export default {
                 "show-header": vm.setShowHeader(schema),
                 "highlight-current-row": vm.setHighlight(schema),
             };
+            vm.pageSize = vm.setPageSize(schema);
 
             return vbind;
         },
@@ -278,7 +223,7 @@ export default {
     },
     //监控data中的数据变化
     watch: {
-        resetCurrentPage(){
+        resetCurrentPage() {
             this.currentPage = 1;
         },
         pageSize(newVal) {
@@ -479,6 +424,10 @@ export default {
             const { emptyText } = attr;
             return emptyText || "暂无数据";
         },
+        setSize(attr) {
+            const { size } = attr;
+            return size || "medium";
+        },
         /**
          * @description: 设置列宽是否自动撑开
          * @param {Object} attr
@@ -488,6 +437,10 @@ export default {
             const { fit } = attr;
 
             return setAttrBoolean(fit, true);
+        },
+        setPageSize(attr) {
+            const { pageSize } = attr;
+            return pageSize || 10;
         },
         /**
          * @description: 设置当前行是否高亮
@@ -555,13 +508,13 @@ export default {
             this.useChoice && this.setSelectChoice(this.tableChoice);
         });
     },
-    beforeCreate() {}, //生命周期 - 创建之前
-    beforeMount() {}, //生命周期 - 挂载之前
-    beforeUpdate() {}, //生命周期 - 更新之前
-    updated() {}, //生命周期 - 更新之后
-    beforeDestroy() {}, //生命周期 - 销毁之前
-    destroyed() {}, //生命周期 - 销毁完成
-    activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
+    beforeCreate() { }, //生命周期 - 创建之前
+    beforeMount() { }, //生命周期 - 挂载之前
+    beforeUpdate() { }, //生命周期 - 更新之前
+    updated() { }, //生命周期 - 更新之后
+    beforeDestroy() { }, //生命周期 - 销毁之前
+    destroyed() { }, //生命周期 - 销毁完成
+    activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
 <style lang='scss'>
@@ -572,6 +525,7 @@ export default {
     width: 100%;
     height: auto;
     overflow: hidden;
+
     & /deep/ .el-pagination {
         align-self: center;
     }
