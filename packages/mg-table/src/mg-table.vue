@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-07 17:39:11
+ * @LastEditTime: 2022-06-08 11:29:50
  * @Description: mg-table.vue component
 -->
 <template>
@@ -166,7 +166,6 @@ export default {
                 "show-header": vm.setShowHeader(schema),
                 "highlight-current-row": vm.setHighlight(schema),
             };
-            vm.pageSize = vm.setPageSize(schema);
 
             return vbind;
         },
@@ -437,10 +436,6 @@ export default {
             const { fit } = attr;
 
             return setAttrBoolean(fit, true);
-        },
-        setPageSize(attr) {
-            const { pageSize } = attr;
-            return pageSize || 10;
         },
         /**
          * @description: 设置当前行是否高亮
