@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-04-14 10:35:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-14 10:54:09
+ * @LastEditTime: 2022-06-14 14:57:21
  * @Description: file content
 -->
 <template>
@@ -35,6 +35,21 @@ export default {
     },
     //监听属性 类似于data概念
     computed: {
+        hasTips: (vm) => {
+            const { column } = vm.scope;
+            const { tips } = column;
+            return !isNil(tips)&&tips.length>1;
+        },
+        activeValue: (vm) => {
+            const { column } = vm.scope;
+            const { tips } = column;
+            return vm.hasTips ? tips[0].value : "01";
+        },
+        inactiveValue: (vm) => {
+            const { column } = vm.scope;
+            const { tips } = column;
+            return vm.hasTips ? tips.at(-1).value : "00";
+        },
         value: (vm) => {
             const { $index, column, row } = vm.scope;
             const { property } = column;
@@ -42,6 +57,10 @@ export default {
             return value;
         },
         content: (vm) => {
+            const { column} = vm.scope;
+            const { tips } = column;
+            if (vm.hasTips) return tips[vm.value];
+            
             return vm.value === "01" ? "开启" : "关闭";
         },
     },
