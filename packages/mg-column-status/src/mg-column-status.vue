@@ -2,19 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-04-14 10:35:11
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-14 14:57:21
+ * @LastEditTime: 2022-06-14 15:56:51
  * @Description: file content
 -->
 <template>
     <el-tooltip class="mg-column-status" :content="content" placement="left">
-        <el-switch
-            v-model="switchValue"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-            active-value="01"
-            inactive-value="00"
-            @change="handleChange"
-        >
+        <el-switch v-model="switchValue" active-color="#13ce66" inactive-color="#ff4949" :active-value="activeValue"
+            :inactive-value="inactiveValue" @change="handleChange">
         </el-switch>
     </el-tooltip>
 </template>
