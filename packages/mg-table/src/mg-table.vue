@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-08 11:29:50
+ * @LastEditTime: 2022-06-30 10:29:02
  * @Description: mg-table.vue component
 -->
 <template>
@@ -99,6 +99,10 @@ export default {
         resetCurrentPage: {
             type: [String, Number],
             default: () => new Date().getTime()
+        },
+        defaultPageSize: {
+            type: Number,
+            default: () => 10,
         }
     },
     data() {
@@ -108,7 +112,7 @@ export default {
             height: 0,
             tableHeight: 0,
             currentPage: 1,
-            pageSize: 10,
+            pageSize: this.defaultPageSize,
             pageLock: true,
             pageSizes: [10, 20, 30, 40, 50, 100],
             pageLayout: ["total", "sizes", "prev", "pager", "next", "jumper"],

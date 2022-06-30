@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-02-10 16:43:25
+ * @LastEditTime: 2022-06-30 10:29:22
  * @Description: file content
 -->
 <template>
@@ -10,6 +10,7 @@
         <div :style="{ height: height }">
             <mg-table
                 ref="mgTable"
+                :defaultPageSize="1000"
                 :total="4"
                 rowPower="poweredit"
                 :resizeTable="resizeKey"
@@ -85,7 +86,9 @@ export default {
             const { update } = handle;
             update("label", "哈哈哈");
         },
-        tableHandle(handle) {},
+        tableHandle(handle) {
+            console.log(handle);
+        },
         cellEvent(event) {
             const { index, row } = event;
             console.log(row);
