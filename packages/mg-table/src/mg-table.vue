@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-30 10:29:02
+ * @LastEditTime: 2022-06-30 14:18:37
  * @Description: mg-table.vue component
 -->
 <template>
@@ -505,6 +505,7 @@ export default {
         this.$nextTick(() => {
             this.resizeHeight();
             this.useChoice && this.setSelectChoice(this.tableChoice);
+            this.$refs[this.refKey].doLayout();
         });
     },
     beforeCreate() { }, //生命周期 - 创建之前
