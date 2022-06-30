@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-30 14:18:37
+ * @LastEditTime: 2022-06-30 14:40:46
  * @Description: mg-table.vue component
 -->
 <template>
@@ -28,8 +28,8 @@
             <mg-table-column v-for="cell in column" :key="cell.prop" v-bind="cell" @cellEvent="tableCellEvent">
             </mg-table-column>
 
-            <el-table-column v-if="useHandle" label="操作" align="center" fixed="left" :resizable="false"
-                :width="handleWidth" :min-width="handleWidth">
+            <el-table-column v-if="useHandle" label="操作" align="center" :resizable="false" :width="handleWidth"
+                :min-width="handleWidth" v-bind="handleOptions">
                 <template slot-scope="scope">
                     <el-button-group>
                         <mg-column-handle v-for="(cell, key) in controller" :key="key" :scope="scope" :handle="cell"
@@ -125,6 +125,13 @@ export default {
     //监听属性 类似于data概念
     computed: {
         controllerLen: (vm) => Object.keys(vm.controller).length,
+        handleOptions: (vm) => {
+            const { uiSchema } = vm.tableSchema;
+            const schema = isNil(uiSchema) ? {} : uiSchema;
+            return {
+                fixed: vm.setHandleFixed(schema)
+            }
+        },
         handleWidth: (vm) => {
             if (!vm.isLabel) {
                 return (
@@ -261,11 +268,39 @@ export default {
                 this.resizeHeight();
             });
         },
-        useChoice(newVal) {
-            this.$nextTick(
-                () => newVal && this.setSelectChoice(this.tableChoice)
-            );
+        useExpand: {
+            immediate: true,
+            handler(newVal) {
+                newVal && this.$nextTick(() => {
+                    this.$refs[this.refKey].doLayout();
+                });
+            }
         },
+        useChoice: {
+            immediate: true,
+            handler(newVal) {
+                newVal && this.$nextTick(() => {
+                    this.setSelectChoice(this.tableChoice);
+                    this.$refs[this.refKey].doLayout();
+                });
+            }
+        },
+        useIndex: {
+            immediate: true,
+            handler(newVal) {
+                newVal && this.$nextTick(() => {
+                    this.$refs[this.refKey].doLayout();
+                });
+            }
+        },
+        useHandle: {
+            immediate: true,
+            handler(newVal) {
+                newVal && this.$nextTick(() => {
+                    this.$refs[this.refKey].doLayout();
+                });
+            }
+        }
     },
     //方法集合
     methods: {
@@ -470,6 +505,10 @@ export default {
             const { stripe } = attr;
 
             return setAttrBoolean(stripe);
+        },
+        setHandleFixed(attr) {
+            const { handleFixed } = attr;
+            return handleFixed ?? "left"
         },
         /**
          * @description: 设置table高度

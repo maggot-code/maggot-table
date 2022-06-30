@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-30 10:29:22
+ * @LastEditTime: 2022-06-30 14:40:52
  * @Description: file content
 -->
 <template>
@@ -69,6 +69,7 @@ export default {
                     isPage: true,
                     stripe: true,
                     sortProp: "aa",
+                    handleFixed:"right"
                 },
                 columnSchema: TestTableSchema,
             },
