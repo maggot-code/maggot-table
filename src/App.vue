@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-07 16:50:10
+ * @LastEditTime: 2022-09-07 18:01:40
  * @Description: file content
 -->
 <template>
@@ -22,6 +22,7 @@
                 @cellEvent="cellEvent"
                 @tableHandle="tableHandle"
                 @onChoice="onChoice"
+                @tableParams="tableParams"
             ></mg-table>
         </div>
     </div>
@@ -70,14 +71,13 @@ export default {
                     isPage: true,
                     stripe: true,
                     sortProp: "id",
-                    // sortOrder: "ascending",
+                    sortOrder: "ascending",
                     handleFixed:"right"
                 },
                 columnSchema: TestTableSchema,
             },
             tableData: TestTableData,
-            tableInit: {},
-            tableRequest:{}
+            tableInit: {}
         };
     },
     //监听属性 类似于data概念
@@ -92,7 +92,6 @@ export default {
         },
         tableHandle(handle) {
             console.log(handle);
-            this.tableRequest = handle;
         },
         cellEvent(event) {
             const { index, row } = event;
@@ -128,6 +127,9 @@ export default {
             this.$set(this.tableData[$index], "totalmoney", a);
             this.tableData[$index].children.push({ [a + 1]: a - 1 });
         },
+        tableParams(params) {
+            console.log(params);
+        }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {},
@@ -136,8 +138,6 @@ export default {
         setTimeout(() => {
             this.$set(this.tableSchema.uiSchema, "sortProp", "projid");
             this.$set(this.tableSchema.uiSchema, "sortOrder", "ascending");
-
-            console.log(this.tableRequest);
         }, 2000);
     },
     beforeCreate() {}, //生命周期 - 创建之前

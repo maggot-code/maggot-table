@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-07 16:48:55
+ * @LastEditTime: 2022-09-07 18:00:50
  * @Description: mg-table.vue component
 -->
 <template>
@@ -51,6 +51,9 @@ import MgTableColumn from "../../mg-table-column";
 import MgColumnHandle from "../../mg-column-handle";
 import { setAttrBoolean } from "../utils";
 import { isNil, isBoolean, isFunction, cloneDeep } from "lodash";
+
+let unwatch = () => {}
+
 export default {
     name: "mg-table",
     mixins: [],
@@ -237,9 +240,6 @@ export default {
     },
     //监控data中的数据变化
     watch: {
-        defaultSort(newVal) {
-            this.handleSortChange(newVal)
-        },
         resetCurrentPage() {
             this.currentPage = 1;
         },
@@ -548,6 +548,15 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
+        unwatch = this.$watch(
+            () => this.defaultSort,
+            (newVal) => {
+                const { baseProp:prop, baseOrder:order } = this.transform(newVal.prop, newVal.order);
+                this.setSortValue({ prop, order });
+                this.$emit("tableParams",{ prop, order, current:this.currentPage, size:this.pageSize })
+                unwatch();
+            }
+        );
         // this.loadPage && this.handleSortChange({ ...this.defaultSort });
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
@@ -562,12 +571,14 @@ export default {
     beforeMount() { }, //生命周期 - 挂载之前
     beforeUpdate() { }, //生命周期 - 更新之前
     updated() { }, //生命周期 - 更新之后
-    beforeDestroy() { }, //生命周期 - 销毁之前
+    beforeDestroy() {
+
+    }, //生命周期 - 销毁之前
     destroyed() { }, //生命周期 - 销毁完成
-//如果页面有keep-alive缓存功能，这个函数会触发
+    activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-'>
+<style lang="scss">
 .mg-table {
     display: flex;
     flex-direction: column;
