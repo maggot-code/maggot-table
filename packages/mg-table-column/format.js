@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 12:07:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-15 10:58:09
+ * @LastEditTime: 2022-09-07 16:53:16
  * @Description: mg-table-column format
  */
 import { isNaN, isNumber, isString, isNil } from 'lodash';
@@ -55,7 +55,7 @@ const formatLink = (rule) => (value, row) => {
         const [field, params] = rule.split('?');
         const fieldName = field.substr(1);
         if (!row[fieldName]) {
-            !isDev && console.error(`"${fieldName}" 不存在，在数据源中无法找到`);
+            console.error(`"${fieldName}" 不存在，在数据源中无法找到`);
             return false;
         }
 

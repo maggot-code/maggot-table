@@ -2,13 +2,14 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-30 14:40:52
+ * @LastEditTime: 2022-09-07 16:50:10
  * @Description: file content
 -->
 <template>
     <div id="app">
         <div :style="{ height: height }">
             <mg-table
+                :loadPage="true"
                 ref="mgTable"
                 :defaultPageSize="1000"
                 :total="4"
@@ -68,13 +69,15 @@ export default {
                     isIndex:true,
                     isPage: true,
                     stripe: true,
-                    sortProp: "aa",
+                    sortProp: "id",
+                    // sortOrder: "ascending",
                     handleFixed:"right"
                 },
                 columnSchema: TestTableSchema,
             },
             tableData: TestTableData,
             tableInit: {},
+            tableRequest:{}
         };
     },
     //监听属性 类似于data概念
@@ -89,6 +92,7 @@ export default {
         },
         tableHandle(handle) {
             console.log(handle);
+            this.tableRequest = handle;
         },
         cellEvent(event) {
             const { index, row } = event;
@@ -128,7 +132,14 @@ export default {
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {},
     //生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {},
+    mounted() {
+        setTimeout(() => {
+            this.$set(this.tableSchema.uiSchema, "sortProp", "projid");
+            this.$set(this.tableSchema.uiSchema, "sortOrder", "ascending");
+
+            console.log(this.tableRequest);
+        }, 2000);
+    },
     beforeCreate() {}, //生命周期 - 创建之前
     beforeMount() {}, //生命周期 - 挂载之前
     beforeUpdate() {}, //生命周期 - 更新之前

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-06-30 14:40:46
+ * @LastEditTime: 2022-09-07 16:48:55
  * @Description: mg-table.vue component
 -->
 <template>
@@ -103,6 +103,10 @@ export default {
         defaultPageSize: {
             type: Number,
             default: () => 10,
+        },
+        defaultPageSizes: {
+            type: Array,
+            default: () => [10, 20, 30, 40, 50],
         }
     },
     data() {
@@ -114,7 +118,7 @@ export default {
             currentPage: 1,
             pageSize: this.defaultPageSize,
             pageLock: true,
-            pageSizes: [10, 20, 30, 40, 50, 100],
+            pageSizes: this.defaultPageSizes,
             pageLayout: ["total", "sizes", "prev", "pager", "next", "jumper"],
             multipleSelection: [],
 
@@ -233,6 +237,9 @@ export default {
     },
     //监控data中的数据变化
     watch: {
+        defaultSort(newVal) {
+            this.handleSortChange(newVal)
+        },
         resetCurrentPage() {
             this.currentPage = 1;
         },
@@ -322,11 +329,7 @@ export default {
             return tableData;
         },
         handleSortChange({ prop, order }) {
-            const defOrder = this.formatOrder(this.defaultSort.order);
-            const defProp = this.defaultSort.prop;
-            const baseOrder = isNil(order) ? defOrder : this.formatOrder(order);
-            const baseProp = isNil(order) ? defProp : prop;
-
+            const {baseProp,baseOrder} = this.transform(prop, order);
             this.setSortValue({ prop: baseProp, order: baseOrder });
             this.tableHandle(
                 baseProp,
@@ -416,6 +419,14 @@ export default {
             !status && this.$refs[this.refKey].toggleRowSelection(row, false);
 
             return status;
+        },
+        transform(prop, order) {
+            const defOrder = this.formatOrder(this.defaultSort.order);
+            const defProp = this.defaultSort.prop;
+            const baseOrder = isNil(order) ? defOrder : this.formatOrder(order);
+            const baseProp = isNil(order) ? defProp : prop;
+
+            return { baseProp, baseOrder };
         },
         setSortValue({ prop, order }) {
             this.sortProp = prop;
@@ -537,13 +548,13 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        this.loadPage && this.handleSortChange({ ...this.defaultSort });
+        // this.loadPage && this.handleSortChange({ ...this.defaultSort });
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
         this.$nextTick(() => {
             this.resizeHeight();
-            this.useChoice && this.setSelectChoice(this.tableChoice);
+            this.setSelectChoice(this.tableChoice);
             this.$refs[this.refKey].doLayout();
         });
     },
@@ -553,10 +564,10 @@ export default {
     updated() { }, //生命周期 - 更新之后
     beforeDestroy() { }, //生命周期 - 销毁之前
     destroyed() { }, //生命周期 - 销毁完成
-    activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发
+//如果页面有keep-alive缓存功能，这个函数会触发
 };
 </script>
-<style lang='scss'>
+'>
 .mg-table {
     display: flex;
     flex-direction: column;
