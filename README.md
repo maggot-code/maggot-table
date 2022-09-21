@@ -21,62 +21,62 @@
 
 #### `TableSchema`
 
-| 属性           | 说明         | 类型   | 默认值 |
-| -------------- | ------------ | ------ | ------ |
-| `uiSchema`     | 表格视图结构 | Object | { }    |
-| `columnSchema` | 表格表头结构 | Array  | [ ]    |
+| 属性           | 说明         | 类型     | 默认值 |
+| -------------- | ------------ | -------- | ------ |
+| `uiSchema`     | 表格视图结构 | `Object` | `{}`   |
+| `columnSchema` | 表格表头结构 | `Array`  | `[]`   |
 
 #### `UISchema`
 
-| 属性          | 说明             | 类型                    | 默认值    |
-| ------------- | ---------------- | ----------------------- | --------- |
-| `handleFixed` | 操作列定位位置   | left \| right           | left      |
-| `size`        | 表格尺寸         | medium \| small \| mini | medium    |
-| `fit`         | 列头是否自动撑开 | Boolean                 | true      |
-| `border`      | 是否显示边框     | Boolean                 | true      |
-| `stripe`      | 是否显示斑马纹   | Boolean                 | false     |
-| `emptyText`   | 空数据提示文字   | String                  | 暂无数据  |
-| `showHeader`  | 是否显示表头     | Boolean                 | true      |
-| `highlight`   | 当前行是否高亮   | Boolean                 | true      |
-| `isChoice`    | 是否显示选择列   | Boolean                 | false     |
-| `isIndex`     | 是否显示索引列   | Boolean                 | false     |
-| `isPage`      | 是否显示分页器   | Boolean                 | false     |
-| `sortProp`    | 默认排序字段     | String                  | id        |
-| `sortOrder`   | 默认排序方式     | ascending \| descending | ascending |
+| 属性          | 说明             | 类型                     | 默认值      |
+| ------------- | ---------------- | ------------------------ | ----------- |
+| `handleFixed` | 操作列定位位置   | `left / right`           | `left`      |
+| `size`        | 表格尺寸         | `medium / small / mini`  | `medium`    |
+| `fit`         | 列头是否自动撑开 | `Boolean`                | `true`      |
+| `border`      | 是否显示边框     | `Boolean`                | `true`      |
+| `stripe`      | 是否显示斑马纹   | `Boolean`                | `false`     |
+| `emptyText`   | 空数据提示文字   | `String`                 | 暂无数据    |
+| `showHeader`  | 是否显示表头     | `Boolean`                | `true`      |
+| `highlight`   | 当前行是否高亮   | `Boolean`                | `true`      |
+| `isChoice`    | 是否显示选择列   | `Boolean`                | `false`     |
+| `isIndex`     | 是否显示索引列   | `Boolean`                | `false`     |
+| `isPage`      | 是否显示分页器   | `Boolean`                | `false`     |
+| `sortProp`    | 默认排序字段     | `String`                 | `id`        |
+| `sortOrder`   | 默认排序方式     | `ascending / descending` | `ascending` |
 
 #### `ColumnSchema <Item>`
 
-| 属性   | 说明           | 类型                    | 默认值  |
-| ------ | -------------- | ----------------------- | ------- |
-| `mold` | 表格列应用模板 | `String<ComponentName>` | default |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
-|        |                |                         |         |
+| 属性   | 说明           | 类型                    | 默认值    |
+| ------ | -------------- | ----------------------- | --------- |
+| `mold` | 表格列应用模板 | `String<ComponentName>` | `default` |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
+|        |                |                         |           |
 
 
 
