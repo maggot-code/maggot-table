@@ -11,11 +11,11 @@
 | `tableChoice`      | 选中集合                 | `Array`           | `[]`                   |
 | `controller`       | 行操作按钮               | `Object`          | `{}`                   |
 | `rowPower`         | 按钮状态（根据权限禁用） | `String`          | `rowpower`             |
-| `total`            | 表格承载数据总数         | `String | Number` | `0`                    |
-| `resizeTable`      | 重置表格容器尺寸         | `String | Number` | `Date.now()`           |
+| `total`            | 表格承载数据总数         | `String / Number` | `0`                    |
+| `resizeTable`      | 重置表格容器尺寸         | `String / Number` | `Date.now()`           |
 | `parentHeight`     | 表格父容器高度           | `Number`          | `0`                    |
 | `isLabel`          | 行操作按钮是否显示文字   | `Boolean`         | `true`                 |
-| `resetCurrentPage` | 重置页码到第一页         | `String | Number` | `Date.now()`           |
+| `resetCurrentPage` | 重置页码到第一页         | `String / Number` | `Date.now()`           |
 | `defaultPageSize`  | 默认每页条数             | `Number`          | `10`                   |
 | `defaultPageSizes` | 默认可选每页条数         | `Array`           | `[10, 20, 30, 40, 50]` |
 
