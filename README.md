@@ -2,8 +2,6 @@
 
 ## 属性
 
-### 表格容器
-
 | 属性               | 说明                     | 类型              | 默认值                 |
 | ------------------ | ------------------------ | ----------------- | ---------------------- |
 | `tableSchema`      | 表格结构                 | `Object`          | 必填                   |
@@ -19,14 +17,14 @@
 | `defaultPageSize`  | 默认每页条数             | `Number`          | `10`                   |
 | `defaultPageSizes` | 默认可选每页条数         | `Array`           | `[10, 20, 30, 40, 50]` |
 
-#### `TableSchema`
+### `TableSchema`
 
 | 属性           | 说明         | 类型     | 默认值 |
 | -------------- | ------------ | -------- | ------ |
 | `uiSchema`     | 表格视图结构 | `Object` | `{}`   |
 | `columnSchema` | 表格表头结构 | `Array`  | `[]`   |
 
-#### `UISchema`
+### `UISchema`
 
 | 属性          | 说明             | 类型                     | 默认值      |
 | ------------- | ---------------- | ------------------------ | ----------- |
@@ -44,30 +42,64 @@
 | `sortProp`    | 默认排序字段     | `String`                 | `id`        |
 | `sortOrder`   | 默认排序方式     | `ascending / descending` | `ascending` |
 
-#### `ColumnSchema <Item>`
+### `ColumnSchema <Item>`
 
-| 属性           | 说明                     | 类型                        | 默认值                  |
-| -------------- | ------------------------ | --------------------------- | ----------------------- |
-| `mold`         | 表格列应用模板           | `String<ComponentName>`     | `default`               |
-| `prop`         | 列名标识（字段名字）     | `String`                    | `id`                    |
-| `width`        | 列宽                     | `String / Number / Boolean` |                         |
-| `minWidth`     | 列最小宽                 | `String / Number`           |                         |
-| `fixed`        | 固定列位置               | `left / right`              |                         |
-| `label`        | 列标题                   | `String`                    | 标签                    |
-| `align`        | 列对齐方式               | `left / right/ center`      | `left`                  |
-| `isSort`       | 是否开启列头排序         | `Boolean`                   | `false`                 |
-| `headerAlign`  | 表头对齐方式             | `left / right / center`     | `center`                |
-| `isTips`       | 超出列是否需要`tips`提示 | `Boolean`                   | `false`                 |
-| `formatDate`   | 列内容格式化 - 日期      | `String`                    | [详情](#### `FormDate`) |
-| `formatNumber` | 列内容格式化 - 数字      | `String`                    | 详情                    |
-| `formatLink`   | 列内容格式化 - 链接      | `String`                    | 详情                    |
+| 属性           | 说明                     | 类型                        | 默认值                   |
+| -------------- | ------------------------ | --------------------------- | ------------------------ |
+| `mold`         | 表格列应用模板           | `String<ComponentName>`     | `default`                |
+| `prop`         | 列名标识（字段名字）     | `String`                    | `id`                     |
+| `width`        | 列宽                     | `String / Number / Boolean` |                          |
+| `minWidth`     | 列最小宽                 | `String / Number`           |                          |
+| `fixed`        | 固定列位置               | `left / right`              |                          |
+| `label`        | 列标题                   | `String`                    | 标签                     |
+| `align`        | 列对齐方式               | `left / right/ center`      | `left`                   |
+| `isSort`       | 是否开启列头排序         | `Boolean`                   | `false`                  |
+| `headerAlign`  | 表头对齐方式             | `left / right / center`     | `center`                 |
+| `isTips`       | 超出列是否需要`tips`提示 | `Boolean`                   | `false`                  |
+| `formatDate`   | 列内容格式化 - 日期      | `String`                    | [详情](###FormatDate)   |
+| `formatNumber` | 列内容格式化 - 数字      | `String`                    | [详情](###FormatNumber) |
+| `formatLink`   | 列内容格式化 - 链接      | `String`                    | [详情](###FormatLink)   |
 
-#### `FormatDate`
+### `ComponentName (default)`
 
-#### `FormatNumber`
+| 属性 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ------ |
+|      |      |      |        |
 
-#### `FormatLink`
+### `ComponentName (text)`
 
+| 属性 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ------ |
+|      |      |      |        |
 
+### `ComponentName (link)`
+
+| 属性 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ------ |
+|      |      |      |        |
+
+### `ComponentName (tag)`
+
+| 属性 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ------ |
+|      |      |      |        |
+
+### FormatDate
+
+```javascript
+// format date rule
+```
+
+### FormatNumber
+
+```javascript
+// format number rule
+```
+
+### FormatLink
+
+```javascript
+// format link rule
+```
 
 ## 方法
