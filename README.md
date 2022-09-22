@@ -94,30 +94,89 @@
 
 ```javascript
 // format date rule
+// 年 -> y+
+// 月 -> M+
+// 日 -> d+
+// 时 -> h+
+// 分 -> m+
+// 秒 -> s+
+// 季 -> q+
+// 毫秒 -> S
+
+// 原始数据：2022年9月22日10:44:22
+
+// 格式化保留年月日，并使用 " - " 连接
+// formatDate: "yyyy-MM-dd"
+// 2022-09-22
+
+// 格式化保留时分秒, 并使用 " : " 连接
+// formatDate: "hh:mm:ss"
+// 10:44:22
 ```
 
 ### FormatNumber
 
 ```javascript
 // format number rule
+// 语法1： [方法名称].[方法参数]
+// 语法2： [方法名称]
+// 备注：所有方法名称都是 JavaScript 提供的基础方法，目前无法扩展和组合
+// 语法1 是 Number 对象提供的方法
+// 语法2 是 Math 对象提供的方法
+
+// 原始数据：value = 123.456789
+
+// 格式化保留两位小数
+// formNumber: "toFixed.2"
+// 123.45
+
+// 格式化向上取整
+// formNumber: "ceil"
+// 124
 ```
 
 ### FormatLink
 
 ```javascript
 // format link rule
+// 语法1：$[跳转外链]?[别名]=[数据中的字段名称 / 固定数值]
+// 例子1："bilibili.com?name=projid&key=999ookie=$%#AFAD" 用于跳转到外部链接并携带参数
+
+// 语法2：[内部组件名称]?[别名]=[数据中的字段名称 / 固定数值]
+// 例子2："viewinfo?title=projname&hasAge=false"
+
+// 原始数据：
+const rawdata = [
+    {
+        projid:1002,
+        projname:"biz",
+        age:54
+    }
+];
+
+// 语法1结果
+// "bilibili.com?name=1002&key=999ookie=$%#AFAD"
+
+// 语法2结果
+// "viewinfo?title=biz&hasAge=false"
 ```
-
-
 
 ## `Schema`
 
 ```json5
+// 大小写敏感
 {
-    // asd
-    "keyname":"id"
+    // 主键字段名称
+    "keyname":"id",
+    
+    // 表格UI结构描述, 详细属性在上面表格里
+    "uiSchema":{},
+    
+    // 表格列结构描述, 详细属性在上面表格里
+    "columnSchema":[],
+    
+    // 表格操作按钮集合, 详细属性在上面表格里
+    "controller":[]
 }
 ```
-
-
 
