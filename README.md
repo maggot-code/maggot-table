@@ -60,23 +60,29 @@
 | `formatNumber` | 列内容格式化 - 数字      | `String`                    | [详情](###FormatNumber) |
 | `formatLink`   | 列内容格式化 - 链接      | `String`                    | [详情](###FormatLink)   |
 
+### `Controller 操作列`
+
+| 属性     | 说明                 | 类型                                                 | 默认值            |
+| -------- | -------------------- | ---------------------------------------------------- | ----------------- |
+| `mode`   | 标识（自定义）       | `String`                                             | `default`         |
+| `type`   | 按钮主题状态（颜色） | `primary / success / warning / danger / info / text` | `info`            |
+| `icon`   | 按钮图标             | `Striing`                                            | `el-icon-s-tools` |
+| `label`  | 按钮名称             | `String`                                             | 操作              |
+| `useRow` | 是否用在表格行中使用 | `Boolean`                                            | `false`           |
+| `useAll` | 是否用在表格全局使用 | `Boolean`                                            | `false`           |
+| `attrs`  | 携带的额外信息       | `Object`                                             | `{}`              |
+
 ### `ComponentName (default)`
 
-| 属性 | 说明 | 类型 | 默认值 |
-| ---- | ---- | ---- | ------ |
-|      |      |      |        |
-
-### `ComponentName (text)`
-
-| 属性 | 说明 | 类型 | 默认值 |
-| ---- | ---- | ---- | ------ |
-|      |      |      |        |
+| 属性           | 说明           | 类型           | 默认值         |
+| -------------- | -------------- | -------------- | -------------- |
+| 查看`Item`属性 | 查看`Item`属性 | 查看`Item`属性 | 查看`Item`属性 |
 
 ### `ComponentName (link)`
 
-| 属性 | 说明 | 类型 | 默认值 |
-| ---- | ---- | ---- | ------ |
-|      |      |      |        |
+| 属性           | 说明           | 类型           | 默认值         |
+| -------------- | -------------- | -------------- | -------------- |
+| 查看`Item`属性 | 查看`Item`属性 | 查看`Item`属性 | 查看`Item`属性 |
 
 ### `ComponentName (tag)`
 
@@ -102,4 +108,16 @@
 // format link rule
 ```
 
-## 方法
+
+
+## `Schema`
+
+```json
+{
+    // asd
+    "keyname":"id"
+}
+```
+
+
+
