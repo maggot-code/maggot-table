@@ -46,21 +46,28 @@
 
 #### `ColumnSchema <Item>`
 
-| 属性           | 说明                     | 类型                        | 默认值    |
-| -------------- | ------------------------ | --------------------------- | --------- |
-| `mold`         | 表格列应用模板           | `String<ComponentName>`     | `default` |
-| `prop`         | 列名标识（字段名字）     | `String`                    | `id`      |
-| `width`        | 列宽                     | `String / Number / Boolean` |           |
-| `minWidth`     | 列最小宽                 | `String / Number`           |           |
-| `fixed`        | 固定列位置               | `left / right`              |           |
-| `label`        | 列标题                   | `String`                    | 标签      |
-| `align`        | 列对齐方式               | `left / right/ center`      | `left`    |
-| `isSort`       | 是否开启列头排序         | `Boolean`                   | `false`   |
-| `headerAlign`  | 表头对齐方式             | `left / right / center`     | `center`  |
-| `isTips`       | 超出列是否需要`tips`提示 | `Boolean`                   | `false`   |
-| `formatDate`   | 列内容格式化 - 日期      | `String`                    | 详情      |
-| `formatNumber` | 列内容格式化 - 数字      | `String`                    | 详情      |
-| `formatLink`   | 列内容格式化 - 链接      | `String`                    | 详情      |
+| 属性           | 说明                     | 类型                        | 默认值                  |
+| -------------- | ------------------------ | --------------------------- | ----------------------- |
+| `mold`         | 表格列应用模板           | `String<ComponentName>`     | `default`               |
+| `prop`         | 列名标识（字段名字）     | `String`                    | `id`                    |
+| `width`        | 列宽                     | `String / Number / Boolean` |                         |
+| `minWidth`     | 列最小宽                 | `String / Number`           |                         |
+| `fixed`        | 固定列位置               | `left / right`              |                         |
+| `label`        | 列标题                   | `String`                    | 标签                    |
+| `align`        | 列对齐方式               | `left / right/ center`      | `left`                  |
+| `isSort`       | 是否开启列头排序         | `Boolean`                   | `false`                 |
+| `headerAlign`  | 表头对齐方式             | `left / right / center`     | `center`                |
+| `isTips`       | 超出列是否需要`tips`提示 | `Boolean`                   | `false`                 |
+| `formatDate`   | 列内容格式化 - 日期      | `String`                    | [详情](#### `FormDate`) |
+| `formatNumber` | 列内容格式化 - 数字      | `String`                    | 详情                    |
+| `formatLink`   | 列内容格式化 - 链接      | `String`                    | 详情                    |
+
+#### `FormatDate`
+
+#### `FormatNumber`
+
+#### `FormatLink`
+
 
 
 ## 方法
