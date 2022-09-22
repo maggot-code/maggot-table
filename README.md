@@ -112,7 +112,7 @@
 
 ## `Schema`
 
-```json
+```json5
 {
     // asd
     "keyname":"id"
