@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-07 18:00:50
+ * @LastEditTime: 2022-11-08 13:56:49
  * @Description: mg-table.vue component
 -->
 <template>
@@ -39,7 +39,7 @@
             </el-table-column>
         </el-table>
 
-        <el-pagination v-if="usePage" background :pager-count="5" :total="total" :layout="layout"
+        <el-pagination class="mg-table-pagination" v-if="usePage" background :pager-count="5" :total="total" :layout="layout"
             :page-sizes="pageSizes" :disabled="pageDisabled" :page-size.sync="pageSize"
             :current-page.sync="currentPage">
         </el-pagination>
@@ -579,16 +579,5 @@ export default {
 };
 </script>
 <style lang="scss">
-.mg-table {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    height: auto;
-    overflow: hidden;
-
-    & /deep/ .el-pagination {
-        align-self: center;
-    }
-}
+@import "./mg-table.scss";
 </style>

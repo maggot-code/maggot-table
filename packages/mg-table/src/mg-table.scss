@@ -5,7 +5,7 @@
     width: 100%;
     height: auto;
     overflow: hidden;
-    & /deep/ .el-pagination{
+    &-pagination {
         align-self: center;
     }
 }
