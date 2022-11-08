@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-08 13:56:49
+ * @LastEditTime: 2022-11-08 17:59:10
  * @Description: mg-table.vue component
 -->
 <template>
@@ -13,6 +13,13 @@
             <el-table-column v-if="useExpand" type="expand" align="center" width="45" min-width="45" :resizable="false">
                 <template v-slot="props">
                     <slot name="expand" :params="props"></slot>
+                </template>
+            </el-table-column>
+
+            <!-- useDrag -->
+            <el-table-column v-if="useDrag" align="center" label="拖动" width="50" min-width="50" :resizable="false">
+                <template>
+                    <i class="mg-table-drag el-icon-rank" title='点击拖动'></i>
                 </template>
             </el-table-column>
 
@@ -47,12 +54,13 @@
 </template>
 
 <script>
+import Sortable from "sortablejs";
 import MgTableColumn from "../../mg-table-column";
 import MgColumnHandle from "../../mg-column-handle";
 import { setAttrBoolean } from "../utils";
 import { isNil, isBoolean, isFunction, cloneDeep } from "lodash";
 
-let unwatch = () => {}
+let unwatch = () => { }
 
 export default {
     name: "mg-table",
@@ -203,6 +211,17 @@ export default {
                 ? isChoice
                 : false;
         },
+        useDrag: (vm) => {
+            const { uiSchema } = vm.tableSchema;
+            const schema = isNil(uiSchema) ? {} : uiSchema;
+            const { isDrag } = schema;
+
+            return !isNil(isDrag) &&
+                isBoolean(isDrag) &&
+                vm.tableData.length > 0
+                ? isDrag
+                : false;
+        },
         useIndex: (vm) => {
             const { uiSchema } = vm.tableSchema;
             const schema = isNil(uiSchema) ? {} : uiSchema;
@@ -311,6 +330,36 @@ export default {
     },
     //方法集合
     methods: {
+        // 拖拽行
+        mountedDragRow() {
+            !isNil(this.tableDrag) && this.tableDrag.destroy();
+
+            const els = this.$refs[this.refKey].$el.querySelectorAll(".el-table__body-wrapper > table > tbody");
+            if (els.length <= 0) return;
+            const [el] = els;
+
+            this.tableDrag = Sortable.create(el, {
+                handle: ".mg-table-drag",
+                // ghostClass: 'sortable-ghost',
+                // dragClass: 'sortable-drag',
+                forceFallback:false,
+                animation: 600,
+                onEnd: ({ oldIndex, newIndex }) => {
+                    if (newIndex === oldIndex) return;
+                    const target = {
+                        row: this.tableData[oldIndex],
+                        currentIndex: oldIndex,
+                        transIndex: newIndex,
+                    };
+                    const replace = {
+                        row: this.tableData[newIndex],
+                        currentIndex: newIndex,
+                        transIndex: oldIndex,
+                    }
+                    this.$emit("onDrag", target, replace);
+                },
+            });
+        },
         // 提交表格属性
         getTableData(backFunc) {
             const tableData = cloneDeep(this.tableData);
@@ -562,6 +611,7 @@ export default {
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
         this.$nextTick(() => {
+            this.mountedDragRow();
             this.resizeHeight();
             this.setSelectChoice(this.tableChoice);
             this.$refs[this.refKey].doLayout();
@@ -572,7 +622,7 @@ export default {
     beforeUpdate() { }, //生命周期 - 更新之前
     updated() { }, //生命周期 - 更新之后
     beforeDestroy() {
-
+        this.tableDrag.destroy();
     }, //生命周期 - 销毁之前
     destroyed() { }, //生命周期 - 销毁完成
     activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发

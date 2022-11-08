@@ -27,10 +27,12 @@
     "homepage": "https://github.com/maggot-code/maggot-table#readme",
     "dependencies": {
         "element-ui": "^2.15.10",
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.21",
+        "sortablejs": "^1.15.0"
     },
     "devDependencies": {
         "@babel/preset-env": "^7.19.1",
+        "@types/sortablejs": "^1.15.0",
         "@vue/cli-plugin-babel": "5.0.8",
         "@vue/cli-service": "5.0.8",
         "@vue/composition-api": "^1.7.1",

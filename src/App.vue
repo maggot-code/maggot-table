@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-08 14:00:44
+ * @LastEditTime: 2022-11-08 18:05:20
  * @Description: file content
 -->
 <template>
@@ -22,6 +22,7 @@
                 @tableHandle="tableHandle"
                 @onChoice="onChoice"
                 @tableParams="tableParams"
+                @onDrag="onDrag"
             ></mg-table>
         </div>
     </div>
@@ -47,6 +48,7 @@ import TestTableSchema from "../test/v2.column.json";
 import TestTableData from "../test/v2.data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
+import {cloneDeep} from "lodash";
 export default {
     name: "App",
     mixins: [],
@@ -59,15 +61,14 @@ export default {
             resizeKey: new Date().getTime(),
             bizRowController: {
                 edit: {
-                    mode: "edit",
-                    type: "warning",
-                    icon: "el-icon-edit",
-                    label: "修改",
+                    mode: "add",
+                    label: "增加",
                     loading: false,
                 },
             },
             tableSchema: {
                 uiSchema: {
+                    isDrag:true,
                     isChoice: true,
                     isIndex:true,
                     isPage: true,
@@ -78,7 +79,7 @@ export default {
                 },
                 columnSchema: TestTableSchema,
             },
-            tableData: TestTableData,
+            tableData: [],
             tableInit: {}
         };
     },
@@ -88,9 +89,16 @@ export default {
     watch: {},
     //方法集合
     methods: {
+        onDrag(target, replace) {
+            console.log(target,replace);
+        },
         handleRow(handle) {
-            const { update } = handle;
-            update("label", "哈哈哈");
+            const transData = cloneDeep(this.tableData);
+            transData.push({
+                remarks: "",
+                id: transData.length + 1001,
+            });
+            this.$set(this, "tableData", transData);
         },
         tableHandle(handle) {
             console.log(handle);
@@ -122,13 +130,6 @@ export default {
             // console.log(data);
         },
         onChoice(data) {},
-        add(params) {
-            const { $index, row } = params;
-            console.log(this.tableData[$index]);
-            const a = (row.totalmoney += 1);
-            this.$set(this.tableData[$index], "totalmoney", a);
-            this.tableData[$index].children.push({ [a + 1]: a - 1 });
-        },
         tableParams(params) {
             console.log(params);
         }
@@ -137,10 +138,9 @@ export default {
     created() {},
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-        setTimeout(() => {
-            this.$set(this.tableSchema.uiSchema, "sortProp", "projid");
-            this.$set(this.tableSchema.uiSchema, "sortOrder", "ascending");
-        }, 2000);
+        this.$set(this,"tableData",TestTableData);
+        this.$set(this.tableSchema.uiSchema, "sortProp", "projid");
+        this.$set(this.tableSchema.uiSchema, "sortOrder", "ascending");
     },
     beforeCreate() {}, //生命周期 - 创建之前
     beforeMount() {}, //生命周期 - 挂载之前

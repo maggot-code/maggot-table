@@ -1,6 +1,12 @@
 [
     {
         "isSort": false,
+        "prop": "id",
+        "mold": "default",
+        "label": "ID"
+    },
+    {
+        "isSort": false,
         "prop": "remarks",
         "mold": "text",
         "label": "备注"

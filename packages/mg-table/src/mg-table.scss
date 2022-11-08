@@ -8,4 +8,8 @@
     &-pagination {
         align-self: center;
     }
+    & .mg-table-drag{
+        cursor: move;
+        font-size: 16px;
+    }
 }
