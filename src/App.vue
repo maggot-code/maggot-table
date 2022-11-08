@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-07 18:01:40
+ * @LastEditTime: 2022-11-08 14:00:44
  * @Description: file content
 -->
 <template>
@@ -13,7 +13,6 @@
                 ref="mgTable"
                 :defaultPageSize="1000"
                 :total="4"
-                rowPower="poweredit"
                 :resizeTable="resizeKey"
                 :tableSchema="tableSchema"
                 :tableData="tableData"
@@ -37,12 +36,15 @@
 // import TestTableData from "../test/test-table-link-data.json";
 // import TestTableSchema from "../test/test-sort-schema.json";
 // import TestTableData from "../test/test-sort-data.json";
-import TestTableSchema from "../test/test-choice-schema.json";
-import TestTableData from "../test/test-choice-data.json";
+// import TestTableSchema from "../test/test-choice-schema.json";
+// import TestTableData from "../test/test-choice-data.json";
 // import TestTableSchema from "../test/test-nest-schema.json";
 // import TestTableData from "../test/test-nest-data.json";
 // import TestTableSchema from "../test/test-budget-schema-v1.json";
 // import TestTableData from "../test/test-budget-schema-data-v1.json";
+
+import TestTableSchema from "../test/v2.column.json";
+import TestTableData from "../test/v2.data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
 export default {
