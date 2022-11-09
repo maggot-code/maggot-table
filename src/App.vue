@@ -91,8 +91,10 @@ export default {
         onDrag(target, replace) {
             const {currentIndex, transIndex } = target;
             const transData = cloneDeep(this.tableData);
+            // 判断上移还是下移
             const toIndex = transIndex > currentIndex ? transIndex + 1 : transIndex;
             const delIndex = transIndex > currentIndex ? currentIndex : currentIndex + 1;
+            
             transData.splice(toIndex, 0, transData[currentIndex]);
             transData.splice(delIndex, 1);
             this.$set(this, "tableData", transData);

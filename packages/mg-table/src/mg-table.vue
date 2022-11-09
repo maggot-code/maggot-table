@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 10:17:39
+ * @LastEditTime: 2022-11-09 10:24:40
  * @Description: mg-table.vue component
 -->
 <template>
@@ -267,8 +267,10 @@ export default {
     },
     //监控data中的数据变化
     watch: {
-        sourceKeys(newVal) {
-            console.log(newVal);
+        sourceKeys() {
+            this.$nextTick(() => {
+                this.$refs[this.refKey].doLayout();
+            });
         },
         resetCurrentPage() {
             this.currentPage = 1;
