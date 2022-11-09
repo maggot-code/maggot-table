@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-08 18:05:20
+ * @LastEditTime: 2022-11-09 10:23:19
  * @Description: file content
 -->
 <template>
@@ -72,7 +72,6 @@ export default {
                     isChoice: true,
                     isIndex:true,
                     isPage: true,
-                    stripe: true,
                     sortProp: "id",
                     sortOrder: "ascending",
                     handleFixed:"right"
@@ -90,15 +89,22 @@ export default {
     //方法集合
     methods: {
         onDrag(target, replace) {
-            console.log(target,replace);
+            const {currentIndex, transIndex } = target;
+            const transData = cloneDeep(this.tableData);
+            const toIndex = transIndex > currentIndex ? transIndex + 1 : transIndex;
+            const delIndex = transIndex > currentIndex ? currentIndex : currentIndex + 1;
+            transData.splice(toIndex, 0, transData[currentIndex]);
+            transData.splice(delIndex, 1);
+            this.$set(this, "tableData", transData);
         },
         handleRow(handle) {
-            const transData = cloneDeep(this.tableData);
-            transData.push({
-                remarks: "",
-                id: transData.length + 1001,
-            });
-            this.$set(this, "tableData", transData);
+            console.log(handle);
+            // const transData = cloneDeep(this.tableData);
+            // transData.push({
+            //     remarks: "",
+            //     id: transData.length + 1001,
+            // });
+            // this.$set(this, "tableData", transData);
         },
         tableHandle(handle) {
             console.log(handle);

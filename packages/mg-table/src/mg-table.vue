@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-08 17:59:10
+ * @LastEditTime: 2022-11-09 10:17:39
  * @Description: mg-table.vue component
 -->
 <template>
@@ -67,6 +67,10 @@ export default {
     mixins: [],
     components: { MgTableColumn, MgColumnHandle },
     props: {
+        tableKeyname: {
+            type: String,
+            default:"id"
+        },
         tableSchema: {
             type: Object,
             required: true,
@@ -139,6 +143,9 @@ export default {
     },
     //监听属性 类似于data概念
     computed: {
+        sourceKeys: (vm) => {
+            return vm.tableData.map((item) => item[vm.tableKeyname]);
+        },
         controllerLen: (vm) => Object.keys(vm.controller).length,
         handleOptions: (vm) => {
             const { uiSchema } = vm.tableSchema;
@@ -191,6 +198,7 @@ export default {
                 "empty-text": vm.setEmptyText(schema),
                 "show-header": vm.setShowHeader(schema),
                 "highlight-current-row": vm.setHighlight(schema),
+                "row-key": vm.tableKeyname
             };
 
             return vbind;
@@ -259,6 +267,9 @@ export default {
     },
     //监控data中的数据变化
     watch: {
+        sourceKeys(newVal) {
+            console.log(newVal);
+        },
         resetCurrentPage() {
             this.currentPage = 1;
         },
@@ -311,6 +322,14 @@ export default {
                 });
             }
         },
+        useDrag: {
+            immediate: true,
+            handler(newVal) {
+                newVal && this.$nextTick(() => {
+                    this.$refs[this.refKey].doLayout();
+                });
+            }
+        },
         useIndex: {
             immediate: true,
             handler(newVal) {
@@ -344,6 +363,9 @@ export default {
                 // dragClass: 'sortable-drag',
                 forceFallback:false,
                 animation: 600,
+                setData: function (dataTransfer) {
+                    dataTransfer.setData('Text', '')
+                },
                 onEnd: ({ oldIndex, newIndex }) => {
                     if (newIndex === oldIndex) return;
                     const target = {
@@ -357,6 +379,7 @@ export default {
                         transIndex: oldIndex,
                     }
                     this.$emit("onDrag", target, replace);
+                    this.$refs[this.refKey].doLayout();
                 },
             });
         },
@@ -511,7 +534,7 @@ export default {
         setBorder(attr) {
             const { border } = attr;
 
-            return setAttrBoolean(border, true);
+            return setAttrBoolean(border, !this.useDrag);
         },
         /**
          * @description: 设置空数据提示文字
@@ -542,6 +565,8 @@ export default {
          * @return {Boolean} 默认为true
          */
         setHighlight(attr) {
+            if (this.useDrag) return false;
+            
             const { highlight } = attr;
 
             return setAttrBoolean(highlight, true);
@@ -564,7 +589,7 @@ export default {
         setStripe(attr) {
             const { stripe } = attr;
 
-            return setAttrBoolean(stripe);
+            return setAttrBoolean(stripe, !this.useDrag);
         },
         setHandleFixed(attr) {
             const { handleFixed } = attr;
@@ -611,7 +636,7 @@ export default {
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
         this.$nextTick(() => {
-            this.mountedDragRow();
+            this.useDrag&&this.mountedDragRow();
             this.resizeHeight();
             this.setSelectChoice(this.tableChoice);
             this.$refs[this.refKey].doLayout();
