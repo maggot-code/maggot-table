@@ -2,12 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 12:07:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-09-07 16:53:16
+ * @LastEditTime: 2022-11-09 12:12:10
  * @Description: mg-table-column format
  */
 import { isNaN, isNumber, isString, isNil } from 'lodash';
 
-const formatDate = (rule) => (value) => {
+export const formatDate = (rule) => (value) => {
     const date = new Date(value).getTime();
     if (isNaN(date)) {
         return value;
@@ -31,8 +31,8 @@ Date.prototype.Format = function (fmt) {
     return fmt;
 }
 
-const formatNumber = (rule) => (value) => {
-    const ruleHandle = rule.split('.');
+export const formatNumber = (rule) => (value) => {
+    const ruleHandle = rule.split(".");
     if (!isNumber(value) || ruleHandle.length <= 0) {
         return value;
     }
@@ -42,32 +42,8 @@ const formatNumber = (rule) => (value) => {
     } else {
         return Math[ruleHandle[0]](value);
     }
-}
+};
 
-const formatLink = (rule) => (value, row) => {
-    if (!isString(rule) && rule.length <= 0) {
-        return value;
-    }
-
-    const firstChar = rule[0];
-    if (firstChar === '$') {
-        // $strurl?aa=id&bb=name
-        const [field, params] = rule.split('?');
-        const fieldName = field.substr(1);
-        if (!row[fieldName]) {
-            console.error(`"${fieldName}" 不存在，在数据源中无法找到`);
-            return false;
-        }
-
-        const paramsStr = spliceParams(params, row);
-        return paramsStr ? `${row[fieldName]}?${paramsStr}` : row[fieldName];
-    } else {
-        // routername?aa=id&bb=name
-        const [field, params] = rule.split('?');
-        const paramsStr = spliceParams(params, row);
-        return paramsStr ? `${field}?${paramsStr}` : field;
-    }
-}
 // 拼接参数字符串
 const spliceParams = (params, row) => {
     if (isNil(params)) {
@@ -84,9 +60,33 @@ const spliceParams = (params, row) => {
         return isNil(row[field]) ? `${key}=${field}` : `${key}=${row[field]}`;
     }).filter(item => item).join('&');
 }
+export const formatLink = (rule) => (value, row) => {
+    if (!isString(rule) && rule.length <= 0) {
+        return value;
+    }
 
-export default {
+    const firstChar = rule[0];
+    if (firstChar === "$") {
+        // $strurl?aa=id&bb=name
+        const [field, params] = rule.split("?");
+        const fieldName = field.substr(1);
+        if (!row[fieldName]) {
+            console.error(`"${fieldName}" 不存在，在数据源中无法找到`);
+            return false;
+        }
+
+        const paramsStr = spliceParams(params, row);
+        return paramsStr ? `${row[fieldName]}?${paramsStr}` : row[fieldName];
+    } else {
+        // routername?aa=id&bb=name
+        const [field, params] = rule.split("?");
+        const paramsStr = spliceParams(params, row);
+        return paramsStr ? `${field}?${paramsStr}` : field;
+    }
+};
+
+export default () => ({
     formatDate,
     formatNumber,
     formatLink,
-}
+});

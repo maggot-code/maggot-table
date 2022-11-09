@@ -2,11 +2,19 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:48:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-01 10:21:29
+ * @LastEditTime: 2022-11-09 12:34:13
  * @Description: mg-table-column.vue component
 -->
 <template>
+    <!-- <mg-column-group  v-if="hasGroup" :groups="groups"></mg-column-group> -->
+    <!-- <el-table-column v-else class="mg-table-column" v-bind="options"></el-table-column> -->
+
     <el-table-column class="mg-table-column" v-bind="options">
+        <template v-if="hasGroup" v-for="(cell) in groups">
+            <mg-table-column :key="cell.prop" v-bind="cell" @cellEvent="eventToosUp">
+            </mg-table-column>
+        </template>
+        
         <template slot-scope="scope">
             <component
                 :is="componentName"
@@ -27,15 +35,10 @@ import { setAttrBoolean } from "../../mg-table/utils";
 import { isNil } from "lodash";
 import formatMuster from "../format";
 
-const DefFormatFunc = {
-    rule: false,
-    handle: (text) => text,
-};
-
 export default {
     name: "mg-table-column",
     mixins: [],
-    components: { ...TableColumnComponents },
+    components: { ...TableColumnComponents},
     props: {},
     data() {
         //这里存放数据
@@ -43,6 +46,14 @@ export default {
     },
     //监听属性 类似于data概念
     computed: {
+        hasGroup: (vm) => {
+            const { mold, group } = vm.$attrs;
+            return mold === "group" && Array.isArray(group) && group.length > 0;
+        },
+        groups: (vm) => {
+            const { group } = vm.$attrs;
+            return vm.hasGroup ? group : [];
+        },
         componentName: (vm) => {
             const { mold } = vm.$attrs;
             const basename = mold || "default";
@@ -64,7 +75,7 @@ export default {
             const fixed = vm.setFixed(vm.$attrs);
 
             const vbind = {
-                prop: prop,
+                prop,
                 resizable: false,
                 "min-width": minWidth,
                 label: vm.setLabel(vm.$attrs),
@@ -86,16 +97,20 @@ export default {
         },
         formatFunc: (vm) => {
             const funcList = [];
+            const formatHandler = formatMuster();
 
             for (const field in vm.$attrs) {
-                formatMuster[field] &&
+                formatHandler[field] &&
                     funcList.push({
                         rule: vm.$attrs[field],
-                        handle: formatMuster[field],
+                        handle: formatHandler[field],
                     });
             }
 
-            return funcList.length <= 0 ? [DefFormatFunc] : funcList;
+            return funcList.length <= 0 ? [{
+                rule: false,
+                handle: (text) => text,
+            }] : funcList;
         },
     },
     //监控data中的数据变化

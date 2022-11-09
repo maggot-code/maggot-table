@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 10:24:40
+ * @LastEditTime: 2022-11-09 12:49:38
  * @Description: mg-table.vue component
 -->
 <template>
@@ -17,14 +17,14 @@
             </el-table-column>
 
             <!-- useDrag -->
-            <el-table-column v-if="useDrag" align="center" label="拖动" width="50" min-width="50" :resizable="false">
+            <el-table-column v-if="useDrag" align="center" width="40" min-width="40" :resizable="false">
                 <template>
                     <i class="mg-table-drag el-icon-rank" title='点击拖动'></i>
                 </template>
             </el-table-column>
 
             <!-- :selectable="setSelectDisable"  -->
-            <el-table-column v-if="useChoice" type="selection" align="center" width="45" min-width="45"
+            <el-table-column v-if="useChoice" type="selection" align="center" width="45" min-width="45" :selectable="selectable"
                 :resizable="false">
             </el-table-column>
 
@@ -32,8 +32,10 @@
                 fixed="left" :resizable="false" :index="indexMethod">
             </el-table-column>
 
-            <mg-table-column v-for="cell in column" :key="cell.prop" v-bind="cell" @cellEvent="tableCellEvent">
-            </mg-table-column>
+            <template  v-for="cell in column">
+                <mg-table-column :key="cell.prop" v-bind="cell" @cellEvent="tableCellEvent">
+                </mg-table-column>
+            </template>
 
             <el-table-column v-if="useHandle" label="操作" align="center" :resizable="false" :width="handleWidth"
                 :min-width="handleWidth" v-bind="handleOptions">
@@ -65,7 +67,7 @@ let unwatch = () => { }
 export default {
     name: "mg-table",
     mixins: [],
-    components: { MgTableColumn, MgColumnHandle },
+    components: { MgTableColumn,MgColumnHandle },
     props: {
         tableKeyname: {
             type: String,
@@ -414,9 +416,6 @@ export default {
         },
         handleSelectionChange(val) {
             this.multipleSelection = val;
-            // this.multipleSelection = val.filter((row) =>
-            //     this.removeSelectDisable(row, this.setSelectDisable)
-            // );
         },
         handleExpandChange(row, expandedRows) {
             const openOrClose = expandedRows.length > 0;
@@ -486,13 +485,9 @@ export default {
 
             return rowPower.indexOf("delete") < 0;
         },
-        // 移除选中状态，避免不可删除的状态被选中
-        removeSelectDisable(row, setDisable) {
-            const status = setDisable(row);
-
-            !status && this.$refs[this.refKey].toggleRowSelection(row, false);
-
-            return status;
+        // 校验是否可以被选中
+        selectable(row) {
+            return row?.select ?? 1;
         },
         transform(prop, order) {
             const defOrder = this.formatOrder(this.defaultSort.order);

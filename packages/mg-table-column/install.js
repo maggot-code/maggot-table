@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:07:40
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-27 17:21:53
+ * @LastEditTime: 2022-11-09 11:43:12
  * @Description: unify install form components
  */
 import MgColumnDefault from '../mg-column-default';

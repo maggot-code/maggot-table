@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 10:23:19
+ * @LastEditTime: 2022-11-09 12:45:15
  * @Description: file content
 -->
 <template>
@@ -44,7 +44,8 @@
 // import TestTableSchema from "../test/test-budget-schema-v1.json";
 // import TestTableData from "../test/test-budget-schema-data-v1.json";
 
-import TestTableSchema from "../test/v2.column.json";
+// import TestTableSchema from "../test/v2.column.json";
+import TestTableSchema from "../test/v3.column.json";
 import TestTableData from "../test/v2.data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
@@ -137,7 +138,9 @@ export default {
 
             // console.log(data);
         },
-        onChoice(data) {},
+        onChoice(data) {
+            console.log(data);
+        },
         tableParams(params) {
             console.log(params);
         }

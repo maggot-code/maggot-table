@@ -13,9 +13,22 @@
             {
                 "isSort": true,
                 "prop": "county",
-                "formatLink":"",
-                "mold": "link",
-                "label": "区县"
+                "mold": "group",
+                "label": "区县",
+                "group":[
+                    {
+                        "isSort": true,
+                        "prop": "town",
+                        "mold": "default",
+                        "label": "街道"
+                    },
+                    {
+                        "isSort": true,
+                        "prop": "village",
+                        "mold": "default",
+                        "label": "村"
+                    }
+                ]
             }
         ]
     },

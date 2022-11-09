@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-02-28 13:25:16
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-08 13:47:45
+ * @LastEditTime: 2022-11-09 12:20:36
  * @Description: babel config
  */
 module.exports = {

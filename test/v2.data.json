@@ -1,14 +1,30 @@
 [
     {
         "remarks":"",
+        "city":"北京",
+        "county":"海淀区",
+        "town":"中关村街道",
+        "village":"中关村街道",
+        "name":"北京市海淀区中关村南大街甲1号",
         "id":1001
     },
     {
         "remarks": "aaa",
+        "city": "北京",
+        "county": "朝阳区",
+        "town": "望京街道",
+        "village": "望京街道",
+        "name": "北京市朝阳区朝阳门外大街甲22号",
         "id": 1002
     },
     {
         "remarks": "ccc",
+        "city": "北京",
+        "county": "东城区",
+        "town": "东华门街道",
+        "village": "东华门街道",
+        "name": "北京市东城区东长安街甲45号",
+        "select": 1,
         "id": 1003
     }
 ]

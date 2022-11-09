@@ -2,18 +2,22 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:33:03
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-04-14 10:55:00
+ * @LastEditTime: 2022-11-09 11:25:18
  * @Description: mg-column-mixins
  */
 import { isNil, isNumber } from 'lodash';
 export default {
-    name: "mg-column-default",
+    name: "mg-column-mixins",
     mixins: [],
     components: {},
     props: {
         scope: {
             type: Object,
             default: () => ({}),
+        },
+        groups: {
+            type: Array,
+            default:()=>[]
         },
         format: Array
     },

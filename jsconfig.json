@@ -1,8 +1,6 @@
 {
-    // "include": [
-    //     "./src/**/*"
-    // ]
     "compilerOptions": {
+        "module": "esnext",
         "jsx": "preserve",
         "baseUrl": "./",
         "paths": {
