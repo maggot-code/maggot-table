@@ -1,0 +1,53 @@
+[
+    {
+        "id":"85d63b944cf4457a85163eb1adcd71dc",
+        "statetotalamount":0,
+        "nuclearenergy":0,
+        "statebasics":0,
+        "technologybasics":{
+            "company":"国防科工局",
+            "describe":"技术基础研究(万元)",
+            "quota":0
+        },
+        "warindustry":{
+            "company":"国防科工局",
+            "describe":"军工技术推广(万元)",
+            "quota":0
+        },
+        "threewasteresearch":{
+            "company":"国防科工局",
+            "describe":"三废科研(万元)",
+            "quota":0
+        },
+        "stateother":{
+            "company":"国防科工局",
+            "describe":"其他(万元)",
+            "quota":0
+        },
+        "commissiontotal":{
+            "company":"军委",
+            "describe":"总额(万元)",
+            "quota":0
+        },
+        "ministrySciencetotal":{
+            "company":"国家科技部",
+            "describe":"总额(万元)",
+            "quota":0
+        },
+        "nsfc":{
+            "company": "国家科技部",
+            "describe": "国家自然基金(万元)",
+            "quota": 0
+        },
+        "nationalnergytotal":{
+            "company":"国家能源局",
+            "describe":"总额(万元)",
+            "quota":0
+        },
+        "centralother":{
+            "company":"中央政府其他部门",
+            "describe":"总额(万元)",
+            "quota":0
+        }
+    }
+]

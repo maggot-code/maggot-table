@@ -2,12 +2,13 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 13:40:36
+ * @LastEditTime: 2022-11-09 18:33:48
  * @Description: file content
 -->
 <template>
     <div id="app">
         <div :style="{ height: height }">
+            <!-- :spanMethod="spanMethod" -->
             <mg-table
                 :loadPage="true"
                 ref="mgTable"
@@ -44,12 +45,17 @@
 // import TestTableSchema from "../test/test-budget-schema-v1.json";
 // import TestTableData from "../test/test-budget-schema-data-v1.json";
 
-import TestTableSchema from "../test/v2.column.json";
+// import TestTableSchema from "../test/v2.column.json";
 // import TestTableSchema from "../test/v3.column.json";
-import TestTableData from "../test/v2.data.json";
+import TestTableSchema from "../test/v4.column.json";
+
+// import TestTableData from "../test/v2.data.json";
+// import TestTableData from "../test/v4.data.json";
+import TestTableData from "../test/v5.data.json";
+// import TestTableData from "../test/v6.data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
-import {cloneDeep} from "lodash";
+import {cloneDeep,isNil} from "lodash";
 export default {
     name: "App",
     mixins: [],
@@ -58,7 +64,7 @@ export default {
     data() {
         //这里存放数据
         return {
-            height: "60%",
+            height: "100%",
             resizeKey: new Date().getTime(),
             bizRowController: {
                 edit: {
@@ -77,10 +83,13 @@ export default {
                     sortOrder: "ascending",
                     handleFixed:"right"
                 },
+                mergeSchema: {
+                    keywords: ["company"]
+                },
                 columnSchema: TestTableSchema,
             },
             tableData: [],
-            tableInit: {}
+            tableInit: {},
         };
     },
     //监听属性 类似于data概念
@@ -89,6 +98,18 @@ export default {
     watch: {},
     //方法集合
     methods: {
+        spanMethod({ row, column, rowIndex, columnIndex,spanPond,keywords }) {
+            for (let i = 0; i < keywords.length; i++) {
+                if (column.property === keywords[i]) {
+                    const _row = spanPond[keywords[i]][rowIndex]
+                    const _col = _row > 0 ? 1 : 0;
+                    return {
+                        rowspan: _row,
+                        colspan: _col
+                    }
+                }
+            }
+        },
         onDrag(target, replace) {
             const {currentIndex, transIndex } = target;
             const transData = cloneDeep(this.tableData);
@@ -149,9 +170,7 @@ export default {
     created() {},
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
-        this.$set(this,"tableData",TestTableData);
-        this.$set(this.tableSchema.uiSchema, "sortProp", "projid");
-        this.$set(this.tableSchema.uiSchema, "sortOrder", "ascending");
+        this.$set(this, "tableData", TestTableData);
     },
     beforeCreate() {}, //生命周期 - 创建之前
     beforeMount() {}, //生命周期 - 挂载之前

@@ -1,0 +1,16 @@
+[
+    {
+        "id": "statetotalamount",
+        "company": "国防科工局",
+        "describe": "总额(万元)",
+        "2019": 0,
+        "2020": 0
+    },
+    {
+        "id": "nuclearenergy",
+        "company": "国防科工局",
+        "describe": "核能开发(万元)",
+        "2019": 0,
+        "2020": 0
+    }
+]

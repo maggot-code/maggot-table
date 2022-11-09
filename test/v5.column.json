@@ -1,0 +1,31 @@
+[
+    {
+        "prop": "funds",
+        "mold": "group",
+        "label": "经费",
+        "group":[
+            {
+                "prop":"company",
+                "mold":"default",
+                "label":"单位"
+            },
+            {
+                "prop":"describe",
+                "mold":"default",
+                "label":"描述"
+            },
+            {
+                "prop": "2019",
+                "mold": "number",
+                "label": "2019额度",
+                "align": "center"
+            },
+            {
+                "prop": "2020",
+                "mold": "number",
+                "label": "2020额度",
+                "align": "center"
+            }
+        ]
+    }
+]

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 13:38:43
+ * @LastEditTime: 2022-11-09 18:30:33
  * @Description: mg-table.vue component
 -->
 <template>
@@ -69,6 +69,7 @@ export default {
     mixins: [],
     components: { MgTableColumn,MgColumnHandle },
     props: {
+        spanMethod: Function,
         tableKeyname: {
             type: String,
             default:"id"
@@ -142,6 +143,7 @@ export default {
             pageSizes: this.defaultPageSizes,
             pageLayout: ["total", "sizes", "prev", "pager", "next", "jumper"],
             multipleSelection: [],
+            spanPond:{},
 
             sortProp: "",
             sortOrder: "",
@@ -195,6 +197,12 @@ export default {
         options: (vm) => {
             const { uiSchema } = vm.tableSchema;
             const schema = isNil(uiSchema) ? {} : uiSchema;
+            const toSpanMethod = isFunction(vm.spanMethod)
+                ? (target) => vm.spanMethod(Object.assign({}, target, {
+                    spanPond: vm.spanPond,
+                    keywords:vm.mergeKeywords
+                }))
+                : vm.handleMergeCell;
             const vbind = {
                 // size: "medium",
                 size: vm.setSize(schema),
@@ -204,10 +212,16 @@ export default {
                 "empty-text": vm.setEmptyText(schema),
                 "show-header": vm.setShowHeader(schema),
                 "highlight-current-row": vm.setHighlight(schema),
+                "span-method": vm.handleMergeCell,
                 "row-key": vm.tableKeyname
             };
-
+            
             return vbind;
+        },
+        mergeKeywords: (vm) => {
+            const { mergeSchema } = vm.tableSchema;
+            const schema = isNil(mergeSchema) ? {} : mergeSchema;
+            return Array.isArray(schema.keywords) ? schema.keywords : [];
         },
         useExpand: (vm) => {
             const { $scopedSlots } = vm;
@@ -274,6 +288,7 @@ export default {
     //监控data中的数据变化
     watch: {
         sourceKeys() {
+            this.setSpanPond(this.tableData);
             this.$nextTick(() => {
                 this.$refs[this.refKey].doLayout();
             });
@@ -357,6 +372,17 @@ export default {
     },
     //方法集合
     methods: {
+        // 合并单元格
+        handleMergeCell({ row, column, rowIndex, columnIndex }) {
+            for (let i = 0; i < this.mergeKeywords.length; i++) {
+                if (column.property === this.mergeKeywords[i]) {
+                    const rowspan = this.spanPond[this.mergeKeywords[i]][rowIndex]
+                    const colspan = rowspan > 0 ? 1 : 0;
+
+                    return { rowspan, colspan }
+                }
+            }
+        },
         // 拖拽行
         mountedDragRow() {
             !isNil(this.tableDrag) && this.tableDrag.destroy();
@@ -621,6 +647,30 @@ export default {
         setChoiceStatus(item, status = true) {
             this.$refs[this.refKey].toggleRowSelection(item, status);
         },
+        setSpanPond(data) {
+            this.spanPond = {};
+
+            this.mergeKeywords.forEach((key) => {
+                this.spanPond[key] = [];
+                let pos = 0;
+                data.forEach((_, index) => {
+                    if (index === 0) {
+                        this.spanPond[key].push(1);
+                        pos = 0;
+                        return;
+                    }
+
+                    if (data[index][key] !== data[index - 1][key]) {
+                        this.spanPond[key].push(1);
+                        pos = index;
+                        return;
+                    }
+
+                    this.spanPond[key][pos] += 1;
+                    this.spanPond[key].push(0);
+                });
+            });
+        }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
@@ -640,6 +690,7 @@ export default {
         this.$nextTick(() => {
             this.useDrag&&this.mountedDragRow();
             this.resizeHeight();
+            this.setSpanPond(this.tableData);
             this.setSelectChoice(this.tableChoice);
             this.$refs[this.refKey].doLayout();
         });
@@ -649,7 +700,8 @@ export default {
     beforeUpdate() { }, //生命周期 - 更新之前
     updated() { }, //生命周期 - 更新之后
     beforeDestroy() {
-        this.tableDrag.destroy();
+        this.spanPond = {};
+        !isNil(this.tableDrag)&&this.tableDrag.destroy();
     }, //生命周期 - 销毁之前
     destroyed() { }, //生命周期 - 销毁完成
     activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发

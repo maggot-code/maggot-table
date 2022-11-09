@@ -1,0 +1,25 @@
+[
+    {
+        "prop": "funds",
+        "mold": "group",
+        "label": "经费",
+        "group":[
+            {
+                "prop":"company",
+                "mold":"default",
+                "label":"单位"
+            },
+            {
+                "prop":"describe",
+                "mold":"default",
+                "label":"描述"
+            },
+            {
+                "prop": "quota",
+                "mold": "number",
+                "label": "额度",
+                "align": "center"
+            }
+        ]
+    }
+]

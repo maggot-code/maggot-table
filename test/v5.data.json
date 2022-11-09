@@ -1,0 +1,68 @@
+[
+    {
+        "id": "statetotalamount",
+        "company": "国防科工局",
+        "describe": "总额(万元)",
+        "quota": 0
+    },
+    {
+        "id": "nuclearenergy",
+        "company": "国防科工局",
+        "describe": "核能开发(万元)",
+        "quota": 0
+    },
+    {
+        "id": "statebasics",
+        "company": "国防科工局",
+        "describe": "国防基础科研(万元)",
+        "quota": 0
+    },
+    {
+        "id": "technologybasics",
+        "company": "国防科工局",
+        "describe": "技术基础科研(万元)",
+        "quota": 0
+    },
+    {
+        "id": "warindustry",
+        "company": "国防科工局",
+        "describe": "军工技术推广(万元)",
+        "quota": 0
+    },
+    {
+        "id": "stateother",
+        "company": "国防科工局",
+        "describe": "其他(万元)",
+        "quota": 0
+    },
+    {
+        "id": "commissiontotal",
+        "company": "军委",
+        "describe": "总额(万元)",
+        "quota": 0
+    },
+    {
+        "id": "ministrySciencetotal",
+        "company": "国家科技部",
+        "describe": "总额(万元)",
+        "quota": 0
+    },
+    {
+        "id": "nsfc",
+        "company": "国家科技部",
+        "describe": "国家自然基金(万元)",
+        "quota": 0
+    },
+    {
+        "id": "nationalnergytotal",
+        "company": "国家能源局",
+        "describe": "总额(万元)",
+        "quota": 0
+    },
+    {
+        "id": "centralother",
+        "company": "中央政府其他部门",
+        "describe": "总额(万元)",
+        "quota": 0
+    }
+]
