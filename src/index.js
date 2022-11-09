@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 16:50:39
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-03-09 09:37:43
+ * @LastEditTime: 2022-11-09 13:58:58
  * @Description: mg table component inlet
  */
 import '../plugins/element';
