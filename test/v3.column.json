@@ -7,8 +7,9 @@
             {
                 "isSort": true,
                 "prop": "city",
-                "mold": "default",
-                "label": "城市"
+                "mold": "select",
+                "label": "城市",
+                "form":{}
             },
             {
                 "isSort": true,
