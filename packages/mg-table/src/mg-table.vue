@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 12:49:38
+ * @LastEditTime: 2022-11-09 13:38:43
  * @Description: mg-table.vue component
 -->
 <template>
@@ -92,6 +92,10 @@ export default {
         rowPower: {
             type: String,
             default: () => "rowpower",
+        },
+        choicePower: {
+            type: String,
+            default: () => "choicepower",
         },
         total: {
             type: [String, Number],
@@ -487,7 +491,8 @@ export default {
         },
         // 校验是否可以被选中
         selectable(row) {
-            return row?.select ?? 1;
+            const state = setAttrBoolean(row[this.choicePower]);
+            return state ? 0 : 1;
         },
         transform(prop, order) {
             const defOrder = this.formatOrder(this.defaultSort.order);

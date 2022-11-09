@@ -24,7 +24,7 @@
         "town": "东华门街道",
         "village": "东华门街道",
         "name": "北京市东城区东长安街甲45号",
-        "select": 1,
+        "choicepower": false,
         "id": 1003
     }
 ]
