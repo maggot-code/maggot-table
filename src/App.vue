@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 18:33:48
+ * @LastEditTime: 2022-11-10 09:23:05
  * @Description: file content
 -->
 <template>
@@ -26,6 +26,7 @@
                 @onDrag="onDrag"
             ></mg-table>
         </div>
+        <el-button @click="getData">获取数据</el-button>
     </div>
 </template>
 
@@ -64,7 +65,7 @@ export default {
     data() {
         //这里存放数据
         return {
-            height: "100%",
+            height: "60%",
             resizeKey: new Date().getTime(),
             bizRowController: {
                 edit: {
