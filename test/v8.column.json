@@ -1,0 +1,42 @@
+[
+    {
+        "prop": "innovate",
+        "mold": "group",
+        "label": "科研创新",
+        "group": [
+            {
+                "prop": "first",
+                "mold": "default",
+                "label": "一级"
+            },
+            {
+                "prop": "second",
+                "mold": "default",
+                "label": "二级"
+            },
+            {
+                "prop": "third",
+                "mold": "default",
+                "label": "三级"
+            },
+            {
+                "prop": "fourth",
+                "mold": "default",
+                "label": "四级"
+            },
+            {
+                "prop": "fifth",
+                "mold": "default",
+                "label": "五级"
+            },
+            {
+                "prop": "summary",
+                "mold": "number",
+                "label": "创新绩效",
+                "align": "center",
+                "width": 160,
+                "minWidth": 160
+            }
+        ]
+    }
+]

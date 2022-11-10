@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-10 09:23:05
+ * @LastEditTime: 2022-11-10 12:28:05
  * @Description: file content
 -->
 <template>
@@ -48,12 +48,14 @@
 
 // import TestTableSchema from "../test/v2.column.json";
 // import TestTableSchema from "../test/v3.column.json";
-import TestTableSchema from "../test/v4.column.json";
+// import TestTableSchema from "../test/v4.column.json";
+import TestTableSchema from "../test/v8.column.json";
 
 // import TestTableData from "../test/v2.data.json";
 // import TestTableData from "../test/v4.data.json";
-import TestTableData from "../test/v5.data.json";
+// import TestTableData from "../test/v5.data.json";
 // import TestTableData from "../test/v6.data.json";
+import TestTableData from "../test/v8.data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
 import {cloneDeep,isNil} from "lodash";
@@ -65,7 +67,7 @@ export default {
     data() {
         //这里存放数据
         return {
-            height: "60%",
+            height: "100%",
             resizeKey: new Date().getTime(),
             bizRowController: {
                 edit: {
@@ -76,16 +78,22 @@ export default {
             },
             tableSchema: {
                 uiSchema: {
-                    isDrag:true,
-                    isChoice: true,
-                    isIndex:true,
-                    isPage: true,
+                    isDrag:false,
+                    isChoice: false,
+                    isIndex:false,
+                    isPage: false,
                     sortProp: "id",
                     sortOrder: "ascending",
                     handleFixed:"right"
                 },
                 mergeSchema: {
-                    keywords: ["company"]
+                    keywords: [
+                        "first",
+                        "second",
+                        "third",
+                        "fourth",
+                        "fifth"
+                    ]
                 },
                 columnSchema: TestTableSchema,
             },
