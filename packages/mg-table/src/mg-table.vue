@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 18:30:33
+ * @LastEditTime: 2022-11-14 12:17:40
  * @Description: mg-table.vue component
 -->
 <template>
@@ -121,6 +121,10 @@ export default {
         resetCurrentPage: {
             type: [String, Number],
             default: () => new Date().getTime()
+        },
+        refresh: {
+            type: [String, Number],
+            default:() => new Date().getTime()
         },
         defaultPageSize: {
             type: Number,
@@ -295,6 +299,14 @@ export default {
         },
         resetCurrentPage() {
             this.currentPage = 1;
+        },
+        refresh() {
+            this.tableHandle(
+                this.sortProp,
+                this.sortOrder,
+                this.currentPage,
+                this.pageSize
+            );
         },
         pageSize(newVal) {
             this.pageLock = false;
