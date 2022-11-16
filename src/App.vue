@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 14:08:50
+ * @LastEditTime: 2022-11-16 16:10:53
  * @Description: file content
 -->
 <template>
@@ -50,13 +50,15 @@
 // import TestTableSchema from "../test/v2.column.json";
 // import TestTableSchema from "../test/v3.column.json";
 // import TestTableSchema from "../test/v4.column.json";
-import TestTableSchema from "../test/v8.column.json";
+// import TestTableSchema from "../test/v8.column.json";
+import TestTableSchema from "../test/v9.column.json";
 
 // import TestTableData from "../test/v2.data.json";
 // import TestTableData from "../test/v4.data.json";
 // import TestTableData from "../test/v5.data.json";
 // import TestTableData from "../test/v6.data.json";
-import TestTableData from "../test/v8.data.json";
+// import TestTableData from "../test/v8.data.json";
+import TestTableData from "../test/v9.data.json";
 
 import { MyList_PC, GetList } from "../api/test.api";
 import {cloneDeep,isNil} from "lodash";
