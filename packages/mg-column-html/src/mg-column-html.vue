@@ -1,18 +1,19 @@
 <!--
+ * @FilePath: \maggot-table\packages\mg-column-html\src\mg-column-html.vue
  * @Author: maggot-code
- * @Date: 2021-03-09 15:14:38
+ * @Date: 2022-11-16 16:47:49
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 17:30:12
- * @Description: mg-column-default.vue component
+ * @LastEditTime: 2022-11-16 17:23:46
+ * @Description: 
 -->
 <template>
-    <p class="mg-column-default" :style="style">{{rowValue}}</p>
+    <div class='mg-column-html' :style="style" v-html="content"></div>
 </template>
 
 <script>
 import MgColumnMixins from "../../mg-table/mixins/mg-column-mixins";
 export default {
-    name: "mg-column-default",
+    name: 'mg-column-html',
     mixins: [MgColumnMixins],
     components: {},
     props: {},
@@ -21,7 +22,11 @@ export default {
         return {};
     },
     //监听属性 类似于data概念
-    computed: {},
+    computed: {
+        content() {
+            return this.rowValue;
+        }
+    },
     //监控data中的数据变化
     watch: {},
     //方法集合
@@ -40,5 +45,5 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-@import "./mg-column-default.scss";
+@import "./mg-column-html.scss";
 </style>

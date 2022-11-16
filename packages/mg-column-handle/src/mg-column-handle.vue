@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:13:09
  * @LastEditors: maggot-code
- * @LastEditTime: 2021-05-07 16:07:34
+ * @LastEditTime: 2022-11-16 17:59:48
  * @Description: mg-column-handle.vue component
 -->
 <template>
@@ -85,6 +85,8 @@ export default {
                 attrs,
                 column,
                 row,
+                lib: this.lib,
+                params: this.params,
                 update: this.setPropValue,
                 loadingStatus: (status = false) => {
                     this.loading = status;

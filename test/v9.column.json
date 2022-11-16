@@ -1,1 +1,54 @@
-[]
+{
+    "keyname": "id",
+    "uiSchema": {
+        "border": true,
+        "stripe": false,
+        "isPage": false,
+        "isChoice": false,
+        "isIndex": false,
+        "isLabel": true,
+        "size": "mini",
+        "handleFixed": "right"
+    },
+    "controller": {
+        "use":{
+            "mode": "use",
+            "type": "default",
+            "useRow": true,
+            "label": "使用"
+        }
+    },
+    "mergeSchema": {},
+    "columnSchema": [
+        {
+            "prop": "id",
+            "mold": "default",
+            "label": "主键",
+            "align": "center",
+            "width":260
+        },
+        {
+            "prop": "password",
+            "mold": "void"
+        },
+        {
+            "prop": "name",
+            "mold": "html",
+            "label": "姓名",
+            "align": "center"
+        },
+        {
+            "prop": "age",
+            "mold": "default",
+            "label": "年龄",
+            "align": "center"
+        },
+        {
+            "prop": "mail",
+            "mold": "link",
+            "label": "邮件",
+            "align": "center",
+            "width":240
+        }
+    ]
+}

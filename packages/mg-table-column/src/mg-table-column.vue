@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:48:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 12:34:13
+ * @LastEditTime: 2022-11-16 17:14:38
  * @Description: mg-table-column.vue component
 -->
 <template>
@@ -19,6 +19,7 @@
             <component
                 :is="componentName"
                 :scope="scope"
+                :lib="lib"
                 :format="formatFunc"
                 @cell-cick="eventToosUp"
                 @cell-dblclick="eventToosUp"
@@ -39,7 +40,12 @@ export default {
     name: "mg-table-column",
     mixins: [],
     components: { ...TableColumnComponents},
-    props: {},
+    props: {
+        lib: {
+            type: Object,
+            default: () => ({})
+        },
+    },
     data() {
         //这里存放数据
         return {};

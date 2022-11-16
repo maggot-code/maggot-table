@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:33:03
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 11:25:18
+ * @LastEditTime: 2022-11-16 17:59:42
  * @Description: mg-column-mixins
  */
 import { isNil, isNumber } from 'lodash';
@@ -17,16 +17,38 @@ export default {
         },
         groups: {
             type: Array,
-            default:()=>[]
+            default: () => [],
         },
-        format: Array
+        lib: {
+            type: Object,
+            default: () => ({}),
+        },
+        params: {
+            type: Object,
+            default:()=>({})
+        },
+        format: Array,
     },
     data() {
         //这里存放数据
         return {};
     },
     //监听属性 类似于data概念
-    computed: {},
+    computed: {
+        row: (vm) => vm.scope.row,
+        column: (vm) => vm.scope.column,
+        index: (vm) => vm.scope.$index,
+        rowValue: (vm) => {
+            const value = vm.row[vm.column.property];
+            
+            return isNil(value)? '': value;
+        },
+        style: (vm) => {
+            if (isNil(vm.lib) || isNil(vm.lib.style)) return {};
+
+            return vm.lib.style;
+        },
+    },
     //监控data中的数据变化
     watch: {},
     //方法集合
@@ -40,7 +62,9 @@ export default {
                 return row[property];
             }
 
-            const data = _self.tableData.filter(item => totalKey.indexOf(item.field) >= 0).map(item => item[property]);
+            const data = _self.tableData
+                .filter((item) => totalKey.indexOf(item.field) >= 0)
+                .map((item) => item[property]);
             const value = data.reduce((now, next) => now + next);
 
             this.cellTotal(value);
@@ -63,7 +87,7 @@ export default {
         outputValue(value, format) {
             let baseValue = value;
 
-            format.forEach(item => {
+            format.forEach((item) => {
                 const { rule, handle } = item;
                 if (!rule) {
                     return handle(value);
@@ -78,24 +102,28 @@ export default {
         cellClick(mode) {
             const { $index, column, row } = this.scope;
 
-            this.$emit('cell-cick', {
+            this.$emit("cell-cick", {
                 mode: mode,
                 index: $index,
                 column: column,
                 row: row,
-                type: 'cick',
-            })
+                lib: this.lib,
+                params:this.params,
+                type: "cick",
+            });
         },
         cellDblclick(mode) {
             const { $index, column, row } = this.scope;
 
-            this.$emit('cell-dblclick', {
+            this.$emit("cell-dblclick", {
                 mode: mode,
                 index: $index,
                 column: column,
                 row: row,
-                type: 'dblclick',
-            })
+                lib: this.lib,
+                params: this.params,
+                type: "dblclick",
+            });
         },
         cellChange(mode, value) {
             const { $index, column, row } = this.scope;
@@ -103,30 +131,32 @@ export default {
 
             row[property] = value;
 
-            this.$emit('cell-change', {
+            this.$emit("cell-change", {
                 mode: mode,
                 index: $index,
                 column: column,
                 row: row,
-                type: 'change'
-            })
+                lib: this.lib,
+                params: this.params,
+                type: "change",
+            });
         },
         cellTotal(value) {
             const { $index, column, row } = this.scope;
             const { property } = column;
 
             row[property] = value;
-        }
+        },
     },
     //生命周期 - 创建完成（可以访问当前this实例）
-    created() { },
+    created() {},
     //生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() { },
-    beforeCreate() { }, //生命周期 - 创建之前
-    beforeMount() { }, //生命周期 - 挂载之前
-    beforeUpdate() { }, //生命周期 - 更新之前
-    updated() { }, //生命周期 - 更新之后
-    beforeDestroy() { }, //生命周期 - 销毁之前
-    destroyed() { }, //生命周期 - 销毁完成
-    activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发
+    mounted() {},
+    beforeCreate() {}, //生命周期 - 创建之前
+    beforeMount() {}, //生命周期 - 挂载之前
+    beforeUpdate() {}, //生命周期 - 更新之前
+    updated() {}, //生命周期 - 更新之后
+    beforeDestroy() {}, //生命周期 - 销毁之前
+    destroyed() {}, //生命周期 - 销毁完成
+    activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };

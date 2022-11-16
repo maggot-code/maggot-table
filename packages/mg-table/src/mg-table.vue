@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 14:08:41
+ * @LastEditTime: 2022-11-16 17:14:56
  * @Description: mg-table.vue component
 -->
 <template>
@@ -241,7 +241,8 @@ export default {
         },
         column: (vm) => {
             const { columnSchema } = vm.tableSchema;
-            return columnSchema;
+            // 过滤隐藏列
+            return columnSchema.filter((column) => column.mold !== "void");
         },
         options: (vm) => {
             const { uiSchema } = vm.tableSchema;
