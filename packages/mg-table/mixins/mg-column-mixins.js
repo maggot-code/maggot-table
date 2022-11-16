@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:33:03
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 17:59:42
+ * @LastEditTime: 2022-11-16 18:27:59
  * @Description: mg-column-mixins
  */
 import { isNil, isNumber } from 'lodash';
@@ -37,9 +37,10 @@ export default {
     computed: {
         row: (vm) => vm.scope.row,
         column: (vm) => vm.scope.column,
+        property:(vm) => vm.column.property,
         index: (vm) => vm.scope.$index,
         rowValue: (vm) => {
-            const value = vm.row[vm.column.property];
+            const value = vm.row[vm.property];
             
             return isNil(value)? '': value;
         },

@@ -35,13 +35,30 @@
             "prop": "name",
             "mold": "html",
             "label": "姓名",
-            "align": "center"
+            "align": "center",
+            "width":90
         },
         {
             "prop": "age",
-            "mold": "default",
+            "mold": "number",
             "label": "年龄",
-            "align": "center"
+            "align": "center",
+            "minWidth":160,
+            "lib":{
+                "ui":{
+                    "controls":false
+                }
+            }
+        },
+        {
+            "prop": "deposit",
+            "mold": "money",
+            "label": "存款",
+            "align": "center",
+            "minWidth": 160,
+            "lib": {
+                "ui": {}
+            }
         },
         {
             "prop": "mail",
@@ -49,6 +66,19 @@
             "label": "邮件",
             "align": "center",
             "width":240
+        },
+        {
+            "prop": "explain",
+            "mold": "input",
+            "label": "说明",
+            "align": "center",
+            "minWidth":240,
+            "lib":{
+                "ui":{
+                    "placeholder":"请输入说明",
+                    "clearable":true
+                }
+            }
         }
     ]
 }
