@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-10 12:28:05
+ * @LastEditTime: 2022-11-16 14:08:50
  * @Description: file content
 -->
 <template>
@@ -10,6 +10,7 @@
         <div :style="{ height: height }">
             <!-- :spanMethod="spanMethod" -->
             <mg-table
+                :openHeight="false"
                 :loadPage="true"
                 ref="mgTable"
                 :defaultPageSize="1000"
@@ -67,7 +68,7 @@ export default {
     data() {
         //这里存放数据
         return {
-            height: "100%",
+            height: "300px",
             resizeKey: new Date().getTime(),
             bizRowController: {
                 edit: {

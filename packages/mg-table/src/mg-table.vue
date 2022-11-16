@@ -2,11 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-14 12:17:40
+ * @LastEditTime: 2022-11-16 14:08:41
  * @Description: mg-table.vue component
 -->
 <template>
-    <div class="mg-table" :style="`height:${height}px;`">
+    <div v-if="openHeight" class="mg-table" :style="`height:${height}px;`">
         <el-table style="width: 100%" v-bind="options" :ref="refKey" :data="tableData" :height="tableHeight"
             :max-height="tableHeight" @sort-change="handleSortChange" @selection-change="handleSelectionChange"
             @expand-change="handleExpandChange" @cell-mouse-enter="handleCellEnter" @cell-mouse-leave="handleCellLeave">
@@ -24,15 +24,15 @@
             </el-table-column>
 
             <!-- :selectable="setSelectDisable"  -->
-            <el-table-column v-if="useChoice" type="selection" align="center" width="45" min-width="45" :selectable="selectable"
-                :resizable="false">
+            <el-table-column v-if="useChoice" type="selection" align="center" width="45" min-width="45"
+                :selectable="selectable" :resizable="false">
             </el-table-column>
 
             <el-table-column v-if="useIndex" type="index" align="center" :width="indexWidth" :min-width="indexWidth"
                 fixed="left" :resizable="false" :index="indexMethod">
             </el-table-column>
 
-            <template  v-for="cell in column">
+            <template v-for="cell in column">
                 <mg-table-column :key="cell.prop" v-bind="cell" @cellEvent="tableCellEvent">
                 </mg-table-column>
             </template>
@@ -48,11 +48,52 @@
             </el-table-column>
         </el-table>
 
-        <el-pagination class="mg-table-pagination" v-if="usePage" background :pager-count="5" :total="total" :layout="layout"
-            :page-sizes="pageSizes" :disabled="pageDisabled" :page-size.sync="pageSize"
+        <el-pagination class="mg-table-pagination" v-if="usePage" background :pager-count="5" :total="total"
+            :layout="layout" :page-sizes="pageSizes" :disabled="pageDisabled" :page-size.sync="pageSize"
             :current-page.sync="currentPage">
         </el-pagination>
     </div>
+
+    <el-table v-else style="width: 100%" v-bind="options" :ref="refKey" :data="tableData" @sort-change="handleSortChange"
+        @selection-change="handleSelectionChange" @expand-change="handleExpandChange" @cell-mouse-enter="handleCellEnter"
+        @cell-mouse-leave="handleCellLeave">
+        <el-table-column v-if="useExpand" type="expand" align="center" width="45" min-width="45" :resizable="false">
+            <template v-slot="props">
+                <slot name="expand" :params="props"></slot>
+            </template>
+        </el-table-column>
+    
+        <!-- useDrag -->
+        <el-table-column v-if="useDrag" align="center" width="40" min-width="40" :resizable="false">
+            <template>
+                <i class="mg-table-drag el-icon-rank" title='点击拖动'></i>
+            </template>
+        </el-table-column>
+    
+        <!-- :selectable="setSelectDisable"  -->
+        <el-table-column v-if="useChoice" type="selection" align="center" width="45" min-width="45" :selectable="selectable"
+            :resizable="false">
+        </el-table-column>
+    
+        <el-table-column v-if="useIndex" type="index" align="center" :width="indexWidth" :min-width="indexWidth"
+            fixed="left" :resizable="false" :index="indexMethod">
+        </el-table-column>
+    
+        <template v-for="cell in column">
+            <mg-table-column :key="cell.prop" v-bind="cell" @cellEvent="tableCellEvent">
+            </mg-table-column>
+        </template>
+    
+        <el-table-column v-if="useHandle" label="操作" align="center" :resizable="false" :width="handleWidth"
+            :min-width="handleWidth" v-bind="handleOptions">
+            <template slot-scope="scope">
+                <el-button-group>
+                    <mg-column-handle v-for="(cell, key) in controller" :key="key" :scope="scope" :handle="cell"
+                        :rowPower="rowPower" :useLabel="isLabel" @handleRow="handleRow"></mg-column-handle>
+                </el-button-group>
+            </template>
+        </el-table-column>
+    </el-table>
 </template>
 
 <script>
@@ -67,12 +108,16 @@ let unwatch = () => { }
 export default {
     name: "mg-table",
     mixins: [],
-    components: { MgTableColumn,MgColumnHandle },
+    components: { MgTableColumn, MgColumnHandle },
     props: {
         spanMethod: Function,
+        openHeight: {
+            type: Boolean,
+            default: true
+        },
         tableKeyname: {
             type: String,
-            default:"id"
+            default: "id"
         },
         tableSchema: {
             type: Object,
@@ -124,7 +169,7 @@ export default {
         },
         refresh: {
             type: [String, Number],
-            default:() => new Date().getTime()
+            default: () => new Date().getTime()
         },
         defaultPageSize: {
             type: Number,
@@ -147,7 +192,7 @@ export default {
             pageSizes: this.defaultPageSizes,
             pageLayout: ["total", "sizes", "prev", "pager", "next", "jumper"],
             multipleSelection: [],
-            spanPond:{},
+            spanPond: {},
 
             sortProp: "",
             sortOrder: "",
@@ -204,7 +249,7 @@ export default {
             const toSpanMethod = isFunction(vm.spanMethod)
                 ? (target) => vm.spanMethod(Object.assign({}, target, {
                     spanPond: vm.spanPond,
-                    keywords:vm.mergeKeywords
+                    keywords: vm.mergeKeywords
                 }))
                 : vm.handleMergeCell;
             const vbind = {
@@ -219,7 +264,7 @@ export default {
                 "span-method": vm.handleMergeCell,
                 "row-key": vm.tableKeyname
             };
-            
+
             return vbind;
         },
         mergeKeywords: (vm) => {
@@ -407,7 +452,7 @@ export default {
                 handle: ".mg-table-drag",
                 // ghostClass: 'sortable-ghost',
                 // dragClass: 'sortable-drag',
-                forceFallback:false,
+                forceFallback: false,
                 animation: 600,
                 setData: function (dataTransfer) {
                     dataTransfer.setData('Text', '')
@@ -447,7 +492,7 @@ export default {
             return tableData;
         },
         handleSortChange({ prop, order }) {
-            const {baseProp,baseOrder} = this.transform(prop, order);
+            const { baseProp, baseOrder } = this.transform(prop, order);
             this.setSortValue({ prop: baseProp, order: baseOrder });
             this.tableHandle(
                 baseProp,
@@ -606,7 +651,7 @@ export default {
          */
         setHighlight(attr) {
             if (this.useDrag) return false;
-            
+
             const { highlight } = attr;
 
             return setAttrBoolean(highlight, true);
@@ -689,9 +734,9 @@ export default {
         unwatch = this.$watch(
             () => this.defaultSort,
             (newVal) => {
-                const { baseProp:prop, baseOrder:order } = this.transform(newVal.prop, newVal.order);
+                const { baseProp: prop, baseOrder: order } = this.transform(newVal.prop, newVal.order);
                 this.setSortValue({ prop, order });
-                this.$emit("tableParams",{ prop, order, current:this.currentPage, size:this.pageSize })
+                this.$emit("tableParams", { prop, order, current: this.currentPage, size: this.pageSize })
                 unwatch();
             }
         );
@@ -700,7 +745,7 @@ export default {
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
         this.$nextTick(() => {
-            this.useDrag&&this.mountedDragRow();
+            this.useDrag && this.mountedDragRow();
             this.resizeHeight();
             this.setSpanPond(this.tableData);
             this.setSelectChoice(this.tableChoice);
@@ -713,7 +758,7 @@ export default {
     updated() { }, //生命周期 - 更新之后
     beforeDestroy() {
         this.spanPond = {};
-        !isNil(this.tableDrag)&&this.tableDrag.destroy();
+        !isNil(this.tableDrag) && this.tableDrag.destroy();
     }, //生命周期 - 销毁之前
     destroyed() { }, //生命周期 - 销毁完成
     activated() { }, //如果页面有keep-alive缓存功能，这个函数会触发
