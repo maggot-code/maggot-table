@@ -7,7 +7,6 @@
         "birthday": "1991-05-12 12:05:32",
         "deposit":200,
         "mail":"maggotCode@github.com",
-        "explain":"",
         "address":"101011",
         "pas":111
     },
@@ -19,7 +18,6 @@
         "birthday":"1945-12-11 00:00:00",
         "deposit": 160,
         "mail": "https://bilibili.com/",
-        "explain": "333",
         "pas": 222,
         "address": ""
     }

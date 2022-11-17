@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 14:07:20
+ * @LastEditTime: 2022-11-17 15:52:16
  * @Description: file content
 -->
 <template>
@@ -34,11 +34,19 @@ export default {
     props: {},
     data() {
         //这里存放数据
-        const { controller, uiSchema,mergeSchema,columnSchema} = TestTableSchema;
+        const { controller, uiSchema, mergeSchema, columnSchema } = TestTableSchema;
+        const data = TestTableData.map((item) => {
+            const keys = Object.keys(item);
+            columnSchema.forEach((cell) => {
+                if(!keys.includes(cell.prop)) item[cell.prop] = "";
+            });
+            return item;
+        });
+
         return {
             controller,
             uiSchema, mergeSchema, columnSchema,
-            tableData: TestTableData,
+            tableData: data,
             remote: {
                 enums: toEnums
             }

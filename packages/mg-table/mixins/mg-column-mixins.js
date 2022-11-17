@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:33:03
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 11:13:29
+ * @LastEditTime: 2022-11-17 15:42:03
  * @Description: mg-column-mixins
  */
 import { isNil, isNumber } from 'lodash';
@@ -148,7 +148,7 @@ export default {
             const { property } = column;
 
             row[property] = value;
-        },
+        }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {},
