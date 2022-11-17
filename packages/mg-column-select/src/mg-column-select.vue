@@ -3,24 +3,10 @@
  * @Author: maggot-code
  * @Date: 2022-11-17 09:35:14
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 16:58:38
+ * @LastEditTime: 2022-11-17 17:12:02
  * @Description: 
 -->
 <template>
-    <!-- <el-skeleton v-if="unusableEnums" class="mg-column-select" :count="1" :rows="1" animated>
-        <template #template>
-            <el-skeleton-item variant="text" style="width: 100%;" />
-        </template>
-    </el-skeleton>
-    
-    <el-select v-else class="mg-column-select" :value="rowValue" v-bind="options" @change="handleChange">
-        <template v-for="item in selectList">
-            <el-option :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
-                <p>{{ item.attachLabel }}</p>
-            </el-option>
-        </template>
-    </el-select> -->
-
     <el-select v-if="usableRecord" class="mg-column-select" :value="rowValue" v-bind="options" @change="handleChange">
         <template v-for="item in selectList">
             <el-option :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">

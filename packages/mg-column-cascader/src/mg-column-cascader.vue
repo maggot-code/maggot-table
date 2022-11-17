@@ -3,21 +3,22 @@
  * @Author: maggot-code
  * @Date: 2022-11-17 13:43:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 16:53:12
+ * @LastEditTime: 2022-11-17 17:11:55
  * @Description: 
 -->
 <template>
-    <el-skeleton v-if="unusableEnums" class="mg-column-cascader" :count="1" :rows="1" animated>
-        <template #template>
-            <el-skeleton-item variant="text" style="width: 100%;" />
-        </template>
-    </el-skeleton>
-
-    <el-cascader  v-else class="mg-column-cascader" v-bind="options" :value="formatValue" :options="cascaderList" @change="handleChange">
+    <el-cascader v-if="usableRecord" class="mg-column-cascader" v-bind="options" :value="formatValue" :options="cascaderList"
+        @change="handleChange">
         <div slot-scope="{node,data}">
             <p>{{toRender(node,data)}}</p>
         </div>
     </el-cascader>
+
+    <el-skeleton v-else class="mg-column-cascader" :count="1" :rows="1" animated>
+        <template #template>
+            <el-skeleton-item variant="text" style="width: 100%;" />
+        </template>
+    </el-skeleton>
 </template>
 
 <script>
@@ -144,10 +145,22 @@ export default {
                 labelKey: this.labelKey,
                 childKey: this.childrenKey
             }
+        },
+        record() {
+            return this.table.pondKeys[this.property];
+        },
+        usableRecord() {
+            return Array.isArray(this.table.pond[this.property]);
         }
     },
     //监控data中的数据变化
-    watch: {},
+    watch: {
+        record() {
+            if (!this.usableRecord) return;
+
+            this.$set(this, "cascaderList", this.setupSelectList(this.table.pond[this.property]));
+        }
+    },
     //方法集合
     methods: {
         handleChange(value) {
