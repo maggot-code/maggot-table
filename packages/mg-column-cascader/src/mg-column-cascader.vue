@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-11-17 13:43:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 16:31:53
+ * @LastEditTime: 2022-11-17 16:53:12
  * @Description: 
 -->
 <template>
@@ -147,15 +147,7 @@ export default {
         }
     },
     //监控data中的数据变化
-    watch: {
-        "lib.data.enums": {
-            handler(source) {
-                this.$set(this, "cascaderList", this.setupSelectList(source));
-                this.table.todoLayout();
-            },
-            deep: true
-        }
-    },
+    watch: {},
     //方法集合
     methods: {
         handleChange(value) {

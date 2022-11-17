@@ -3,11 +3,11 @@
  * @Author: maggot-code
  * @Date: 2022-11-17 09:35:14
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 16:31:36
+ * @LastEditTime: 2022-11-17 16:58:38
  * @Description: 
 -->
 <template>
-    <el-skeleton v-if="unusableEnums" class="mg-column-select" :count="1" :rows="1" animated>
+    <!-- <el-skeleton v-if="unusableEnums" class="mg-column-select" :count="1" :rows="1" animated>
         <template #template>
             <el-skeleton-item variant="text" style="width: 100%;" />
         </template>
@@ -19,7 +19,21 @@
                 <p>{{ item.attachLabel }}</p>
             </el-option>
         </template>
+    </el-select> -->
+
+    <el-select v-if="usableRecord" class="mg-column-select" :value="rowValue" v-bind="options" @change="handleChange">
+        <template v-for="item in selectList">
+            <el-option :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
+                <p>{{ item.attachLabel }}</p>
+            </el-option>
+        </template>
     </el-select>
+
+    <el-skeleton v-else class="mg-column-select" :count="1" :rows="1" animated>
+        <template #template>
+            <el-skeleton-item variant="text" style="width: 100%;" />
+        </template>
+    </el-skeleton>
 </template>
 
 <script>
@@ -43,11 +57,6 @@ export default {
         },
         uiSchema() {
             return this.lib?.ui ?? {};
-        },
-        unusableEnums() {
-            if (!Array.isArray(this.lib.data.enums)) return true;
-            
-            return this.lib.data.enums.length <= 0;
         },
         options() {
             const bind = {
@@ -80,16 +89,20 @@ export default {
                 valueKey: this.valueKey,
                 labelKey: this.labelKey
             }
+        },
+        record() {
+            return this.table.pondKeys[this.property];
+        },
+        usableRecord() {
+            return Array.isArray(this.table.pond[this.property]);
         }
     },
     //监控data中的数据变化
     watch: {
-        "lib.data.enums": {
-            handler(source) {
-                this.setupSelectList(source);
-                this.table.todoLayout();
-            },
-            deep:true
+        record() {
+            if (!this.usableRecord) return;
+
+            this.setupSelectList(this.table.pond[this.property]);
         }
     },
     //方法集合
