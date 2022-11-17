@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 10:56:09
+ * @LastEditTime: 2022-11-17 14:08:32
  * @Description: file content
  */
 import 'element-ui/lib/theme-chalk/index.css';
@@ -17,6 +17,8 @@ import {
     InputNumber,
     Switch,
     Select,
+    Cascader,
+    CascaderPanel,
     Option,
     OptionGroup,
     // Data 数据
@@ -41,6 +43,8 @@ Vue.use(Input);
 Vue.use(InputNumber);
 Vue.use(Switch);
 Vue.use(Select);
+Vue.use(Cascader);
+Vue.use(CascaderPanel);
 Vue.use(Option);
 Vue.use(OptionGroup);
 // Data 数据

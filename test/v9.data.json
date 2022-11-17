@@ -7,6 +7,7 @@
         "deposit":200,
         "mail":"maggotCode@github.com",
         "explain":"",
+        "address":"101011",
         "pas":111
     },
     {
@@ -17,6 +18,7 @@
         "deposit": 160,
         "mail": "https://bilibili.com/",
         "explain": "333",
-        "pas": 222
+        "pas": 222,
+        "address": ""
     }
 ]

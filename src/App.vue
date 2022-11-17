@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 13:39:34
+ * @LastEditTime: 2022-11-17 14:07:20
  * @Description: file content
 -->
 <template>
@@ -15,12 +15,14 @@
 import TestTableSchema from "../test/v9.column.json";
 import TestTableData from "../test/v9.data.json";
 import MockData from "../test/v9.select-data.json";
+import MockCascaderData from "../test/v9.cascader.data.json";
 
 async function toEnums(config) {
     console.log(config);
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(MockData);
+            const data = config.field=== "sex" ? MockData : MockCascaderData;
+            resolve(data);
         }, 3000);
     });
 }
