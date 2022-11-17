@@ -2,10 +2,11 @@
  * @Author: maggot-code
  * @Date: 2021-03-12 12:07:25
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-09 12:12:10
+ * @LastEditTime: 2022-11-17 14:55:11
  * @Description: mg-table-column format
  */
 import { isNaN, isNumber, isString, isNil } from 'lodash';
+import dateFormat from "date-fns/format";
 
 export const formatDate = (rule) => (value) => {
     const date = new Date(value).getTime();
@@ -13,7 +14,8 @@ export const formatDate = (rule) => (value) => {
         return value;
     }
 
-    return new Date(value).Format(rule);
+    // return new Date(value).Format(rule);
+    return dateFormat(date, rule);
 }
 Date.prototype.Format = function (fmt) {
     var o = {

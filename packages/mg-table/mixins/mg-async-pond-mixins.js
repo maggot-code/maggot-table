@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-11-17 11:16:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 13:38:24
+ * @LastEditTime: 2022-11-17 15:10:24
  * @Description: 
  */
 import { isNil } from "lodash";
@@ -64,7 +64,7 @@ export default {
             );
 
             this.$set(this.column[index].lib.data, "enums", data);
-            this.$delete(this.pond, keyword);
+            // this.$delete(this.pond, keyword);
         },
     },
     //生命周期 - 创建完成（可以访问当前this实例）

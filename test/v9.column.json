@@ -32,6 +32,19 @@
             "mold": "void"
         },
         {
+            "prop": "birthday",
+            "mold": "date",
+            "label": "生日",
+            "align": "center",
+            "width": 160,
+            "lib":{
+                "ui":{
+                    "type":"date",
+                    "placeholder":"请选择出生日期"
+                }
+            }
+        },
+        {
             "prop": "name",
             "mold": "html",
             "label": "姓名",

@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-03 17:36:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 14:08:32
+ * @LastEditTime: 2022-11-17 14:32:13
  * @Description: file content
  */
 import 'element-ui/lib/theme-chalk/index.css';
@@ -21,6 +21,7 @@ import {
     CascaderPanel,
     Option,
     OptionGroup,
+    DatePicker,
     // Data 数据
     Skeleton,
     SkeletonItem,
@@ -47,6 +48,7 @@ Vue.use(Cascader);
 Vue.use(CascaderPanel);
 Vue.use(Option);
 Vue.use(OptionGroup);
+Vue.use(DatePicker);
 // Data 数据
 Vue.use(Skeleton);
 Vue.use(SkeletonItem);

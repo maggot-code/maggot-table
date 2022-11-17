@@ -26,6 +26,7 @@
     },
     "homepage": "https://github.com/maggot-code/maggot-table#readme",
     "dependencies": {
+        "date-fns": "^2.29.3",
         "element-ui": "^2.15.10",
         "lodash": "^4.17.21",
         "sortablejs": "^1.15.0"
