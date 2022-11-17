@@ -2,13 +2,12 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:14:38
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 17:30:12
+ * @LastEditTime: 2022-11-17 16:07:30
  * @Description: mg-column-default.vue component
 -->
 <template>
-    <p class="mg-column-default" :style="style">{{rowValue}}</p>
+    <p class="mg-column-default" :style="style">{{ content }}</p>
 </template>
-
 <script>
 import MgColumnMixins from "../../mg-table/mixins/mg-column-mixins";
 export default {
@@ -21,7 +20,11 @@ export default {
         return {};
     },
     //监听属性 类似于data概念
-    computed: {},
+    computed: {
+        content() {
+            return this.outputValue(this.rowValue, this.format);
+        }
+    },
     //监控data中的数据变化
     watch: {},
     //方法集合
