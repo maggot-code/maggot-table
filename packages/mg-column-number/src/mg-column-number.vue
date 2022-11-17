@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-11-16 18:35:12
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 18:44:08
+ * @LastEditTime: 2022-11-17 09:28:09
  * @Description: 
 -->
 <template>
@@ -12,6 +12,12 @@
 
 <script>
 import MgColumnMixins from "../../mg-table/mixins/mg-column-mixins";
+
+// 固定属性
+const constant = {
+    size: "mini",
+};
+
 export default {
     name: 'mg-column-number',
     mixins: [MgColumnMixins],
@@ -24,11 +30,10 @@ export default {
     //监听属性 类似于data概念
     computed: {
         uiSchema() {
-            return this.lib?.ui ?? {}
+            return Object.assign({}, this.lib?.ui ?? {}, constant);
         },
         options() {
             const bind = {
-                size: "mini",
                 controls: false
             };
 

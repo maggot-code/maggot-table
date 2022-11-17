@@ -3,22 +3,21 @@
  * @Author: maggot-code
  * @Date: 2022-11-16 18:42:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 18:56:41
+ * @LastEditTime: 2022-11-17 09:33:45
  * @Description: 
 -->
 <template>
-    <div class="mg-column-money">
-        <div class="mg-column-money-icon">￥</div>
-        <el-input-number  class="mg-column-money-input" :value="rowValue" v-bind="options" @input="toInput"></el-input-number>
-    </div>
+    <el-input-number class="mg-column-money" :value="rowValue" v-bind="options" @input="toInput"></el-input-number>
 </template>
 
 <script>
 import MgColumnMixins from "../../mg-table/mixins/mg-column-mixins";
 
 // 固定属性
-const constOptions = {
-    controls: false
+const constant = {
+    min:0,
+    size:"mini",
+    controls: false,
 };
 
 export default {
@@ -33,11 +32,14 @@ export default {
     //监听属性 类似于data概念
     computed: {
         uiSchema() {  
-            return Object.assign({}, this.lib?.ui ?? {}, constOptions);
+            return Object.assign({}, this.lib?.ui ?? {}, constant);
         },
         options() {
             const bind = {
-                size: "mini",
+                step: 1,
+                precision: 2,
+                placeholder: "请输入金额",
+                "step-strictly":false,
             };
 
             return Object.assign({}, bind, this.uiSchema);
