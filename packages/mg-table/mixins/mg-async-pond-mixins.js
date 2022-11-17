@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-11-17 11:16:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 16:55:44
+ * @LastEditTime: 2022-11-17 17:25:32
  * @Description: 
  */
 import { isNil } from "lodash";
@@ -39,7 +39,7 @@ export default {
     //方法集合
     methods: {
         async setupPond(keyword,config) {
-            if (!isNil(this.pond[keyword])) return;
+            if (!isNil(this.pondKeys[keyword])) return;
 
             this.$set(this.pondKeys, keyword, Date.now());
 
