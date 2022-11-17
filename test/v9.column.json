@@ -90,6 +90,23 @@
             }
         },
         {
+            "prop": "address",
+            "mold": "cascader",
+            "label": "住址",
+            "align": "center",
+            "minWidth": 240,
+            "lib": {
+                "data": {
+                    "step":2,
+                    "api": "/api/address",
+                    "lib": {
+                        "codeid": "AD"
+                    }
+                },
+                "ui": {}
+            }
+        },
+        {
             "prop": "mail",
             "mold": "link",
             "label": "邮件",
