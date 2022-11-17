@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 15:52:16
+ * @LastEditTime: 2022-11-17 17:17:42
  * @Description: file content
 -->
 <template>
@@ -64,6 +64,9 @@ export default {
     methods: {
         handleRow(handle) {
             console.log(handle);
+            this.tableData.push({
+                id:1011
+            });
         },
         cellEvent(event) {
             console.log(event);

@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-11-17 13:43:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 17:11:55
+ * @LastEditTime: 2022-11-17 17:16:16
  * @Description: 
 -->
 <template>
@@ -155,10 +155,13 @@ export default {
     },
     //监控data中的数据变化
     watch: {
-        record() {
-            if (!this.usableRecord) return;
+        record: {
+            handler() {
+                if (!this.usableRecord) return;
 
-            this.$set(this, "cascaderList", this.setupSelectList(this.table.pond[this.property]));
+                this.$set(this, "cascaderList", this.setupSelectList(this.table.pond[this.property]));
+            },
+            immediate: true
         }
     },
     //方法集合
