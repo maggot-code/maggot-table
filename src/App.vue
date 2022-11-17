@@ -2,18 +2,28 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 16:45:02
+ * @LastEditTime: 2022-11-17 13:39:34
  * @Description: file content
 -->
 <template>
     <div id="app">
-        <mg-table :total="total" :tableData="tableData" :tableSchema="{ uiSchema ,mergeSchema,columnSchema}" :controller="controller" @handleRow="handleRow" @cellEvent="cellEvent"></mg-table>
+        <mg-table :remote="remote" :total="total" :tableData="tableData" :tableSchema="{ uiSchema ,mergeSchema,columnSchema}" :controller="controller" @handleRow="handleRow" @cellEvent="cellEvent"></mg-table>
     </div>
 </template>
 
 <script>
 import TestTableSchema from "../test/v9.column.json";
 import TestTableData from "../test/v9.data.json";
+import MockData from "../test/v9.select-data.json";
+
+async function toEnums(config) {
+    console.log(config);
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(MockData);
+        }, 3000);
+    });
+}
 
 export default {
     name: "App",
@@ -27,6 +37,9 @@ export default {
             controller,
             uiSchema, mergeSchema, columnSchema,
             tableData: TestTableData,
+            remote: {
+                enums: toEnums
+            }
         };
     },
     //监听属性 类似于data概念

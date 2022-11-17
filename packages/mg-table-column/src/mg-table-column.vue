@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:48:13
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 17:14:38
+ * @LastEditTime: 2022-11-17 10:51:48
  * @Description: mg-table-column.vue component
 -->
 <template>

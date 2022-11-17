@@ -51,6 +51,22 @@
             }
         },
         {
+            "prop": "sex",
+            "mold": "select",
+            "label": "性别",
+            "align": "center",
+            "minWidth": 160,
+            "lib": {
+                "data":{
+                    "api":"/api/sex",
+                    "lib":{
+                        "codeid":"SE"
+                    }
+                },
+                "ui": {}
+            }
+        },
+        {
             "prop": "deposit",
             "mold": "money",
             "label": "存款",

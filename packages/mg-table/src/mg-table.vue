@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 09:24:30
+ * @LastEditTime: 2022-11-17 11:18:22
  * @Description: mg-table.vue component
 -->
 <template>
@@ -98,6 +98,7 @@
 
 <script>
 import Sortable from "sortablejs";
+import MgAsyncPondMixins from "../mixins/mg-async-pond-mixins";
 import MgTableColumn from "../../mg-table-column";
 import MgColumnHandle from "../../mg-column-handle";
 import { setAttrBoolean } from "../utils";
@@ -107,7 +108,7 @@ let unwatch = () => { }
 
 export default {
     name: "mg-table",
-    mixins: [],
+    mixins: [MgAsyncPondMixins],
     components: { MgTableColumn, MgColumnHandle },
     props: {
         spanMethod: Function,
@@ -759,6 +760,7 @@ export default {
     updated() { }, //生命周期 - 更新之后
     beforeDestroy() {
         this.spanPond = {};
+        unwatch();
         !isNil(this.tableDrag) && this.tableDrag.destroy();
     }, //生命周期 - 销毁之前
     destroyed() { }, //生命周期 - 销毁完成

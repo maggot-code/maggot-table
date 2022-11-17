@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 15:33:03
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-16 18:27:59
+ * @LastEditTime: 2022-11-17 11:13:29
  * @Description: mg-column-mixins
  */
 import { isNil, isNumber } from 'lodash';
@@ -10,6 +10,7 @@ export default {
     name: "mg-column-mixins",
     mixins: [],
     components: {},
+    inject: ["table"],
     props: {
         scope: {
             type: Object,
