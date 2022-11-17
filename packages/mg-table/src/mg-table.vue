@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 15:50:31
+ * @LastEditTime: 2022-11-17 16:31:27
  * @Description: mg-table.vue component
 -->
 <template>
@@ -431,6 +431,11 @@ export default {
     },
     //方法集合
     methods: {
+        todoLayout() {
+            this.$nextTick(() => {
+                this.$refs[this.refKey].doLayout();
+            });
+        },
         // 合并单元格
         handleMergeCell({ row, column, rowIndex, columnIndex }) {
             for (let i = 0; i < this.mergeKeywords.length; i++) {

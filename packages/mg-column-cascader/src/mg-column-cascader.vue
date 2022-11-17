@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-11-17 13:43:24
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 14:16:18
+ * @LastEditTime: 2022-11-17 16:31:53
  * @Description: 
 -->
 <template>
@@ -64,11 +64,10 @@ export default {
         uiSchema() {
             return this.lib?.ui ?? {};
         },
-        enums() {
-            return this.database?.enums ?? [];
-        },
         unusableEnums() {
-            return this.enums.length <= 0;
+            if (!Array.isArray(this.lib.data.enums)) return true;
+
+            return this.lib.data.enums.length <= 0;
         },
         options() {
             const {
@@ -149,8 +148,12 @@ export default {
     },
     //监控data中的数据变化
     watch: {
-        enums(source) {
-            this.$set(this, "cascaderList", this.setupSelectList(source));
+        "lib.data.enums": {
+            handler(source) {
+                this.$set(this, "cascaderList", this.setupSelectList(source));
+                this.table.todoLayout();
+            },
+            deep: true
         }
     },
     //方法集合
