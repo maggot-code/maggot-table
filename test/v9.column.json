@@ -45,6 +45,18 @@
             }
         },
         {
+            "prop": "register",
+            "mold": "datetime",
+            "label": "注册时间",
+            "align": "center",
+            "width": 180,
+            "lib": {
+                "ui": {
+                    "placeholder": "请选择注册时间"
+                }
+            }
+        },
+        {
             "prop": "name",
             "mold": "html",
             "label": "姓名",

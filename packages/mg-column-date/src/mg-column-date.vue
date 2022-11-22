@@ -3,7 +3,7 @@
  * @Author: maggot-code
  * @Date: 2022-11-17 14:27:52
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 15:06:46
+ * @LastEditTime: 2022-11-22 11:14:18
  * @Description: 
 -->
 <template>
@@ -12,7 +12,6 @@
 
 <script>
 import MgColumnMixins from "../../mg-table/mixins/mg-column-mixins";
-import { formatDate } from "../../mg-table-column/format";
 import { isEqual } from "lodash";
 
 // 固定属性
