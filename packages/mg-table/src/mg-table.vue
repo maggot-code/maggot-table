@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 16:31:27
+ * @LastEditTime: 2022-12-02 01:49:35
  * @Description: mg-table.vue component
 -->
 <template>
@@ -745,7 +745,8 @@ export default {
                 this.setSortValue({ prop, order });
                 this.$emit("tableParams", { prop, order, current: this.currentPage, size: this.pageSize })
                 unwatch();
-            }
+            },
+            { immediate: true }
         );
         // this.loadPage && this.handleSortChange({ ...this.defaultSort });
     },
