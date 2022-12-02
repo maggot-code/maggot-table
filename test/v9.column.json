@@ -1,9 +1,11 @@
 {
     "keyname": "id",
     "uiSchema": {
+        "sortProp":"register",
+        "sortOrder":"ascending",
         "border": true,
         "stripe": false,
-        "isPage": false,
+        "isPage": true,
         "isChoice": false,
         "isIndex": false,
         "isLabel": true,

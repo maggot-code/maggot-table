@@ -2,12 +2,22 @@
  * @Author: maggot-code
  * @Date: 2021-03-04 09:16:01
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-11-17 17:17:42
+ * @LastEditTime: 2022-12-02 02:31:29
  * @Description: file content
 -->
 <template>
     <div id="app">
-        <mg-table :remote="remote" :total="total" :tableData="tableData" :tableSchema="{ uiSchema ,mergeSchema,columnSchema}" :controller="controller" @handleRow="handleRow" @cellEvent="cellEvent"></mg-table>
+        <mg-table
+            :remote="remote"
+            :total="total"
+            :tableData="tableData"
+            :tableSchema="{ uiSchema ,mergeSchema,columnSchema}"
+            :controller="controller"
+            :refresh="refresh"
+            @handleRow="handleRow"
+            @cellEvent="cellEvent"
+            @tableHandle="tableHandle">
+        </mg-table>
     </div>
 </template>
 
@@ -34,19 +44,13 @@ export default {
     props: {},
     data() {
         //这里存放数据
-        const { controller, uiSchema, mergeSchema, columnSchema } = TestTableSchema;
-        const data = TestTableData.map((item) => {
-            const keys = Object.keys(item);
-            columnSchema.forEach((cell) => {
-                if(!keys.includes(cell.prop)) item[cell.prop] = "";
-            });
-            return item;
-        });
-
         return {
-            controller,
-            uiSchema, mergeSchema, columnSchema,
-            tableData: data,
+            refresh:Date.now(),
+            controller:{},
+            uiSchema:{},
+            mergeSchema:{},
+            columnSchema:[],
+            tableData: [],
             remote: {
                 enums: toEnums
             }
@@ -70,12 +74,35 @@ export default {
         },
         cellEvent(event) {
             console.log(event);
+        },
+        tableHandle(props) {
+            const {columnSchema } = TestTableSchema;
+            const data = TestTableData.map((item) => {
+                const keys = Object.keys(item);
+                columnSchema.forEach((cell) => {
+                    if (!keys.includes(cell.prop)) item[cell.prop] = "";
+                });
+                return item;
+            });
+            setTimeout(() => {
+                console.log(props);
+                this.tableData = data;
+            }, 1200);
         }
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {},
     //生命周期 - 挂载完成（可以访问DOM元素）
-    mounted() {},
+    mounted() {
+        setTimeout(() => {
+            const { controller, uiSchema, mergeSchema, columnSchema } = TestTableSchema;
+            this.controller = controller;
+            this.uiSchema = uiSchema;
+            this.mergeSchema = mergeSchema;
+            this.columnSchema = columnSchema;
+            this.refresh = Date.now();
+        }, 3000);
+    },
     beforeCreate() {}, //生命周期 - 创建之前
     beforeMount() {}, //生命周期 - 挂载之前
     beforeUpdate() {}, //生命周期 - 更新之前

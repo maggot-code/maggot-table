@@ -2,7 +2,7 @@
  * @Author: maggot-code
  * @Date: 2021-03-09 09:36:48
  * @LastEditors: maggot-code
- * @LastEditTime: 2022-12-02 01:49:35
+ * @LastEditTime: 2022-12-02 02:38:49
  * @Description: mg-table.vue component
 -->
 <template>
@@ -738,17 +738,17 @@ export default {
     },
     //生命周期 - 创建完成（可以访问当前this实例）
     created() {
-        unwatch = this.$watch(
-            () => this.defaultSort,
-            (newVal) => {
-                const { baseProp: prop, baseOrder: order } = this.transform(newVal.prop, newVal.order);
-                this.setSortValue({ prop, order });
-                this.$emit("tableParams", { prop, order, current: this.currentPage, size: this.pageSize })
-                unwatch();
-            },
-            { immediate: true }
-        );
-        // this.loadPage && this.handleSortChange({ ...this.defaultSort });
+        // unwatch = this.$watch(
+        //     () => this.defaultSort,
+        //     (newVal) => {
+        //         const { baseProp: prop, baseOrder: order } = this.transform(newVal.prop, newVal.order);
+        //         this.setSortValue({ prop, order });
+        //         this.tableHandle(prop, order,  this.currentPage, this.pageSize);
+        //         unwatch();
+        //     },
+        //     { immediate: true }
+        // );
+        // this.handleSortChange(this.defaultSort);
     },
     //生命周期 - 挂载完成（可以访问DOM元素）
     mounted() {
